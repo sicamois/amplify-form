@@ -2,15 +2,26 @@
   "name": "amplify-form",
   "description": "Create Form for your GaphQL API in Amplify",
   "author": "Pierre-olivier Sicamois",
-  "keywords": ["react", "components", "form", "amplify", "graphql", "graph-ql", "aws"], 
-  "version": "0.1.0",
+  "keywords": [
+    "react",
+    "components",
+    "form",
+    "amplify",
+    "graphql",
+    "graph-ql",
+    "aws"
+  ],
+  "version": "0.1.0-beta.0",
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "files": [ "dist", "README.md" ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/sicamois/amplify-form.git"
+    "type": "git",
+    "url": "git+https://github.com/sicamois/amplify-form.git"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
