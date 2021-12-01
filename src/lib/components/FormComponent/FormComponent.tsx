@@ -92,13 +92,15 @@ const FormComponent: FC<FormComponentProps> = ({
 
   const listFields: string[] = [];
 
-  const { fieldSetStyle, legendStyle, ...otherThemeFields } = theme;
 
-  theme = {
-    fieldSetStyle: fieldSetStyle || defaultFieldSetStyle,
-    legendStyle: legendStyle || defaultLegendStyle,
-    ...otherThemeFields,
-  };
+
+  const { fieldSetStyle, legendStyle, ...fieldTheme} = theme
+
+  // const formTheme: FormTheme = {
+  //   fieldSetStyle: theme?.fieldSetStyle || defaultFieldSetStyle,
+  //   legendStyle: theme?.legendStyle || defaultLegendStyle,
+  //   ...theme,
+  // };
 
   useEffect(() => {
     const getFormFromSchema = (formSchema: FormSchema) => {
@@ -195,7 +197,7 @@ const FormComponent: FC<FormComponentProps> = ({
       ...elementSchema,
       name: (elementPrefix ? elementPrefix + '.' : '') + elementName,
       options: (elementSchema as SelectFieldProps)?.options || undefined,
-      theme: elementTheme || { ...otherThemeFields },
+      theme: elementTheme || { ...fieldTheme },
     };
 
     switch (elementSchema.type) {
@@ -228,8 +230,8 @@ const FormComponent: FC<FormComponentProps> = ({
           typedProps.options = relation?.options || [];
           typedProps.label = relation?.label || props.name;
           return (
-            <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4">
-              <legend className="text-red-900 font-black text-lg px-2">
+            <fieldset className={fieldSetStyle || defaultFieldSetStyle}>
+              <legend className={legendStyle ||defaultLegendStyle}>
                 {capitalize(typedProps.label!)}
               </legend>
               <SelectField {...typedProps} />
@@ -254,8 +256,8 @@ const FormComponent: FC<FormComponentProps> = ({
       case undefined:
         const schema = elementSchema as FormSchema;
         return (
-          <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3">
-            <legend className="text-red-900 font-black text-lg px-2">
+          <fieldset className={fieldSetStyle || defaultFieldSetStyle}>
+            <legend className={legendStyle || defaultLegendStyle}>
               {capitalize(props.name)}
             </legend>
             {Object.keys(schema).map(key => (
@@ -301,8 +303,8 @@ const FormComponent: FC<FormComponentProps> = ({
           {({ isSubmitting }) => {
             return (
               <Form className="needs-validation">
-                <fieldset className={theme.fieldSetStyle}>
-                  <legend className={theme.legendStyle}>{label}</legend>
+              <fieldset className={fieldSetStyle || defaultFieldSetStyle}>
+                <legend className={legendStyle || defaultLegendStyle}>{label}</legend>
                   {Object.keys(formData!).map(key => (
                     <div key={key}>{getFormElement(key, formSchema[key], prefix, theme)}</div>
                   ))}
