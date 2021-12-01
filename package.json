@@ -58,7 +58,7 @@
     "build": "yarn run build:types && yarn run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --extensions \".ts,.tsx\" --source-maps inline",
-    "publish-beta": "yarn build && yarn version --prerelease --preid beta && yarn publish",
+    "publish-beta": "yarn build && yarn version --prerelease --preid beta && npm publish",
     "old-build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files"
   },
   "eslintConfig": {
