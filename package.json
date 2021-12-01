@@ -8,6 +8,10 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [ "dist", "README.md" ],
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/sicamois/amplify-form.git"
+  },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@tailwindcss/forms": "^0.3.4",
