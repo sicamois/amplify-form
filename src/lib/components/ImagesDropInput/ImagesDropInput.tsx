@@ -123,7 +123,7 @@ const ImagesDropInput: FC<ImagesDropInputProps> = ({
   const { getRootProps, getInputProps } = useDropzone({
     accept: fileType,
     onDrop,
-    multiple
+    multiple,
   });
 
   const imageThumbs = (
@@ -168,7 +168,7 @@ const ImagesDropInput: FC<ImagesDropInputProps> = ({
         {...getRootProps({
           className: className,
         })}>
-        <input {...getInputProps()}/>
+        <input {...getInputProps()} />
         <p>{text}</p>
       </div>
       {files.length ? (fileType.startsWith('image/') ? imageThumbs : fileList) : null}

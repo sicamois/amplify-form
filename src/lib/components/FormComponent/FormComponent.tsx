@@ -71,7 +71,7 @@ export interface FormComponentProps {
   relationships?: Relationship[];
   fileFields?: FileField[];
   theme?: FormTheme;
-  prefix?: string
+  prefix?: string;
 }
 
 const defaultFieldSetStyle =
@@ -85,7 +85,7 @@ const FormComponent: FC<FormComponentProps> = ({
   relationships,
   fileFields = [],
   theme = {},
-  prefix = ''
+  prefix = '',
 }) => {
   const [formData, setFormData] = useState<FormValues | undefined>();
   const [, setValidationSchema] = useState<ValidationSchema | undefined>();
@@ -195,7 +195,7 @@ const FormComponent: FC<FormComponentProps> = ({
       ...elementSchema,
       name: (elementPrefix ? elementPrefix + '.' : '') + elementName,
       options: (elementSchema as SelectFieldProps)?.options || undefined,
-      theme: elementTheme || { ...otherThemeFields }
+      theme: elementTheme || { ...otherThemeFields },
     };
 
     switch (elementSchema.type) {
@@ -300,19 +300,20 @@ const FormComponent: FC<FormComponentProps> = ({
         <Formik enableReinitialize initialValues={formData} onSubmit={defaultOnSubmit}>
           {({ isSubmitting }) => {
             return (
-            <Form className="needs-validation">
-              <fieldset className={theme.fieldSetStyle}>
-                <legend className={theme.legendStyle}>{label}</legend>
-                {Object.keys(formData!).map(key => (
-                  <div key={key}>{getFormElement(key, formSchema[key], prefix, theme)}</div>
-                ))}
-              </fieldset>
-              <div className="flex flex-row gap-4 items-center">
-                <SubmitButton title="Créer" theme={theme} isSubmitting={isSubmitting} />
-                {isSubmitting ? <p className="pt-1">Création en cours...</p> : null}
-              </div>
-            </Form>
-          )}}
+              <Form className="needs-validation">
+                <fieldset className={theme.fieldSetStyle}>
+                  <legend className={theme.legendStyle}>{label}</legend>
+                  {Object.keys(formData!).map(key => (
+                    <div key={key}>{getFormElement(key, formSchema[key], prefix, theme)}</div>
+                  ))}
+                </fieldset>
+                <div className="flex flex-row gap-4 items-center">
+                  <SubmitButton title="Créer" theme={theme} isSubmitting={isSubmitting} />
+                  {isSubmitting ? <p className="pt-1">Création en cours...</p> : null}
+                </div>
+              </Form>
+            );
+          }}
         </Formik>
       ) : null}
     </Fragment>

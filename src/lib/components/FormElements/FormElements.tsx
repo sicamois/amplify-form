@@ -241,8 +241,8 @@ export const MultipleSelectField: FC<SelectFieldProps> = ({
 }) => {
   const [field, , helpers] = useField(rest);
 
-  const { name, onChange, ...otherFieldProps } = field
-  const { setValue } = helpers
+  const { name, onChange, ...otherFieldProps } = field;
+  const { setValue } = helpers;
 
   return (
     <Fragment>
@@ -389,7 +389,7 @@ export const ImagesDropField: FC<ImagesDropFieldProps> = ({
       : undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [ , , helpers] = useField({ name, validate, multiple });
+  const [, , helpers] = useField({ name, validate, multiple });
 
   const { setValue } = helpers;
   const getFiles = (files: FileWithSize[]) => {
@@ -401,7 +401,13 @@ export const ImagesDropField: FC<ImagesDropFieldProps> = ({
       <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 px-2 py-4">
         <legend className="text-red-900 font-black text-lg px-2">{label}</legend>
         <div className={`relative px-2 ${fieldSizeMap.get(fieldSize) || 'w-max'}`}>
-          <ImagesDropInput name={name} id={name} getFiles={getFiles} multiple={multiple} {...rest} />
+          <ImagesDropInput
+            name={name}
+            id={name}
+            getFiles={getFiles}
+            multiple={multiple}
+            {...rest}
+          />
           <ErrorMessage
             name={name}
             render={msg => (
