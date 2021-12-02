@@ -14,4 +14,5 @@ export type {
   SelectFieldProps,
   ImagesDropFieldProps,
   FieldTheme,
+  FieldSize
 } from './FormElements';

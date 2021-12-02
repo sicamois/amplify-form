@@ -13,7 +13,7 @@ export interface FieldTheme {
   submitButtonStyle?: string;
 }
 
-type FieldSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full' | 'max' | 'screen';
+export type FieldSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full' | 'max' | 'screen';
 
 export interface FieldProps extends HTMLProps<HTMLInputElement> {
   name: string;

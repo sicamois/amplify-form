@@ -5,6 +5,7 @@ import { formSchemaFromGraphQLTypes } from '../../helpers/graphql-helpers';
 import { FileWithSize } from '../ImagesDropInput';
 import { FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
+import { FieldSize } from '../FormElements';
 
 export interface AmplifyFormProps extends Omit<Omit<FormComponentProps, 'formSchema'>, 'label'> {
   amplifyConfig?: any;
@@ -12,7 +13,7 @@ export interface AmplifyFormProps extends Omit<Omit<FormComponentProps, 'formSch
   entity: string;
   fieldExtraProps?: {
     [k: string]: {
-      [k: string]: string | number | boolean;
+      [k: string]: any
     };
   };
   storagePrefix?: string;
@@ -48,7 +49,8 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     Object.keys(fieldExtraProps).forEach(field => {
       const fieldProps = fieldExtraProps[field];
       Object.keys(fieldProps).forEach(key => {
-        loadashSet(formSchema, `${field}.${key}`, fieldProps[key]);
+        const value = fieldProps[key]
+        loadashSet(formSchema, `${field}.${key}`, value);
       });
     });
   }
