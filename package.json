@@ -42,12 +42,15 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "autoprefixer": "^10.4.0",
     "aws-amplify": "^4.3.8",
     "formik": "^2.2.9",
+    "postcss": "^8.4.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.4.2",
     "react-select": "^5.2.1",
+    "tailwindcss": "^2.2.19",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -55,17 +58,14 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-typescript": "^8.3.0",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.4",
     "prettier": "^2.5.0",
     "rollup": "^2.60.2",
     "rollup-plugin-postcss": "^4.0.2",
-    "typescript": "^4.1.2",
-    "tailwindcss": "^2.2.19"
+    "typescript": "^4.1.2"
   },
   "peerDependencies": {
-    "aws-amplify": "^4.3.8",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "aws-amplify": "^4.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   }
 }
