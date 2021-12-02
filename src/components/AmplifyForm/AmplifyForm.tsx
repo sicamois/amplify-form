@@ -13,7 +13,8 @@ export interface AmplifyFormProps extends Omit<Omit<FormComponentProps, 'formSch
   entity: string;
   fieldExtraProps?: {
     [k: string]: {
-      [k: string]: any
+      [k: string]: any,
+      fieldSize?: FieldSize
     };
   };
   storagePrefix?: string;
