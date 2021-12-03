@@ -27,5 +27,6 @@ module.exports = {
   },
   externals: {
     'aws-amplify': 'commonjs aws-amplify',
+    'react-dom': 'commonjs react-dom',
   }
 };
