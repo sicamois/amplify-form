@@ -6,12 +6,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
+        test: /\.css/,
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
     ],
