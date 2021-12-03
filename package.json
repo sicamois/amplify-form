@@ -16,8 +16,6 @@
   "version": "0.1.0-beta.35",
   "private": false,
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
   "files": [
     "dist",
     "README.md"
@@ -32,8 +30,9 @@
     "type-check:watch": "yarn run type-check -- --watch",
     "prettify": "prettier --write src",
     "prettier:check": "prettier --check src",
-    "build": "rm -rf dist && yarn run build:ts && yarn run build:tailwind",
+    "build": "rm -rf dist && yarn run build:webpack",
     "build:ts": "NODE_ENV=production tsc -p .",
+    "build:webpack": "NODE_ENV=production webpack",
     "build:tailwind": "NODE_ENV=production postcss ./src/index.css -o ./dist/index.css",
     "version-beta": "yarn build && npm version prerelease --preid=beta"
   },
@@ -42,26 +41,28 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "aws-amplify": "^4.3.8",
     "formik": "^2.2.9",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "react-dropzone": "^11.4.2",
     "react-select": "^5.2.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
-    "@babel/preset-react": "^7.16.0",
-    "@babel/preset-typescript": "^7.16.0",
     "autoprefixer": "^10.4.0",
+    "aws-amplify": "^4.3.8",
+    "css-loader": "^6.5.1",
+    "lodash": "^4.17.21",
     "postcss": "^8.4.4",
     "postcss-cli": "^9.0.2",
+    "postcss-loader": "^6.2.1",
     "prettier": "^2.5.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "style-loader": "^3.3.1",
     "tailwindcss": "^2.2.19",
-    "typescript": "^4.1.2"
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.2",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
   },
   "peerDependencies": {
     "aws-amplify": "^4.0.0",

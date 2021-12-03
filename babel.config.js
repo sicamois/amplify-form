@@ -1,6 +1,6 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-{
+module.exports = {
     "presets": [
         [
             "@babel/env",
@@ -16,6 +16,7 @@ import "regenerator-runtime/runtime";
             }
         ],
         "@babel/preset-react",
-        "@babel/preset-typescript"
+        "@babel/preset-typescript",
+        ["@babel/plugin-proposal-class-properties", { "loose": true }]
     ]
 }
