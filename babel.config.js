@@ -1,22 +1,13 @@
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+// import "core-js/stable";
+// import "regenerator-runtime/runtime";
+
 module.exports = {
     "presets": [
-        [
-            "@babel/env",
-            {
-                "targets": {
-                "edge": "17",
-                "firefox": "60",
-                "chrome": "67",
-                "safari": "11.1"
-            },
-            "useBuiltIns": "usage",
-            "corejs": "3.6.5"
-            }
-        ],
+        "@babel/preset-env",
         "@babel/preset-react",
         "@babel/preset-typescript",
-        ["@babel/plugin-proposal-class-properties", { "loose": true }]
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-class-properties",
     ]
 }
