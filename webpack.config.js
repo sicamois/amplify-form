@@ -25,5 +25,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  externals: ["aws-amplify", "aws"]
+  externals: {
+    'aws-amplify': 'commonjs aws-amplify',
+  }
 };
