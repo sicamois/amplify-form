@@ -13,7 +13,6 @@ import {
   FileWithStorageKey,
   ObjectWithKey,
 } from '../../helpers/types';
-import '../../styles/index.css'
 
 const AmplifyForm: FC<AmplifyFormProps> = ({
   amplifyConfig,
