@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, FC, DragEventHandler, HTMLProps } from 'react';
+import React, { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FilesDropInputProps, FileWithSize } from '../../helpers/types';
 

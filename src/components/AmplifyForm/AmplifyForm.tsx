@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Amplify, Storage } from 'aws-amplify';
 import FormComponent from '../FormComponent';
 import { formSchemaFor } from '../../helpers/graphql-helpers';
