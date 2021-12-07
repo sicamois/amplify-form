@@ -6,19 +6,24 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: isProductionMode ? "production" : "development",
-  entry: './src/components/AmplifyForm/index.ts',
+  entry: './src/components/AmplifyForm/AmplifyForm.tsx',
+  output: {
+    filename: 'AmplifyForm.js',
+    path: path.resolve('lib'),
+    libraryTarget: 'commonjs2',
+  },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: [
           isProductionMode ? MiniCssExtractPlugin.loader : "style-loader",
-          { loader: 'css-loader', options: { importLoaders: 1 } },
+          'css-loader',
           'postcss-loader'
         ],
       },
@@ -32,14 +37,23 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
   externals: {
     'aws-amplify': {
       commonjs: "aws-amplify",
       commonjs2: "aws-amplify",
+    },
+    // Don't bundle react or react-dom      
+    react: {
+      commonjs: "react",
+      commonjs2: "react",
+      amd: "React",
+      root: "React"
+    },
+    "react-dom": {
+      commonjs: "react-dom",
+      commonjs2: "react-dom",
+      amd: "ReactDOM",
+      root: "ReactDOM"
     }
   }
 };

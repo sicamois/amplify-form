@@ -16,7 +16,7 @@
   "version": "0.2.1-beta.8",
   "private": false,
   "license": "MIT",
-  "main": "./dist/bundle.js",
+  "main": "./lib/AmplifyForm.js",
   "files": [
     "dist",
     "README.md"
@@ -31,10 +31,10 @@
     "type-check:watch": "yarn run type-check -- --watch",
     "prettify": "prettier --write src",
     "prettier:check": "prettier --check src",
-    "build": "rm -rf dist && yarn run build:webpack",
+    "build": "rm -rf lib && yarn run build:webpack",
     "build:ts": "NODE_ENV=production tsc -p .",
     "build:webpack": "NODE_ENV=production webpack",
-    "build:tailwind": "NODE_ENV=production postcss ./src/index.css -o ./dist/index.css",
+    "build:tailwind": "NODE_ENV=production postcss ./src/index.css -o ./lib/index.css",
     "version-beta": "yarn build && npm version prerelease --preid=beta",
     "version-minor": "yarn build && npm version minor"
   },
@@ -72,7 +72,7 @@
     "tailwindcss": "^2.2.19",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.2",
-    "webpack": "^5.64.4",
+    "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
   },
   "peerDependencies": {
