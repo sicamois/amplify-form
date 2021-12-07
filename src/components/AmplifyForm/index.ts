@@ -1,2 +1,2 @@
-import '../../styles/index.css'
+import '../../styles/tailwind.css'
 export { default } from './AmplifyForm';

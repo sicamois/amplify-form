@@ -31,10 +31,10 @@
     "type-check:watch": "yarn run type-check -- --watch",
     "prettify": "prettier --write src",
     "prettier:check": "prettier --check src",
-    "build": "rm -rf lib && yarn run build:webpack",
+    "build": "rm -rf lib && yarn build:tailwind && yarn run build:webpack",
     "build:ts": "NODE_ENV=production tsc -p .",
     "build:webpack": "NODE_ENV=production webpack",
-    "build:tailwind": "NODE_ENV=production postcss ./src/index.css -o ./lib/index.css",
+    "build:tailwind": "NODE_ENV=production postcss ./src/styles/index.css -o ./src/styles/tailwind.css",
     "version-beta": "yarn build && npm version prerelease --preid=beta",
     "version-minor": "yarn build && npm version minor"
   },
