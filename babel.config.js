@@ -1,5 +1,5 @@
 // import "core-js/stable";
-// const regeneratorRuntime = require("regenerator-runtime/runtime");
+const regeneratorRuntime = require("regenerator-runtime/runtime");
 
 module.exports = {
     "presets": [
