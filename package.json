@@ -57,7 +57,6 @@
     "@babel/preset-stage-0": "^7.8.3",
     "@babel/preset-typescript": "^7.16.0",
     "autoprefixer": "^10.4.0",
-    "aws-amplify": "^4.3.8",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.5.1",
     "mini-css-extract-plugin": "^2.4.5",
@@ -76,7 +75,6 @@
     "webpack-cli": "^4.9.1"
   },
   "peerDependencies": {
-    "aws-amplify": "^4.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
