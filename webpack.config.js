@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: isProductionMode ? "production" : "development",
-  entry: './src/index.ts',
+  entry: './src/components/AmplifyForm/index.ts',
   module: {
     rules: [
       {
