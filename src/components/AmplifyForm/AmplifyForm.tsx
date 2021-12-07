@@ -1,58 +1,43 @@
 import { FC } from 'react';
 import { Amplify, Storage } from 'aws-amplify';
-import { FormComponent, FormComponentProps, FormValues } from '../FormComponent';
-import { formSchemaFromGraphQLTypes } from '../../helpers/graphql-helpers';
-import { FileWithSize } from '../ImagesDropInput';
+import FormComponent from '../FormComponent';
+import { formSchemaFor } from '../../helpers/graphql-helpers';
 import { FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
-import { FieldSize } from '../FormElements';
-
-export interface AmplifyFormProps extends Omit<Omit<FormComponentProps, 'formSchema'>, 'label'> {
-  amplifyConfig?: any;
-  graphQLJSONSchema: any;
-  entity: string;
-  fieldExtraProps?: {
-    [k: string]: {
-      [k: string]: any,
-      fieldSize?: FieldSize
-    };
-  };
-  storagePrefix?: string;
-  label?: string;
-  storageLevel?: 'public' | 'protected' | 'private';
-}
-
-export interface FileWithStorageKey extends Omit<FileWithSize, 'preview'> {
-  storageKey: string;
-}
+import { parseObject } from '../../helpers/object-helpers';
+import {
+  AmplifyFormProps,
+  FormSchema,
+  FileWithSize,
+  FormValues,
+  FileWithStorageKey,
+  ObjectWithKey,
+} from '../../helpers/types';
 
 const AmplifyForm: FC<AmplifyFormProps> = ({
   amplifyConfig,
   graphQLJSONSchema,
   entity,
   fieldExtraProps,
+  labelMap,
   storagePrefix = '',
   storageLevel = 'public',
   label = entity,
   onSubmit,
-  fileFields,
   ...rest
 }) => {
-  if (amplifyConfig) Amplify.configure({ ...amplifyConfig });
+  amplifyConfig ? Amplify.configure({ ...amplifyConfig }) : null;
 
-  const formSchema = formSchemaFromGraphQLTypes(
-    graphQLJSONSchema,
-    `Create${entity}Input`,
-    fileFields
-  )!;
+  const formSchema = formSchemaFor(graphQLJSONSchema, entity, 'create', labelMap);
 
   if (fieldExtraProps) {
     Object.keys(fieldExtraProps).forEach(field => {
-      const fieldProps = fieldExtraProps[field];
-      Object.keys(fieldProps).forEach(key => {
-        const value = fieldProps[key]
-        loadashSet(formSchema, `${field}.${key}`, value);
-      });
+      const fieldProps = fieldExtraProps[field] as FormSchema;
+      if (fieldProps) {
+        Object.keys(fieldProps).forEach(key => {
+          loadashSet(formSchema, `${field}.${key}`, fieldProps[key]);
+        });
+      }
     });
   }
 
@@ -70,43 +55,48 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   };
 
   const uploadFiles = async (values: FormValues, fileFieldName: string) => {
-    const files = Array.isArray(values[fileFieldName])
-      ? (values[fileFieldName] as FileWithSize[])
-      : [values[fileFieldName] as FileWithSize];
-    return await Promise.all(
-      files.map(async file => {
-        const fileWithStorage = file as FileWithStorageKey;
-        fileWithStorage.storageKey = await uploadFile(file);
-        return fileWithStorage;
-      })
-    );
+    if (Array.isArray(values[fileFieldName])) {
+      const files = values[fileFieldName] as FileWithSize[];
+      if (files.length) {
+        return await Promise.all(
+          files.map(async file => {
+            const fileWithStorage = file as FileWithStorageKey;
+            fileWithStorage.storageKey = await uploadFile(file);
+            return fileWithStorage;
+          })
+        );
+      }
+    } else {
+      const file = values[fileFieldName] as FileWithStorageKey;
+      if (file.name) {
+        file.storageKey = await uploadFile(file);
+        return file;
+      }
+    }
   };
 
   const submitAndUpload = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
-    if (fileFields) {
-      await Promise.all(
-        fileFields.map(async fileField => {
-          const filesWithKey = await uploadFiles(values, fileField.name);
-          values[fileField.name] =
-            filesWithKey.length === 0
-              ? undefined
-              : Array.isArray(values[fileField.name])
-              ? filesWithKey
-              : filesWithKey[0];
-        })
-      );
-    }
-    if (onSubmit) await onSubmit(values, formikHelpers);
+    await Promise.all(
+      Object.keys(formSchema).map(async fieldname => {
+        const fieldProps = formSchema[fieldname] as FormSchema;
+        if (fieldProps.kind == 'file') values[fieldname] = await uploadFiles(values, fieldname);
+      })
+    );
+    trimValues(values);
+    onSubmit ? await onSubmit(values, formikHelpers) : null;
+  };
+
+  const trimValues = (values: FormValues) => {
+    const action = (object: ObjectWithKey, key: string, keyWithPrefix: string, value: any) => {
+      if (value == '') {
+        loadashSet(object, keyWithPrefix, null);
+      }
+    };
+    parseObject(values, action);
   };
 
   return (
-    <FormComponent
-      formSchema={formSchema}
-      onSubmit={submitAndUpload}
-      label={label}
-      fileFields={fileFields}
-      {...rest}
-    />
+    <FormComponent formSchema={formSchema} onSubmit={submitAndUpload} label={label} {...rest} />
   );
 };
 

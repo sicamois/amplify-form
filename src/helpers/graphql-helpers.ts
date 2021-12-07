@@ -1,130 +1,78 @@
-import { capitalize } from './string-helpers';
-import { FormSchema, ElementProps, FileField } from '../components/FormComponent';
-import { SelectFieldProps } from '../components/FormElements';
+import { GraphQLJSONSchema, Field, Type, FormSchema, Option } from './types'
 
-interface Type {
-  kind: string;
-  name: string | null;
-  ofType: Type | null;
-}
 
-interface Field {
-  name: string;
-  description: string | null;
-  args?: any[];
-  type?: Type;
-  fields?: Field[] | null;
-  inputFields?: Field[] | null;
-  interfaces?: any | null;
-  enumValues?: Field[] | null;
-  isDeprecated?: boolean;
-  deprecationReason?: string | null;
-  defaultValue?: any;
-  possibleTypes?: any | null;
-}
+const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
+  const types: Field[] | undefined = graphqlJSONSchema?.data.__schema?.types;
+  if (!types) throw Error(`Invalid GraphQL JSON Schema`);
+  return types;
+};
 
-interface GraphQLJSONSchema {
-  data: {
-    __schema: {
-      queryType: any;
-      mutationType: any;
-      subscriptionType: any;
-      types: Field[];
-      directives: any[];
-    };
-  };
-}
-
-export const formSchemaFromGraphQLTypes: (
+export const formSchemaFor = (
   graphqlJSONSchema: GraphQLJSONSchema,
   entity: string,
-  fileFields?: FileField[]
-) => FormSchema | undefined = (graphqlJSONSchema, entity, fileFields = []) => {
-  const formSchema: FormSchema = {};
+  mutation?: 'create' | 'update',
+  labelMap?: Map<string, string>
+) => {
+  const fullname = (mutation || '') + entity + 'Input';
+  const types = getTypesFor(graphqlJSONSchema);
 
-  const type = graphqlJSONSchema.data.__schema.types.find(
-    (type: { name: string }) => type.name.toLowerCase() === entity.toLowerCase()
-  );
-  if (!type) throw Error(`Unable to find ${entity} in GraphQL Schema`);
+  const formSchemaForTypes = (fullEntity: string) => {
+    const baseField = types.find(type => type.name.toLowerCase() == fullEntity.toLowerCase());
+    if (!baseField) throw Error(`Unable to find field ${fullEntity}`);
 
-  const fields = type.fields || type.inputFields;
-  if (!fields) throw Error('Invalid GraphQL Schema');
+    const fields = baseField.kind == 'INPUT_OBJECT' ? baseField.inputFields! : baseField.fields;
+    if (!fields) throw Error(`Unable to find fields for ${fullEntity}`);
 
-  fields.forEach(field => {
-    const required = field!.type!.kind === 'NON_NULL';
-    const type = required ? field!.type!.ofType! : field!.type!;
-
-    if (field.name === 'id' || type.name === 'AWSDateTime') return;
-
-    let fieldCharacteritics: ElementProps | FormSchema = {
-      name: field.name,
-      label: capitalize(field.name),
-      required,
+    const fieldFrom: (type: Type) => FormSchema = type => {
+      if (type.kind == 'NON_NULL') {
+        const field = fieldFrom(type.ofType!)!;
+        field.required = true;
+        return field;
+      }
+      if (type.name == 'ID') return { kind: 'relationship' };
+      if (type.kind == 'SCALAR' && type.name != 'ID') return { kind: type.name!.toLowerCase() };
+      if (type.kind == 'LIST') {
+        const ofFormSchema = fieldFrom(type.ofType!)!
+        if (ofFormSchema.kind == 'select')
+          return { kind: 'list', of: ofFormSchema, multiple: true };
+      }
+      if (type.kind == 'ENUM')
+        return { kind: 'select', options: getEnumValues(type.name!, types, labelMap) };
+      if (type.kind == 'INPUT_OBJECT' || type.kind == 'OBJECT')
+        return formSchemaForTypes(type.name!);
+      return {};
     };
 
-    if (fileFields.some(fileField => fileField.name === field.name)) {
-      fieldCharacteritics.type = 'file';
-      fieldCharacteritics.multiple = type.kind === 'LIST';
-    } else {
-      switch (type.kind) {
-        case 'SCALAR':
-          switch (type.name) {
-            case 'String':
-              fieldCharacteritics.type = 'text';
-              break;
-            case 'Int':
-              fieldCharacteritics.type = 'number';
-              break;
-            case 'Float':
-              fieldCharacteritics.type = 'number';
-              fieldCharacteritics.step = 0.01;
-              break;
-            case 'Boolean':
-              fieldCharacteritics.type = 'checkbox';
-              break;
-            case 'ID':
-              fieldCharacteritics.type = 'relationship';
-              break;
-          }
-          break;
+    const formSchema: FormSchema = {};
+    fields.forEach(field => {
+      if (field.name == 'id' || field.name.toLowerCase() == 'propertyadlocationid') return;
+      const fieldSchema = fieldFrom(field.type!);
+      fieldSchema.defaultValue = field.defaultValue;
+      fieldSchema.label = getLabel(field.name, labelMap);
+      formSchema[field.name] = fieldSchema;
+    });
+    return formSchema;
+  };
 
-        case 'ENUM':
-          fieldCharacteritics.type = 'select';
-          (fieldCharacteritics as SelectFieldProps).options = Object.values(type.name!).map(
-            value => {
-              return {
-                value,
-                label: capitalize(value),
-              };
-            }
-          );
-          break;
+  return formSchemaForTypes(fullname);
+};
 
-        case 'LIST':
-          fieldCharacteritics.required =
-            fieldCharacteritics.required || type.ofType?.kind === 'NON_NULL';
-          fieldCharacteritics.type = 'list';
-          fieldCharacteritics.multiple = true;
-          const listElementType = type.ofType!.ofType ? type.ofType!.ofType! : type.ofType!;
-          if (listElementType.kind === 'ENUM') {
-            (fieldCharacteritics as SelectFieldProps).options = Object.values(
-              listElementType.name!
-            ).map(value => {
-              return {
-                value,
-                label: capitalize(value),
-              };
-            });
-          }
-          break;
+export const capitalize = (aString: string) => {
+  const capitalizedString = aString.charAt(0).toUpperCase() + aString.slice(1).toLowerCase();
+  const returnString = capitalizedString.replace('_', ' ');
+  return returnString;
+};
 
-        case 'INPUT_OBJECT':
-          fieldCharacteritics = formSchemaFromGraphQLTypes(graphqlJSONSchema, type.name!) || {};
-          break;
-      }
-    }
+const getLabel = (name: string, labelMap?: Map<string, string>) =>
+  capitalize(labelMap?.get(name) || name);
 
-    formSchema[field.name!] = fieldCharacteritics;
+const getEnumValues = (name: string, types: Field[], labelMap?: Map<string, string>): Option[] => {
+  const field = types.find(type => type.name == name && type.kind == 'ENUM');
+  if (!field) throw Error(`Unable to find enum ${name}`);
+  return field.enumValues!.map(value => {
+    return {
+      label: getLabel(value.name, labelMap),
+      value: value.name,
+    };
   });
-  return formSchema;
 };

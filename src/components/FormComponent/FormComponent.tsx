@@ -1,317 +1,284 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 import {
-  FieldProps,
-  TextFieldProps,
-  TextAreaProps,
-  SelectFieldProps,
-  FieldTheme,
+  FieldSet,
   TextField,
   TextAreaField,
   CheckboxField,
   NumberField,
   SelectField,
   MultipleSelectField,
+  FilesDropField,
   SubmitButton,
 } from '../FormElements';
-import * as yup from 'yup';
+import {
+  AnySchema,
+  object as yupObject,
+  string as yupString,
+  number as yupNumber,
+  boolean as yupBoolean,
+  array as yupArray,
+  mixed as yupMixed,
+  setLocale as yupSetLocale,
+} from 'yup';
 import { Formik, Form, FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
 import loadashGet from 'lodash/get';
-import { FileWithSize } from '../ImagesDropInput';
-import { ImagesDropField, ImagesDropFieldProps } from '../FormElements/FormElements';
-import { capitalize } from '../../helpers/string-helpers';
-
-// import { fieldLabel } from '../../../helpers/label-helpers';
-
-export type ElementProps = TextFieldProps | TextAreaProps | SelectFieldProps | FieldProps;
-
-interface Option {
-  label: string;
-  value: string;
-}
-
-type Value = string | number | boolean | string[] | Option[] | FileWithSize | FileWithSize[];
-
-export interface FormSchema {
-  [k: string]: ElementProps | FormSchema;
-}
-
-interface ValidationSchema {
-  [k: string]: yup.AnySchema | ValidationSchema;
-}
-
-export interface FormValues {
-  [k: string]: Value | FormValues | undefined;
-}
-
-export interface Relationship {
-  name: string;
-  label: string;
-  options: {
-    value: string;
-    label: string;
-  }[];
-}
-
-export interface FileField {
-  name: string;
-  text?: string;
-  type: string;
-}
-
-export interface FormTheme extends FieldTheme {
-  fieldSetStyle?: string;
-  legendStyle?: string;
-}
-
-export interface FormComponentProps {
-  label: string;
-  formSchema: FormSchema;
-  onSubmit?: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => void;
-  relationships?: Relationship[];
-  fileFields?: FileField[];
-  theme?: FormTheme;
-  prefix?: string;
-}
-
-const defaultFieldSetStyle =
-  'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
-const defaultLegendStyle = 'text-red-900 font-black text-lg px-2';
+import { FormComponentProps, FormSchema, FormTheme, FormValues, Option } from '../../helpers/types';
 
 const FormComponent: FC<FormComponentProps> = ({
   label,
   formSchema,
   onSubmit,
   relationships,
-  fileFields = [],
   theme = {},
-  prefix = '',
+  messages = {},
 }) => {
-  const [formData, setFormData] = useState<FormValues | undefined>();
-  const [, setValidationSchema] = useState<ValidationSchema | undefined>();
+  const defaultLabel = label;
 
-  const listFields: string[] = [];
+  const {
+    invalidError = 'Some fields are invalid',
+    required = 'required',
+    select = 'Select',
+    submitAction = 'Create',
+  } = messages;
 
+  const defaultFieldSetStyle =
+    'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
+  const defaultLegendStyle = 'text-red-900 font-black text-lg px-2';
 
+  const listFields: Set<string> = new Set();
 
-  const { fieldSetStyle, legendStyle, ...fieldTheme} = theme
-
-  // const formTheme: FormTheme = {
-  //   fieldSetStyle: theme?.fieldSetStyle || defaultFieldSetStyle,
-  //   legendStyle: theme?.legendStyle || defaultLegendStyle,
-  //   ...theme,
-  // };
+  const [formData, setFormData] =
+    useState<{ initialValues: FormValues; validationSchema: AnySchema }>();
 
   useEffect(() => {
-    const getFormFromSchema = (formSchema: FormSchema) => {
-      const _formData: FormValues = {};
-      const _validationSchema: ValidationSchema = {};
-
-      for (let key of Object.keys(formSchema)) {
-        switch (formSchema[key].type) {
-          case 'text':
-          case 'textarea':
-            _formData[key] =
-              (formSchema[key].defaultValue as string) || (formSchema[key].value as string) || '';
-            _validationSchema[key] = yup.string();
-            break;
-          case 'email':
-            _formData[key] =
-              (formSchema[key].defaultValue as string) || (formSchema[key].value as string) || '';
-            _validationSchema[key] = yup.string().email();
-            break;
-          case 'select':
-          case 'list':
-            _formData[key] =
-              (formSchema[key].defaultValue as string) ||
-              (formSchema[key].value as string) ||
-              undefined;
-            const selectFieldProps = formSchema[key] as SelectFieldProps;
-            if (selectFieldProps.options) {
-              _validationSchema[key] = yup
-                .string()
-                .oneOf(selectFieldProps.options.map(option => option.value));
-            } else {
-              _validationSchema[key] = yup.string();
-            }
-            break;
-          case 'number':
-            _formData[key] =
-              (formSchema[key].defaultValue as number) ||
-              (formSchema[key].value as number) ||
-              undefined;
-            _validationSchema[key] = yup.number();
-            break;
-          case 'checkbox':
-            _formData[key] = !!formSchema[key].defaultValue || !!formSchema[key].value || undefined;
-            _validationSchema[key] = yup.boolean();
-            break;
-          case 'relationship':
-            _formData[key] = !!formSchema[key].defaultValue || !!formSchema[key].value || '';
-            _validationSchema[key] = yup.string();
-            break;
-          case 'file':
-            _formData[key] = [] as FileWithSize[];
-            _validationSchema[key] = yup.array();
-            break;
-
-          case undefined:
-            const { formDataInit, validationSchemaInit } = getFormFromSchema(
-              formSchema[key] as FormSchema
-            );
-            _formData[key] = formDataInit;
-            _validationSchema[key] = validationSchemaInit;
-            break;
-
-          default:
-            break;
+    yupSetLocale({
+      mixed: {
+        required: '${label} ' + required,
+      },
+    });
+    const getInitialValues = (aFormSchema: FormSchema) => {
+      const {
+        label,
+        kind,
+        options,
+        of,
+        required,
+        defaultValue,
+        fileType,
+        text,
+        ...otherFormSchemaFields
+      } = aFormSchema;
+      const initialValuesTemp: FormValues = {};
+      Object.keys(otherFormSchemaFields).map(fieldName => {
+        const fieldInfos = otherFormSchemaFields[fieldName]! as FormSchema;
+        if (!fieldInfos.kind) {
+          initialValuesTemp[fieldName] = getInitialValues(fieldInfos);
+        } else {
+          initialValuesTemp[fieldName] = fieldInfos.defaultValue || '';
         }
+      });
+      return initialValuesTemp;
+    };
 
-        if (formSchema[key].required) {
-          _validationSchema[key] = (_validationSchema[key] as yup.AnySchema).required('Required');
+    const getValidationSchema = (aFormSchema: FormSchema) => {
+      const validationSchemaTemp = yupObject();
+
+      const validationObjectFrom = (aFormSchema: FormSchema): AnySchema => {
+        const {
+          label,
+          kind,
+          options,
+          of,
+          required,
+          multiple,
+          defaultValue,
+          fileType,
+          text,
+          ...otherFormSchemaFields
+        } = aFormSchema;
+        if (kind == 'string') return yupString();
+        if (kind == 'textarea') return yupString();
+        if (kind == 'email') return yupString().email();
+        if (kind == 'url') return yupString().url();
+        if (kind == 'int') return yupNumber().integer();
+        if (kind == 'float') return yupNumber();
+        if (kind == 'number') return yupNumber();
+        if (kind == 'boolean') return yupBoolean();
+        if (kind == 'select') return yupString().oneOf(options!.map(option => option.value));
+        if (kind == 'list' && of!.options) {
+          const shape: { [k: string]: AnySchema } = {};
+          Object.keys(of!.options![0]).forEach(field => (shape[field] = yupString()));
+          return yupArray().of(yupObject().shape(shape));
         }
-      }
-
-      return {
-        formDataInit: _formData,
-        validationSchemaInit: _validationSchema,
+        if (kind == 'file') return yupMixed();
+        if (kind == 'relationship') return yupString().oneOf(options!.map(option => option.value));
+        if (kind == 'id') return yupString();
+        return getValidationSchema(otherFormSchemaFields);
       };
+
+      const shape: { [k: string]: AnySchema } = {};
+      Object.keys(aFormSchema).map(fieldName => {
+        const fieldInfos = aFormSchema[fieldName]! as FormSchema;
+        const validationObject = validationObjectFrom(fieldInfos);
+        shape[fieldName] = (
+          fieldInfos.required && !fieldInfos.readOnly
+            ? validationObject.required()
+            : validationObject
+        ).label(fieldInfos.label || fieldName);
+      });
+      return validationSchemaTemp.shape(shape);
     };
 
-    const initForm = (formSchema: FormSchema) => {
-      const { formDataInit, validationSchemaInit } = getFormFromSchema(formSchema);
-      setFormData(formDataInit);
-      setValidationSchema(validationSchemaInit);
-    };
+    const initialValues = getInitialValues(formSchema);
+    const validationSchema = getValidationSchema(formSchema);
 
-    initForm(formSchema);
-  }, [formSchema]);
+    setFormData({ initialValues, validationSchema });
+  }, [formSchema, required]);
 
-  const getFormElement = (
-    elementName: string,
-    elementSchema: ElementProps | FormSchema,
-    elementPrefix?: string,
-    elementTheme?: FormTheme
-  ) => {
-    const props = {
-      ...elementSchema,
-      name: (elementPrefix ? elementPrefix + '.' : '') + elementName,
-      options: (elementSchema as SelectFieldProps)?.options || undefined,
-      theme: elementTheme || { ...fieldTheme },
-    };
+  const { fieldSetStyle, legendStyle, ...otherThemeFields } = theme;
 
-    switch (elementSchema.type) {
-      case 'text':
-      case 'email':
-        return <TextField {...(props as TextFieldProps)} />;
-
-      case 'textarea':
-        return <TextAreaField {...(props as TextAreaProps)} />;
-
-      case 'select':
-        return <SelectField {...(props as SelectFieldProps)} />;
-
-      case 'list':
-        listFields.push(props.name);
-        return <MultipleSelectField {...(props as SelectFieldProps)} />;
-
-      case 'number':
-        return <NumberField {...(props as FieldProps)} />;
-
-      case 'checkbox':
-        return <CheckboxField {...(props as FieldProps)} />;
-
-      case 'relationship':
-        if (relationships) {
-          const typedProps = props as SelectFieldProps;
-          const relation = relationships.find(
-            relationship => (relationship.name = typedProps.name)
-          );
-          typedProps.options = relation?.options || [];
-          typedProps.label = relation?.label || props.name;
-          return (
-            <fieldset className={fieldSetStyle || defaultFieldSetStyle}>
-              <legend className={legendStyle ||defaultLegendStyle}>
-                {capitalize(typedProps.label!)}
-              </legend>
-              <SelectField {...typedProps} />
-            </fieldset>
-          );
-        }
-        break;
-
-      case 'file':
-        const fileField = fileFields.find(field => field.name === elementName);
-        if (fileField)
-          return (
-            <ImagesDropField
-              {...(props as ImagesDropFieldProps)}
-              name={fileField.name}
-              fileType={fileField.type}
-              text={fileField.text || 'Sélectionner des fichiers'}
-            />
-          );
-        break;
-
-      case undefined:
-        const schema = elementSchema as FormSchema;
-        return (
-          <fieldset className={fieldSetStyle || defaultFieldSetStyle}>
-            <legend className={legendStyle || defaultLegendStyle}>
-              {capitalize(props.name)}
-            </legend>
-            {Object.keys(schema).map(key => (
-              <Fragment key={key}>
-                {getFormElement(key, schema[key], (elementPrefix = props.name))}
-              </Fragment>
-            ))}
-          </fieldset>
-        );
-    }
+  theme = {
+    fieldSetStyle: fieldSetStyle || defaultFieldSetStyle,
+    legendStyle: legendStyle || defaultLegendStyle,
+    ...otherThemeFields,
   };
 
+  const getFormElement = (name: string, formSchema: FormSchema, prefix = '', theme?: FormTheme) => {
+    const { kind, label, options, of, required, defaultValue, ...props } = formSchema;
+    const explicitName = (prefix ? prefix + '.' : '') + name;
+
+    if (!formSchema) {
+      return <Fragment></Fragment>;
+    }
+
+    if (!kind)
+      return (
+        <FieldSet name={name} label={label || defaultLabel}>
+          {Object.keys(props!).map(fieldName => (
+            <Fragment key={fieldName}>
+              {getFormElement(fieldName, props[fieldName]! as FormSchema, name, theme)}
+            </Fragment>
+          ))}
+        </FieldSet>
+      );
+
+    if (kind == 'string' || kind == 'email' || kind == 'url')
+      return <TextField name={explicitName} label={label} {...props} />;
+
+    if (kind == 'textarea') return <TextAreaField name={explicitName} label={label} {...props} />;
+
+    if (kind == 'int') return <NumberField name={explicitName} label={label} {...props} />;
+
+    if (kind == 'float')
+      return <NumberField name={explicitName} label={label} {...props} step={0.01} />;
+
+    if (kind == 'boolean') return <CheckboxField name={explicitName} label={label} {...props} />;
+
+    if (kind == 'select')
+      return (
+        <SelectField
+          name={explicitName}
+          label={label}
+          options={options!}
+          selectLabel={select}
+          {...props}
+        />
+      );
+    
+    if (kind == 'relationship')
+        return (
+        <FieldSet name={name} label={label}>
+          <SelectField
+          name={explicitName}
+          label={''}
+          options={options!}
+          selectLabel={select}
+          {...props}
+        />
+      </FieldSet>
+        )
+
+    if (kind == 'list' && of?.kind == 'select') {
+      listFields.add(explicitName);
+      return (
+        <MultipleSelectField
+          name={explicitName}
+          label={label}
+          options={of!.options!}
+          selectLabel={select}
+          {...props}
+        />
+      );
+    }
+
+    if (kind == 'file')
+      return <FilesDropField name={explicitName} label={label} {...props}></FilesDropField>;
+
+    return <Fragment></Fragment>;
+  };
+
+  //     case 'relationship':
+  //       if (relationships) {
+  //         const typedProps = props as SelectFieldProps;
+  //         const relation = relationships.find(
+  //           relationship => (relationship.name = typedProps.name)
+  //         );
+  //         typedProps.options = relation?.options || [];
+  //         typedProps.label = relation?.label || props.name;
+  //         return (
+  //           <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4">
+  //             <legend className="text-red-900 font-black text-lg px-2">
+  //               {fieldLabel(typedProps.label!)}
+  //             </legend>
+  //             <SelectField {...typedProps} />
+  //           </fieldset>
+  //         );
+  //       }
+  //       break;
+
   const fixMultipleSelectValues = (values: FormValues) => {
-    const fixedValues: FormValues = { ...values };
     listFields.forEach(key => {
-      const options = loadashGet(fixedValues, key) as Option[];
+      const options = loadashGet(values, key) as Option[];
       if (options)
         loadashSet(
-          fixedValues,
+          values,
           key,
           options.map(option => option.value)
         );
     });
-    return fixedValues;
+    return values;
   };
 
-  const defaultOnSubmit = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
+  const submitHandler = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
     const fixedValues = fixMultipleSelectValues(values);
-    fileFields.forEach(async fileField => {
-      const files = Array.isArray(values[fileField.name])
-        ? (values[fileField.name] as FileWithSize[])
-        : [values[fileField.name] as FileWithSize];
-      // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach(file => (file.preview ? URL.revokeObjectURL(file.preview) : null));
-    });
-    if (onSubmit) await onSubmit(fixedValues, formikHelpers);
+    onSubmit ? await onSubmit(fixedValues, formikHelpers) : null;
   };
 
   return (
     <Fragment>
       {formData ? (
-        <Formik enableReinitialize initialValues={formData} onSubmit={defaultOnSubmit}>
-          {({ isSubmitting }) => {
+        <Formik
+          enableReinitialize
+          initialValues={formData.initialValues}
+          validationSchema={formData.validationSchema}
+          onSubmit={submitHandler}>
+          {({ isSubmitting, isValid }) => {
             return (
-              <Form className="needs-validation">
-              <fieldset className={fieldSetStyle || defaultFieldSetStyle}>
-                <legend className={legendStyle || defaultLegendStyle}>{label}</legend>
-                  {Object.keys(formData!).map(key => (
-                    <div key={key}>{getFormElement(key, formSchema[key], prefix, theme)}</div>
-                  ))}
-                </fieldset>
-                <div className="flex flex-row gap-4 items-center">
-                  <SubmitButton title="Créer" theme={theme} isSubmitting={isSubmitting} />
-                  {isSubmitting ? <p className="pt-1">Création en cours...</p> : null}
+              <Form noValidate className="needs-validation">
+                <div className="flex flex-col gap-4">
+                  {getFormElement('', formSchema, '', theme)}
+                  <div className="flex flex-row gap-4 items-center">
+                    <SubmitButton
+                      title={submitAction}
+                      theme={theme}
+                      disabled={isSubmitting && !isValid}
+                    />
+                    {!isValid ? (
+                      <p className="pt-1 text-red-500 font-semibold">{invalidError}</p>
+                    ) : null}
+                    {isSubmitting && isValid ? <p className="pt-1">Création en cours...</p> : null}
+                  </div>
                 </div>
               </Form>
             );

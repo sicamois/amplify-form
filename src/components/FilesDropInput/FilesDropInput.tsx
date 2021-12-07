@@ -1,37 +1,31 @@
-import { useState, useCallback, FC, DragEventHandler, HTMLProps } from 'react';
+import { useState, useCallback, useEffect, FC, DragEventHandler, HTMLProps } from 'react';
 import { useDropzone } from 'react-dropzone';
-
-export interface FileWithSize extends File {
-  label?: string;
-  preview?: string;
-  width?: number;
-  height?: number;
-}
-
-export interface ImagesDropInputProps extends HTMLProps<HTMLInputElement> {
-  text?: string;
-  className?: string;
-  fileType?: string;
-  thumbnailSize?: {
-    width: number;
-    height: number;
-  };
-  getFiles: (files: FileWithSize[]) => void;
-}
+import { FilesDropInputProps, FileWithSize } from '../../helpers/types';
 
 const defaultInstructionsStyle =
   'bg-gray-100 border-2 border-gray-400 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';
 
-const ImagesDropInput: FC<ImagesDropInputProps> = ({
+const FilesDropInput: FC<FilesDropInputProps> = ({
   text = "Drag 'n' drop some files here, or click to select files",
   className = defaultInstructionsStyle,
   fileType = 'image/*',
   thumbnailSize,
   getFiles,
   multiple,
+  value
 }) => {
   const [files, setFiles] = useState<FileWithSize[]>([]);
   const [dragId, setDragId] = useState<number | undefined>();
+
+
+  // Reset Files when Form is reset (initialValue = '')
+  useEffect(() => {
+    if (value == '') {
+      // make sure to revoke the data uris to avoid memory leaks
+      files.forEach(file => file.preview ? URL.revokeObjectURL(file.preview) : null)
+      setFiles([])
+    }
+  }, [value])
 
   const onDrop = useCallback(
     async (acceptedFiles: FileWithSize[]) => {
@@ -133,7 +127,7 @@ const ImagesDropInput: FC<ImagesDropInputProps> = ({
           <img
             id={index.toString()}
             src={file.preview!}
-            alt="Preview of property"
+            alt="Preview image of property"
             width={thumbnailSize?.width ?? 120}
             height={thumbnailSize?.height ?? 80}
             className="block object-cover rounded"
@@ -176,4 +170,4 @@ const ImagesDropInput: FC<ImagesDropInputProps> = ({
   );
 };
 
-export default ImagesDropInput;
+export default FilesDropInput;
