@@ -23,15 +23,15 @@ module.exports = {
         test: /\.css$/,
         use: [
           isProductionMode ? MiniCssExtractPlugin.loader : 'style-loader',
-          'css-loader'
+          'css-loader',
+          'postcss-loader'
+
         ],
       },
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: isProductionMode ? "[name].[contenthash].css" : "[name].css",
-    }),
+    new MiniCssExtractPlugin(),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
