@@ -27,15 +27,15 @@ const submitButtonStyle =
 
 export const fieldSizeMap: Map<string, string> = new Map([
   ['xs', 'w-14'],
-  ['sm', 'w-[5.25rem]'],
+  ['sm', 'w-20'],
   ['md', 'w-36'],
   ['lg', 'w-64'],
   ['xl', 'w-96'],
-  ['2xl', 'w-[30rem]'],
-  ['3xl', 'w-[50rem]'],
+  ['2xl', 'w-100'],
+  ['3xl', 'w-200'],
   ['full', 'w-full'],
   ['max', 'w-max'],
-  ['screen', 'w-[90vw]'],
+  ['screen', 'w-screen'],
 ]);
 
 const FieldWithError: FC<FieldProps> = ({
