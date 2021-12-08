@@ -2,7 +2,28 @@ import React, { FC, Fragment } from 'react';
 import { ErrorMessage, Field, useField } from 'formik';
 import ReactSelect, { MultiValue, StylesConfig } from 'react-select';
 import FilesDropInput from '../FilesDropInput';
-import { FieldProps, SelectFieldProps, Option, FilesDropFieldProps, FileWithSize, SubmitButtonProps } from '../../helpers/types';
+import {
+  FieldProps,
+  SelectFieldProps,
+  Option,
+  FilesDropFieldProps,
+  FileWithSize,
+  SubmitButtonProps,
+} from '../../helpers/types';
+
+const fieldSetStyle = 'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
+const legendStyle = 'text-red-900 font-black text-lg px-2';
+const labelStyle =
+  'text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-red-900 peer-focus:text-sm';
+const fieldStyle =
+  'bg-transparent border-gray-300 text-gray-900 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:border-red-900 focus:ring-0';
+const checkboxStyle =
+  'bg-transparent border-gray-300 text-red-900 text-red-900 rounded border-2 w-5 h-5 focus:ring-0';
+const multiSelectStyle = 'border-gray-300 border-0 border-b-2 relative';
+// const imagesDropLabelStyle = 'text-gray-400 text-sm';
+const errorStyle = 'text-red-700 text-xs';
+const submitButtonStyle =
+  'bg-red-900 hover:bg-red-800 w-min my-4 px-14 py-2 text-center text-xl font-bold text-white rounded shadow-xl';
 
 export const fieldSizeMap: Map<string, string> = new Map([
   ['xs', 'w-14'],
@@ -22,6 +43,7 @@ const FieldWithError: FC<FieldProps> = ({
   label,
   labelCentered,
   fieldSize = 'full',
+  theme,
   children,
 }) => {
   return (
@@ -31,7 +53,7 @@ const FieldWithError: FC<FieldProps> = ({
           {children}
           {label && (
             <label
-              className={'text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-red-900 peer-focus:text-sm'+ `${
+              className={`${theme?.labelStyle || labelStyle} ${
                 labelCentered ? 'text-center' : ''
               } ${fieldSizeMap.get(fieldSize)}`}
               htmlFor={name}>
@@ -42,7 +64,7 @@ const FieldWithError: FC<FieldProps> = ({
         <ErrorMessage
           name={name}
           render={msg => (
-            <div className={'text-red-700 text-xs' + fieldSizeMap.get(fieldSize)}>
+            <div className={`${theme?.errorStyle || errorStyle} ${fieldSizeMap.get(fieldSize)}`}>
               {msg}
             </div>
           )}
@@ -54,10 +76,12 @@ const FieldWithError: FC<FieldProps> = ({
 
 export const FieldSet: FC<FieldProps> = ({
   label,
-  children}) => {
+  theme,
+  children,
+}) => {
   return (
-    <fieldset className='flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3'>
-      <legend className='text-red-900 font-black text-lg px-2'>{label}</legend>
+    <fieldset className={theme?.fieldSetStyle || fieldSetStyle}>
+      <legend className={theme?.legendStyle || legendStyle}>{label}</legend>
       {children}
     </fieldset>
   );
@@ -73,7 +97,7 @@ export const TextField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        className={'bg-transparent border-gray-300 text-gray-900 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:border-red-900 focus:ring-0 ' + fieldSizeMap.get(fieldSize)}
+        className={`${theme?.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)}`}
         type="text"
         id={name}
         name={name}
@@ -95,7 +119,7 @@ export const TextAreaField: FC<FieldProps> = ({
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
         as="textarea"
-        className={'bg-transparent border-gray-300 text-gray-900 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:border-red-900 focus:ring-0 focus:h-32' + fieldSizeMap.get(fieldSize)}
+        className={`${theme?.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)} focus:h-32`}
         id={name}
         name={name}
         placeholder={placeholder}
@@ -117,7 +141,7 @@ export const SelectField: FC<SelectFieldProps> = ({
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
         as="select"
-        className={'bg-transparent border-gray-300 text-gray-900 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:border-red-900 focus:ring-0 ' + fieldSizeMap.get(fieldSize)}
+        className={`${theme?.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)}`}
         id={name}
         name={name}
         {...rest}>
@@ -155,13 +179,13 @@ export const MultipleSelectField: FC<SelectFieldProps> = ({
   selectLabel = 'Select',
   ...rest
 }) => {
-  const [{ name, onChange, ...otherFieldProps }, _meta, { setValue }] =
+  const [{ name, onChange, ...otherFieldProps }, _, { setValue }] =
     useField<MultiValue<Option>>(rest);
 
   return (
     <FieldWithError fieldSize={fieldSize} theme={theme} {...rest}>
       <div
-        className={'border-gray-300 border-0 border-b-2 relative ' + fieldSizeMap.get(fieldSize)}>
+        className={`${theme?.multiSelectStyle || multiSelectStyle} ${fieldSizeMap.get(fieldSize)}`}>
         <ReactSelect
           styles={customStyles}
           options={options}
@@ -187,7 +211,7 @@ export const NumberField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        className={'bg-transparent border-gray-300 text-gray-900 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:border-red-900 focus:ring-0 ' + fieldSizeMap.get(fieldSize)}
+        className={`${theme?.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)}`}
         type="number"
         id={name}
         name={name}
@@ -210,7 +234,7 @@ export const CheckboxField: FC<FieldProps> = ({
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} labelCentered={true} {...rest}>
       <div className={`relative p-3 flex justify-center ${fieldSizeMap.get(fieldSize)}`}>
         <Field
-          className='bg-transparent border-gray-300 text-red-900 rounded border-2 w-5 h-5 focus:ring-0'
+          className={theme?.checkboxStyle || checkboxStyle}
           type="checkbox"
           id={name}
           name={name}
@@ -231,7 +255,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   defaultValue,
   ...rest
 }) => {
-  const [field, _meta, helpers] = useField({ name, multiple });
+  const [field, _, helpers] = useField({ name, multiple });
 
   const { setValue } = helpers;
   const { value } = field;
@@ -265,7 +289,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme, type, ...res
     <Fragment>
       <button
         type="submit"
-        className='disabled:opacity-70 bg-red-900 hover:bg-red-800 w-min my-4 px-14 py-2 text-center text-xl font-bold text-white rounded shadow-xl'
+        className={`disabled:opacity-70 ${theme?.submitButtonStyle || submitButtonStyle}`}
         {...rest}>
         {title}
       </button>
