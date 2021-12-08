@@ -35,8 +35,8 @@
     "build:ts": "NODE_ENV=production tsc -p .",
     "build:webpack": "NODE_ENV=production webpack",
     "build:tailwind": "NODE_ENV=production postcss ./src/styles/index.css -o ./src/styles/tailwind.css",
-    "version-beta": "yarn build && npm version prerelease --preid=beta",
-    "version-minor": "yarn build && npm version minor"
+    "version-beta": "yarn build && npm version prerelease --preid=beta && npm publish -tag=beta",
+    "version-minor": "yarn build && npm version minor && npm publish"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.4",
