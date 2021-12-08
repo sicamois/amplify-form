@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // import "core-js/stable";
-// const regeneratorRuntime = require("regenerator-runtime/runtime");
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const regeneratorRuntime = require("regenerator-runtime/runtime");
 
 module.exports = {
     "presets": [
