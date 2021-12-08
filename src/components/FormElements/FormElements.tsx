@@ -74,16 +74,15 @@ const FieldWithError: FC<FieldProps> = ({
   );
 };
 
-export const FieldSet: FC<FieldProps> = ({
-  label,
-  theme,
-  children,
-}) => {
+export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
   return (
-    <fieldset className={theme?.fieldSetStyle || fieldSetStyle}>
-      <legend className={theme?.legendStyle || legendStyle}>{label}</legend>
-      {children}
-    </fieldset>
+    <Fragment>
+      <br />
+      <fieldset className={theme?.fieldSetStyle || fieldSetStyle}>
+        <legend className={theme?.legendStyle || legendStyle}>{label}</legend>
+        {children}
+      </fieldset>
+    </Fragment>
   );
 };
 
