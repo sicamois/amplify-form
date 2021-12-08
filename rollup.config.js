@@ -1,5 +1,6 @@
 import postcss from 'rollup-plugin-postcss'
 import typescript from 'rollup-plugin-typescript2'
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 import pkg from './package.json'
 
@@ -14,6 +15,6 @@ export default {
       strict: false
     }
   ],
-  plugins: [postcss({ extract: true }), typescript()],
+  plugins: [nodeResolve(), postcss(), typescript()],
   external: ['react', 'react-dom', 'aws-amplify']
 }

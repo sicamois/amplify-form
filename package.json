@@ -35,8 +35,8 @@
     "build:ts": "NODE_ENV=production tsc -p .",
     "build:webpack": "NODE_ENV=production webpack",
     "build:tailwind": "NODE_ENV=production postcss ./src/styles/index.css -o ./src/styles/tailwind.css",
-    "version-beta": "yarn build && npm version prerelease --preid=beta && npm publish -tag=beta",
-    "version-minor": "yarn build && npm version minor && npm publish"
+    "version-beta": "yarn build && npm version prerelease --preid=beta",
+    "version-minor": "yarn build && npm version minor"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.4",
@@ -50,6 +50,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.6",
     "autoprefixer": "^10.4.0",
     "aws-amplify": "^4.3.10",
     "babel-core": "^6.26.3",
