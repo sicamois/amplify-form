@@ -10,6 +10,7 @@ import {
   FileWithSize,
   SubmitButtonProps,
 } from '../../helpers/types';
+import styles from './FormElements.module.css'
 
 const fieldSetStyle = 'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
 const legendStyle = 'text-red-900 font-black text-lg px-2';
@@ -77,7 +78,7 @@ const FieldWithError: FC<FieldProps> = ({
 export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
   return (
     <Fragment>
-      <fieldset className={theme?.fieldSetStyle || fieldSetStyle}>
+      <fieldset className={styles.fieldSetStyle}>
         <legend className={theme?.legendStyle || legendStyle}>{label}</legend>
         {children}
       </fieldset>

@@ -7,6 +7,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import pkg from './package.json'
 
 export default {
+  preserveModules: true,
   input: 'src/index.tsx',
   output: [
     {
