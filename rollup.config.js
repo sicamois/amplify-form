@@ -7,15 +7,14 @@ import commonjs from '@rollup/plugin-commonjs'
 import pkg from './package.json'
 
 export default {
-  preserveModules: true,
   input: 'src/index.tsx',
   output: [
     {
       file: pkg.main,
       format: 'cjs',
       exports: 'named',
-      sourcemap: true,
-      strict: false
+      // sourcemap: true,
+      strict: true
     }
   ],
   plugins: [

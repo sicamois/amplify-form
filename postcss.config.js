@@ -1,9 +1,7 @@
 module.exports = {
   plugins: {
+    'postcss-import': {},
     tailwindcss: {},
     autoprefixer: {},
   },
-  sourceMap: true,
-  extract: true,
-  minimize: true
 };

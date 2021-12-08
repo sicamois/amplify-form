@@ -1,17 +1,10 @@
 const isProductionMode = process.env.NODE_ENV === "production";
-
-const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 
 module.exports = {
   mode: isProductionMode ? "production" : "development",
-  entry: './src/components/AmplifyForm/index.ts',
-  output: {
-    filename: 'AmplifyForm.js',
-    path: path.resolve('lib'),
-    libraryTarget: 'commonjs2',
-  },
   module: {
     rules: [
       {
