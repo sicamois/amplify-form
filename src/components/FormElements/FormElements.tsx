@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { ErrorMessage, Field, useField } from 'formik';
 import ReactSelect, { MultiValue, StylesConfig } from 'react-select';
 import FilesDropInput from '../FilesDropInput';
-import { FieldProps, FormTheme, SelectFieldProps, Option, FilesDropFieldProps, FileWithSize, SubmitButtonProps } from '../../helpers/types';
+import { FieldProps, SelectFieldProps, Option, FilesDropFieldProps, FileWithSize, SubmitButtonProps } from '../../helpers/types';
 
 export const fieldSizeMap: Map<string, string> = new Map([
   ['xs', 'w-14'],
@@ -22,7 +22,6 @@ const FieldWithError: FC<FieldProps> = ({
   label,
   labelCentered,
   fieldSize = 'full',
-  theme,
   children,
 }) => {
   return (
@@ -54,14 +53,8 @@ const FieldWithError: FC<FieldProps> = ({
 };
 
 export const FieldSet: FC<FieldProps> = ({
-  name,
   label,
-  fieldSize = 'full',
-  theme,
-  children,
-  placeholder = ' ',
-  ...rest
-}) => {
+  children}) => {
   return (
     <fieldset className='flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3'>
       <legend className='text-red-900 font-black text-lg px-2'>{label}</legend>
@@ -162,7 +155,7 @@ export const MultipleSelectField: FC<SelectFieldProps> = ({
   selectLabel = 'Select',
   ...rest
 }) => {
-  const [{ name, onChange, ...otherFieldProps }, meta, { setValue }] =
+  const [{ name, onChange, ...otherFieldProps }, _meta, { setValue }] =
     useField<MultiValue<Option>>(rest);
 
   return (
@@ -238,7 +231,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   defaultValue,
   ...rest
 }) => {
-  const [field, meta, helpers] = useField({ name, multiple });
+  const [field, _meta, helpers] = useField({ name, multiple });
 
   const { setValue } = helpers;
   const { value } = field;

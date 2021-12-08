@@ -29,7 +29,6 @@ const FormComponent: FC<FormComponentProps> = ({
   label,
   formSchema,
   onSubmit,
-  relationships,
   theme = {},
   messages = {},
 }) => {

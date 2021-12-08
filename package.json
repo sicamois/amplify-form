@@ -14,11 +14,14 @@
     "ui"
   ],
   "version": "0.2.1-beta.28",
-  "private": false,
   "license": "MIT",
-  "main": "./lib/AmplifyForm.js",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=15",
+    "npm": ">=5"
+  },
   "files": [
-    "lib",
+    "dist",
     "README.md"
   ],
   "repository": {
@@ -26,12 +29,9 @@
     "url": "git+https://github.com/sicamois/amplify-form.git"
   },
   "scripts": {
-    "start": "PORT=8080 react-scripts --openssl-legacy-provider start",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "yarn run type-check -- --watch",
+    "build": "rm -rf lib && rollup -c",
+    "start": "rm -rf lib && rollup -c -w",
     "prettify": "prettier --write src",
-    "prettier:check": "prettier --check src",
-    "build": "rm -rf lib && yarn build:tailwind && yarn run build:webpack",
     "build:ts": "NODE_ENV=production tsc -p .",
     "build:webpack": "NODE_ENV=production webpack",
     "build:tailwind": "NODE_ENV=production postcss ./src/styles/index.css -o ./src/styles/tailwind.css",
@@ -50,38 +50,25 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
-    "@babel/plugin-transform-runtime": "^7.16.4",
-    "@babel/preset-env": "^7.16.4",
-    "@babel/preset-react": "^7.16.0",
-    "@babel/preset-stage-0": "^7.8.3",
-    "@babel/preset-typescript": "^7.16.0",
     "autoprefixer": "^10.4.0",
-    "babel-loader": "^8.2.3",
-    "css-loader": "^6.5.1",
-    "mini-css-extract-plugin": "^2.4.5",
+    "aws-amplify": "^4.3.10",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0",
     "postcss": "^8.4.4",
-    "postcss-cli": "^9.0.2",
     "postcss-import": "^14.0.2",
-    "postcss-loader": "^6.2.1",
-    "postcss-preset-env": "^7.0.1",
     "prettier": "^2.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "style-loader": "^3.3.1",
+    "rollup": "^2.60.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.31.1",
     "tailwindcss": "^2.2.19",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.5.2",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2"
   },
   "peerDependencies": {
+    "aws-amplify": "^4.3.0",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "aws-amplify": "^4.3.0"
-  },
-  "engines": {
-    "node": ">=15"
+    "react-dom": "^17.0.0"
   }
 }

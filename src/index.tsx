@@ -1,10 +1,11 @@
+import './styles/index.css'
 import React, { FC } from 'react';
 import { Amplify, Storage } from 'aws-amplify';
-import FormComponent from '../FormComponent';
-import { formSchemaFor } from '../../helpers/graphql-helpers';
+import FormComponent from './components/FormComponent';
+import { formSchemaFor } from './helpers/graphql-helpers';
 import { FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
-import { parseObject } from '../../helpers/object-helpers';
+import { parseObject } from './helpers/object-helpers';
 import {
   AmplifyFormProps,
   FormSchema,
@@ -12,7 +13,7 @@ import {
   FormValues,
   FileWithStorageKey,
   ObjectWithKey,
-} from '../../helpers/types';
+} from './helpers/types';
 
 const AmplifyForm: FC<AmplifyFormProps> = ({
   amplifyConfig,
@@ -73,6 +74,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
         return file;
       }
     }
+    return
   };
 
   const submitAndUpload = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
@@ -87,7 +89,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   };
 
   const trimValues = (values: FormValues) => {
-    const action = (object: ObjectWithKey, key: string, keyWithPrefix: string, value: any) => {
+    const action = (object: ObjectWithKey, _key: string, keyWithPrefix: string, value: any) => {
       if (value == '') {
         loadashSet(object, keyWithPrefix, null);
       }
