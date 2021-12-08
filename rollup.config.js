@@ -22,9 +22,7 @@ export default {
     nodeResolve(), 
     commonjs(), 
     typescript(), 
-    postcss({
-      extract: 'src/styles/index.css'
-    }),
+    postcss(),
   ],
   external: ['react', 'react-dom', 'aws-amplify']
 }
