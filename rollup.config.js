@@ -1,4 +1,4 @@
-import path from 'path'
+// import path from 'path'
 import postcss from 'rollup-plugin-postcss'
 import typescript from 'rollup-plugin-typescript2'
 import nodeResolve from '@rollup/plugin-node-resolve'
@@ -22,7 +22,7 @@ export default {
     commonjs(), 
     typescript(), 
     postcss({
-      extract: path.resolve('src/styles/index.css')
+      extract: 'src/styles/index.css'
     }),
   ],
   external: ['react', 'react-dom', 'aws-amplify']
