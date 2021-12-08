@@ -50,6 +50,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "autoprefixer": "^10.4.0",
     "aws-amplify": "^4.3.10",
