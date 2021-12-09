@@ -220,8 +220,23 @@ const FormComponent: FC<FormComponentProps> = ({
     return <Fragment></Fragment>;
   };
 
+  const deepCopyValues = (values: FormValues) => {
+    const copiedValue = {...values};
+    Object.keys(values).forEach(key => {
+      const value = values[key]
+      if (
+        typeof value === 'object' &&
+        !(value instanceof File) &&
+        !Array.isArray(value) &&
+        value !== null) {
+          loadashSet(copiedValue, key, deepCopyValues({...value})) 
+        }
+    })
+    return copiedValue;
+  }
+
   const fixMultipleSelectValues = (values: FormValues) => {
-    const fixedValues = { ...values };
+    const fixedValues = deepCopyValues(values) as FormValues;
     listFields.forEach(key => {
       const value = loadashGet(fixedValues, key) as (Option | Option[]);
       if (Array.isArray(value)) {
