@@ -22,13 +22,7 @@ import {
 import { Formik, Form, FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
 import loadashGet from 'lodash/get';
-import {
-  FormComponentProps,
-  FormSchema,
-  FormTheme,
-  FormValues,
-  Option,
-} from '../../types';
+import { FormComponentProps, FormSchema, FormTheme, FormValues, Option } from '../../types';
 
 const FormComponent: FC<FormComponentProps> = ({
   label,
@@ -52,8 +46,10 @@ const FormComponent: FC<FormComponentProps> = ({
 
   const listFields: Set<string> = new Set();
 
-  const [formData, setFormData] =
-    useState<{ initialValues: FormValues; validationSchema: AnySchema }>();
+  const [formData, setFormData] = useState<{
+    initialValues: FormValues;
+    validationSchema: AnySchema;
+  }>();
 
   useEffect(() => {
     yupSetLocale({
@@ -109,7 +105,7 @@ const FormComponent: FC<FormComponentProps> = ({
         if (kind == 'float') return yupNumber();
         if (kind == 'number') return yupNumber();
         if (kind == 'boolean') return yupBoolean();
-        if (kind == 'select' || kind == 'relationship')  {
+        if (kind == 'select' || kind == 'relationship') {
           const shape: { [k: string]: AnySchema } = {};
           Object.keys(options![0]).forEach(field => (shape[field] = yupString()));
           return yupObject().shape(shape);
@@ -128,10 +124,9 @@ const FormComponent: FC<FormComponentProps> = ({
       Object.keys(aFormSchema).map(fieldName => {
         const fieldInfos = aFormSchema[fieldName]! as FormSchema;
         const validationObject = validationObjectFrom(fieldInfos);
-        shape[fieldName] = (
-          fieldInfos.required && !fieldInfos.readOnly
-            ? validationObject.required()
-            : validationObject
+        shape[fieldName] = (fieldInfos.required && !fieldInfos.readOnly
+          ? validationObject.required()
+          : validationObject
         ).label(fieldInfos.label || fieldName);
       });
       return validationSchemaTemp.shape(shape);
@@ -226,22 +221,28 @@ const FormComponent: FC<FormComponentProps> = ({
   };
 
   const fixMultipleSelectValues = (values: FormValues) => {
-    const fixedValues = {...values}
+    const fixedValues = { ...values };
     listFields.forEach(key => {
-      const options = loadashGet(fixedValues, key) as Option[];
-      if (options)
-        loadashSet(
-          fixedValues,
-          key,
-          options.map(option => option.value)
-        );
+      const value = loadashGet(fixedValues, key) as (Option | Option[]);
+      if (Array.isArray(value)) {
+        const options = value as Option[];
+        if (options)
+          loadashSet(
+            fixedValues,
+            key,
+            options.map(option => option.value)
+          );
+      } else {
+        const option = value as Option;
+        if (option) loadashSet(fixedValues, key, option.value);
+      }
     });
     return fixedValues;
   };
 
   const submitHandler = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
     const fixedValues = fixMultipleSelectValues(values);
-    alert(JSON.stringify(fixedValues, null, 2))
+    alert(JSON.stringify(fixedValues, null, 2));
     onSubmit ? await onSubmit(fixedValues, formikHelpers) : null;
   };
 
@@ -252,7 +253,8 @@ const FormComponent: FC<FormComponentProps> = ({
           enableReinitialize
           initialValues={formData.initialValues}
           validationSchema={formData.validationSchema}
-          onSubmit={submitHandler}>
+          onSubmit={submitHandler}
+        >
           {({ isSubmitting, isValid }) => {
             return (
               <Form noValidate>
