@@ -109,7 +109,7 @@ const FormComponent: FC<FormComponentProps> = ({
         if (kind == 'float') return yupNumber();
         if (kind == 'number') return yupNumber();
         if (kind == 'boolean') return yupBoolean();
-        if (kind == 'select')  {
+        if (kind == 'select' || kind == 'relationship')  {
           const shape: { [k: string]: AnySchema } = {};
           Object.keys(options![0]).forEach(field => (shape[field] = yupString()));
           return yupObject().shape(shape);
@@ -120,7 +120,6 @@ const FormComponent: FC<FormComponentProps> = ({
           return yupArray().of(yupObject().shape(shape));
         }
         if (kind == 'file') return yupMixed();
-        if (kind == 'relationship') return yupString().oneOf(options!.map(option => option.value));
         if (kind == 'id') return yupString();
         return getValidationSchema(otherFormSchemaFields);
       };
