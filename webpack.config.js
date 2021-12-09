@@ -2,7 +2,7 @@ const isProductionMode = process.env.NODE_ENV === "production";
 const path = require('path')
 const pkg = require('./package.json');
 const nodeExternals = require('webpack-node-externals');
-// const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 
 module.exports = {
@@ -24,8 +24,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          // isProductionMode ? MiniCssExtractPlugin.loader : 'style-loader',
-          'style-loader',
+          isProductionMode ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
           'postcss-loader'
 
@@ -34,9 +33,7 @@ module.exports = {
     ],
   },
   target: "node",
-  // plugins: [
-  //   new MiniCssExtractPlugin(),
-  // ],
+  plugins: [ new MiniCssExtractPlugin() ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
