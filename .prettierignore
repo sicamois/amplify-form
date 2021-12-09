@@ -1,8 +1,0 @@
-node_modules
-public
-.*
-*.config.js
-package.json
-tsconfig.json
-README.md
-dist

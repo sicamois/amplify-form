@@ -1,10 +1,58 @@
-import { GraphQLJSONSchema, Field, Type, FormSchema, Option } from './types'
+import { capitalize } from './capitalize';
+import { FormSchema, Option } from '../types';
 
+interface Type {
+  kind: string;
+  name?: string;
+  ofType?: Type;
+}
+
+interface Field {
+  kind: string;
+  name: string;
+  description?: string;
+  args?: any[];
+  type?: Type;
+  fields?: Field[];
+  inputFields?: Field[];
+  interfaces?: any;
+  enumValues?: Field[];
+  isDeprecated?: boolean;
+  deprecationReason?: string;
+  defaultValue?: any;
+  possibleTypes?: any;
+}
+
+interface GraphQLJSONSchema {
+  data: {
+    __schema: {
+      queryType: any;
+      mutationType: any;
+      subscriptionType: any;
+      types: Field[];
+      directives: any[];
+    };
+  };
+}
 
 const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
   const types: Field[] | undefined = graphqlJSONSchema?.data.__schema?.types;
   if (!types) throw Error(`Invalid GraphQL JSON Schema`);
   return types;
+};
+
+const getLabel = (name: string, labelMap?: Map<string, string>) =>
+  capitalize(labelMap?.get(name) || name);
+
+const getEnumValues = (name: string, types: Field[], labelMap?: Map<string, string>): Option[] => {
+  const field = types.find(type => type.name == name && type.kind == 'ENUM');
+  if (!field) throw Error(`Unable to find enum ${name}`);
+  return field.enumValues!.map(value => {
+    return {
+      label: getLabel(value.name, labelMap),
+      value: value.name,
+    };
+  });
 };
 
 export const formSchemaFor = (
@@ -32,7 +80,7 @@ export const formSchemaFor = (
       if (type.name == 'ID') return { kind: 'relationship' };
       if (type.kind == 'SCALAR' && type.name != 'ID') return { kind: type.name!.toLowerCase() };
       if (type.kind == 'LIST') {
-        const ofFormSchema = fieldFrom(type.ofType!)!
+        const ofFormSchema = fieldFrom(type.ofType!)!;
         if (ofFormSchema.kind == 'select')
           return { kind: 'list', of: ofFormSchema, multiple: true };
       }
@@ -55,24 +103,4 @@ export const formSchemaFor = (
   };
 
   return formSchemaForTypes(fullname);
-};
-
-export const capitalize = (aString: string) => {
-  const capitalizedString = aString.charAt(0).toUpperCase() + aString.slice(1).toLowerCase();
-  const returnString = capitalizedString.replace('_', ' ');
-  return returnString;
-};
-
-const getLabel = (name: string, labelMap?: Map<string, string>) =>
-  capitalize(labelMap?.get(name) || name);
-
-const getEnumValues = (name: string, types: Field[], labelMap?: Map<string, string>): Option[] => {
-  const field = types.find(type => type.name == name && type.kind == 'ENUM');
-  if (!field) throw Error(`Unable to find enum ${name}`);
-  return field.enumValues!.map(value => {
-    return {
-      label: getLabel(value.name, labelMap),
-      value: value.name,
-    };
-  });
 };

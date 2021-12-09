@@ -8,5 +8,5 @@ export {
   MultipleSelectField,
   FilesDropField,
   SubmitButton,
-  fieldSizeMap
+  fieldSizeMap,
 } from './FormElements';

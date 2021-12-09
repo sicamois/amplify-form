@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import {
   FieldSet,
   TextField,
@@ -25,9 +23,15 @@ import {
 import { Formik, Form, FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
 import loadashGet from 'lodash/get';
-import { FormComponentProps, FormSchema, FormTheme, FormValues, Option } from '../../helpers/types';
+import {
+  FormComponentProps,
+  FormSchema,
+  FormTheme,
+  FormValues,
+  Option,
+} from '../../types';
 
-const FormComponent: React.FC<FormComponentProps> = ({
+const FormComponent: FC<FormComponentProps> = ({
   label,
   formSchema,
   onSubmit,
@@ -50,9 +54,9 @@ const FormComponent: React.FC<FormComponentProps> = ({
   const listFields: Set<string> = new Set();
 
   const [formData, setFormData] =
-    React.useState<{ initialValues: FormValues; validationSchema: AnySchema }>();
+    useState<{ initialValues: FormValues; validationSchema: AnySchema }>();
 
-    React.useEffect(() => {
+  useEffect(() => {
     yupSetLocale({
       mixed: {
         required: '${label} ' + required,
@@ -150,16 +154,16 @@ const FormComponent: React.FC<FormComponentProps> = ({
     const explicitName = (prefix ? prefix + '.' : '') + name;
 
     if (!formSchema) {
-      return <></>;
+      return <Fragment></Fragment>;
     }
 
     if (!kind)
       return (
         <FieldSet name={name} label={label || defaultLabel}>
           {Object.keys(props!).map(fieldName => (
-            <div key={fieldName}>
+            <Fragment key={fieldName}>
               {getFormElement(fieldName, props[fieldName]! as FormSchema, name, theme)}
-            </div>
+            </Fragment>
           ))}
         </FieldSet>
       );
@@ -216,7 +220,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
     if (kind == 'file')
       return <FilesDropField name={explicitName} label={label} {...props}></FilesDropField>;
 
-    return <></>;
+    return <Fragment></Fragment>;
   };
 
   //     case 'relationship':
@@ -257,7 +261,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
   };
 
   return (
-    <>
+    <Fragment>
       {formData ? (
         <Formik
           enableReinitialize
@@ -286,7 +290,7 @@ const FormComponent: React.FC<FormComponentProps> = ({
           }}
         </Formik>
       ) : null}
-    </>
+    </Fragment>
   );
 };
 

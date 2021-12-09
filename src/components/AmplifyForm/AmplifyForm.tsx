@@ -1,11 +1,10 @@
-import './styles/index.css'
-import React from 'react';
-import Amplify, { Storage } from 'aws-amplify';
-import FormComponent from './components/FormComponent';
-import { formSchemaFor } from './helpers/graphql-helpers';
+import React, { FC } from 'react';
+import { Amplify, Storage } from 'aws-amplify';
+import FormComponent from '../FormComponent';
+import { formSchemaFor } from '../../utils/form-schema';
+import { parseObject } from '../../utils/parse-object';
 import { FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
-import { parseObject } from './helpers/object-helpers';
 import {
   AmplifyFormProps,
   FormSchema,
@@ -13,9 +12,9 @@ import {
   FormValues,
   FileWithStorageKey,
   ObjectWithKey,
-} from './helpers/types';
+} from '../../types';
 
-const AmplifyForm: React.FC<AmplifyFormProps> = ({
+const AmplifyForm: FC<AmplifyFormProps> = ({
   amplifyConfig,
   graphQLJSONSchema,
   entity,
@@ -52,7 +51,7 @@ const AmplifyForm: React.FC<AmplifyFormProps> = ({
     } catch ({ errors }) {
       const readbleErrors = errors as unknown as { message: string }[];
       throw new Error(readbleErrors.map(error => error.message).join(','));
-    }
+    } 
   };
 
   const uploadFiles = async (values: FormValues, fileFieldName: string) => {
@@ -67,14 +66,15 @@ const AmplifyForm: React.FC<AmplifyFormProps> = ({
           })
         );
       }
+      return;
     } else {
       const file = values[fileFieldName] as FileWithStorageKey;
       if (file.name) {
         file.storageKey = await uploadFile(file);
         return file;
       }
+      return;
     }
-    return
   };
 
   const submitAndUpload = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
@@ -89,7 +89,7 @@ const AmplifyForm: React.FC<AmplifyFormProps> = ({
   };
 
   const trimValues = (values: FormValues) => {
-    const action = (object: ObjectWithKey, _key: string, keyWithPrefix: string, value: unknown) => {
+    const action = (object: ObjectWithKey, _key: string, keyWithPrefix: string, value: any) => {
       if (value == '') {
         loadashSet(object, keyWithPrefix, null);
       }

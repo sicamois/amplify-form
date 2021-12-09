@@ -1,34 +1,32 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React from 'react';
+import React, { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { FilesDropInputProps, FileWithSize } from '../../helpers/types';
+import { FilesDropInputProps, FileWithSize } from '../../types';
 
 const defaultInstructionsStyle =
   'bg-gray-100 border-2 border-gray-400 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';
 
-const FilesDropInput: React.FC<FilesDropInputProps> = ({
+const FilesDropInput: FC<FilesDropInputProps> = ({
   text = "Drag 'n' drop some files here, or click to select files",
   className = defaultInstructionsStyle,
   fileType = 'image/*',
   thumbnailSize,
   getFiles,
   multiple,
-  value
+  value,
 }) => {
-  const [files, setFiles] = React.useState<FileWithSize[]>([]);
-  const [dragId, setDragId] = React.useState<number | undefined>();
-
+  const [files, setFiles] = useState<FileWithSize[]>([]);
+  const [dragId, setDragId] = useState<number | undefined>();
 
   // Reset Files when Form is reset (initialValue = '')
-  React.useEffect(() => {
+  useEffect(() => {
     if (value == '') {
       // make sure to revoke the data uris to avoid memory leaks
-      files.forEach(file => file.preview ? URL.revokeObjectURL(file.preview) : null)
-      setFiles([])
+      files.forEach(file => (file.preview ? URL.revokeObjectURL(file.preview) : null));
+      setFiles([]);
     }
-  }, [value])
+  }, [value]);
 
-  const onDrop = React.useCallback(
+  const onDrop = useCallback(
     async (acceptedFiles: FileWithSize[]) => {
       if (fileType.startsWith('image/')) {
         const readImageAsync = async (imageSrc: string) => {
@@ -47,7 +45,7 @@ const FilesDropInput: React.FC<FilesDropInputProps> = ({
 
         const imageFromFile = async (file: FileWithSize) => {
           return new Promise<HTMLImageElement>((resolve, reject) => {
-            const reader = new FileReader();
+            let reader = new FileReader();
 
             reader.onload = async () => {
               const image = await readImageAsync(reader.result as string);
@@ -76,7 +74,7 @@ const FilesDropInput: React.FC<FilesDropInputProps> = ({
     [getFiles, fileType]
   );
 
-  const onDragStart: React.DragEventHandler<HTMLImageElement> = dragEvent => {
+  const onDragStart: DragEventHandler<HTMLImageElement> = dragEvent => {
     const image = dragEvent.target as HTMLImageElement;
     setDragId(+image.id);
     dragEvent.dataTransfer.effectAllowed = 'move';
@@ -84,27 +82,27 @@ const FilesDropInput: React.FC<FilesDropInputProps> = ({
     image.style.opacity = '0.01';
   };
 
-  const onDragOver: React.DragEventHandler<HTMLElement> = dragEvent => {
+  const onDragOver: DragEventHandler<HTMLElement> = dragEvent => {
     dragEvent.preventDefault();
     return false;
   };
 
-  const onDragEnter: React.DragEventHandler<HTMLElement> = dragEvent => {
+  const onDragEnter: DragEventHandler<HTMLElement> = dragEvent => {
     const imageUnderneath = dragEvent.target as HTMLImageElement;
     if (+imageUnderneath.id != dragId) imageUnderneath.style.opacity = '0.5';
   };
 
-  const onDragLeave: React.DragEventHandler<HTMLElement> = dragEvent => {
+  const onDragLeave: DragEventHandler<HTMLElement> = dragEvent => {
     const imageUnderneath = dragEvent.target as HTMLImageElement;
     if (+imageUnderneath.id != dragId) imageUnderneath.style.opacity = '1';
   };
 
-  const onDragEnd: React.DragEventHandler<HTMLElement> = dragEvent => {
+  const onDragEnd: DragEventHandler<HTMLElement> = dragEvent => {
     const image = dragEvent.target as HTMLImageElement;
     image.style.opacity = '1';
   };
 
-  const onDropImage: React.DragEventHandler<HTMLImageElement> = dragEvent => {
+  const onDropImage: DragEventHandler<HTMLImageElement> = dragEvent => {
     const dropImage = dragEvent.target as HTMLImageElement;
     dropImage.style.opacity = '1';
     const dropId = +dropImage.id;

@@ -1,6 +1,6 @@
 import { HTMLProps } from 'react';
 import { FormikHelpers } from 'formik';
-import { fieldSizeMap } from '../components/FormElements'
+import { fieldSizeMap } from './components/FormElements';
 
 export type Value = string | number | boolean | string[] | Option[] | FileWithSize | FileWithSize[];
 
@@ -159,6 +159,5 @@ export interface SubmitButtonProps extends HTMLProps<HTMLButtonElement> {
 }
 
 export interface ObjectWithKey {
-    [key: string]: ObjectWithKey | any
+  [key: string]: ObjectWithKey | any;
 }
-

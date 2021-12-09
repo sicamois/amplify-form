@@ -14,72 +14,62 @@
     "ui"
   ],
   "version": "0.2.1-beta.53",
-  "license": "MIT",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/index.esm.js",
+  "license": "MIT",
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "sideEffects": false,
   "engines": {
-    "node": ">=15",
-    "npm": ">=5"
+    "node": ">=10"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sicamois/amplify-form.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "rm -rf dist && yarn build:webpack",
-    "start": "rm -rf dist && rollup -c -w",
-    "prettify": "prettier --write src",
-    "build:rollup": "rollup -c",
-    "build:ts": "NODE_ENV=production tsc -p .",
-    "build:webpack": "NODE_ENV=production webpack",
-    "build:tailwind": "NODE_ENV=production postcss ./src/styles/index.css -o ./src/styles/tailwind.css",
+    "dev": "next dev",
+    "start": "next start",
+    "lint": "next lint",
+    "build": "rm -r -f dist && yarn build:tsdx",
+    "build:tsdx": "tsdx build --name amplify-form --format cjs,esm,umd --tsconfig ./tsconfig.tsdx.json",
     "version-beta": "yarn build && npm version prerelease --preid=beta",
     "version-minor": "yarn build && npm version minor"
   },
-  "dependencies": {
-    "formik": "^2.2.9",
-    "lodash": "^4.17.21",
-    "react-dropzone": "^11.4.2",
-    "react-select": "^5.2.1",
-    "yup": "^0.32.11"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
-    "@babel/preset-react": "^7.16.0",
-    "@babel/preset-typescript": "^7.16.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.6.0",
-    "@typescript-eslint/parser": "^5.6.0",
+    "@types/lodash": "^4.14.178",
+    "@types/node": "16.11.12",
+    "@types/react": "17.0.37",
     "autoprefixer": "^10.4.0",
     "aws-amplify": "^4.3.10",
-    "babel-loader": "^8.2.3",
-    "css-loader": "^6.5.1",
-    "eslint": "^8.4.1",
-    "eslint-plugin-react": "^7.27.1",
-    "mini-css-extract-plugin": "^2.4.5",
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7",
+    "formik": "^2.2.9",
+    "loadash": "^1.0.0",
+    "next": "12.0.7",
     "postcss": "^8.4.4",
-    "postcss-import": "^14.0.2",
-    "postcss-loader": "^6.2.1",
-    "prettier": "^2.5.0",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "style-loader": "^3.3.1",
+    "prismjs": "^1.25.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-dropzone": "^11.4.2",
+    "react-select": "^5.2.1",
     "tailwindcss": "^2.2.19",
+    "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
-    "typescript": "^4.5.2",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-node-externals": "^3.0.0"
+    "typescript": "4.5.2",
+    "yup": "^0.32.11"
   },
   "peerDependencies": {
-    "aws-amplify": "^4.3.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "aws-amplify": "^4.3",
+    "react": "^16 || ^17 || ^18",
+    "react-dom": "^16 || ^17 || ^18"
   }
 }
