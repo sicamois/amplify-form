@@ -2,6 +2,7 @@
 // https://tailwindcss.com/docs/using-with-preprocessors
 module.exports = {
   plugins: {
+    'postcss-import': {},
     tailwindcss: {},
     autoprefixer: {},
     cssnano: {
