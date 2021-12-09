@@ -1,7 +1,7 @@
 import './styles/index.css'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FC } from 'react';
-import { Amplify, Storage } from 'aws-amplify';
+import Amplify, { Storage } from 'aws-amplify';
 import FormComponent from './components/FormComponent';
 import { formSchemaFor } from './helpers/graphql-helpers';
 import { FormikHelpers } from 'formik';

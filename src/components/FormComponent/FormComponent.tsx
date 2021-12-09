@@ -187,19 +187,19 @@ const FormComponent: FC<FormComponentProps> = ({
           {...props}
         />
       );
-    
+
     if (kind == 'relationship')
-        return (
+      return (
         <FieldSet name={name} label={label}>
           <SelectField
-          name={explicitName}
-          label={''}
-          options={options!}
-          selectLabel={select}
-          {...props}
-        />
-      </FieldSet>
-        )
+            name={explicitName}
+            label={''}
+            options={options!}
+            selectLabel={select}
+            {...props}
+          />
+        </FieldSet>
+      );
 
     if (kind == 'list' && of?.kind == 'select') {
       listFields.add(explicitName);
