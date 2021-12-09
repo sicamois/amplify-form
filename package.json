@@ -13,7 +13,7 @@
     "react-component",
     "ui"
   ],
-  "version": "0.2.1-beta.48",
+  "version": "0.2.1-beta.49",
   "license": "MIT",
   "main": "dist/index.js",
   "engines": {
