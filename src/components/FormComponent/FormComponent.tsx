@@ -110,9 +110,14 @@ const FormComponent: FC<FormComponentProps> = ({
         if (kind == 'float') return yupNumber();
         if (kind == 'number') return yupNumber();
         if (kind == 'boolean') return yupBoolean();
-        if ((kind == 'list' && of!.options) || kind == 'select') {
+        if (kind == 'select')  {
           const shape: { [k: string]: AnySchema } = {};
-          Object.keys(of?.options![0] || options![0]).forEach(field => (shape[field] = yupString()));
+          Object.keys(options![0]).forEach(field => (shape[field] = yupString()));
+          return yupObject().shape(shape);
+        }
+        if (kind == 'list' && of!.options) {
+          const shape: { [k: string]: AnySchema } = {};
+          Object.keys(of!.options![0]).forEach(field => (shape[field] = yupString()));
           return yupArray().of(yupObject().shape(shape));
         }
         if (kind == 'file') return yupMixed();
