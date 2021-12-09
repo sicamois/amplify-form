@@ -6,7 +6,6 @@ import {
   CheckboxField,
   NumberField,
   SelectField,
-  MultipleSelectField,
   FilesDropField,
   SubmitButton,
 } from '../FormElements';
@@ -198,7 +197,7 @@ const FormComponent: FC<FormComponentProps> = ({
     if ((kind == 'list' && of?.kind == 'select') || kind == 'select') {
       listFields.add(explicitName);
       return (
-        <MultipleSelectField
+        <SelectField
           name={explicitName}
           label={label}
           options={of?.options || options!}
@@ -256,7 +255,7 @@ const FormComponent: FC<FormComponentProps> = ({
           onSubmit={submitHandler}>
           {({ isSubmitting, isValid }) => {
             return (
-              <Form noValidate className="needs-validation">
+              <Form noValidate>
                 <div className="flex flex-col gap-4">
                   {getFormElement('', formSchema, '', theme)}
                   <div className="flex flex-row gap-4 items-center">

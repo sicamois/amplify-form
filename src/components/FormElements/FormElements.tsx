@@ -9,6 +9,7 @@ import {
   FilesDropFieldProps,
   FileWithSize,
   SubmitButtonProps,
+  FormValues,
 } from '../../types';
 
 const fieldSetStyle = 'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
@@ -128,30 +129,30 @@ export const TextAreaField: FC<FieldProps> = ({
   );
 };
 
-export const SelectField: FC<SelectFieldProps> = ({
-  name,
-  fieldSize = 'full',
-  theme,
-  options,
-  selectLabel = 'Select',
-  ...rest
-}) => {
-  return (
-    <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
-      <Field
-        as="select"
-        className={`${theme?.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)}`}
-        id={name}
-        name={name}
-        {...rest}>
-        <option value="">{selectLabel}</option>
-        {options.map(option => (
-          <option key={option.value} value={option.value} label={option.label || option.value} />
-        ))}
-      </Field>
-    </FieldWithError>
-  );
-};
+// export const SelectField: FC<SelectFieldProps> = ({
+//   name,
+//   fieldSize = 'full',
+//   theme,
+//   options,
+//   selectLabel = 'Select',
+//   ...rest
+// }) => {
+//   return (
+//     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
+//       <Field
+//         as="select"
+//         className={`${theme?.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)}`}
+//         id={name}
+//         name={name}
+//         {...rest}>
+//         <option value="">{selectLabel}</option>
+//         {options.map(option => (
+//           <option key={option.value} value={option.value} label={option.label || option.value} />
+//         ))}
+//       </Field>
+//     </FieldWithError>
+//   );
+// };
 
 const customStyles: StylesConfig<Option, true> = {
   control: styles => ({
@@ -170,7 +171,7 @@ const customStyles: StylesConfig<Option, true> = {
   }),
 };
 
-export const MultipleSelectField: FC<SelectFieldProps> = ({
+export const SelectField: FC<SelectFieldProps> = ({
   fieldSize = 'md',
   theme,
   placeholder = '',
@@ -179,8 +180,18 @@ export const MultipleSelectField: FC<SelectFieldProps> = ({
   multiple,
   ...rest
 }) => {
+
+  const fieldname = rest.name;
+
+  const validate = (value: FormValues ) => {
+    if (value[fieldname] == '') {
+      return 'Required';
+    }
+    return;
+  };
+
   const [{ name, onChange, ...otherFieldProps }, , { setValue }] =
-    useField<MultiValue<Option>>(rest);
+    useField<MultiValue<Option>>({ validate, ...rest });
     
   return (
     <FieldWithError fieldSize={fieldSize} theme={theme} {...rest}>

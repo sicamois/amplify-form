@@ -5,7 +5,6 @@ export {
   CheckboxField,
   NumberField,
   SelectField,
-  MultipleSelectField,
   FilesDropField,
   SubmitButton,
   fieldSizeMap,
