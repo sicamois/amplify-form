@@ -48,9 +48,14 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
         contentType: file.type,
       });
       return putResult.key;
-    } catch ({ errors }) {
-      const readbleErrors = errors as unknown as { message: string }[];
-      throw new Error(readbleErrors.map(error => error.message).join(','));
+    } catch (value) {
+      if ((value as any)?.errors) {
+        const readbleErrors = value as unknown as { message: string }[]
+        throw new Error(readbleErrors.map(error => error.message).join(','));
+      } else {
+        const error = value as Error
+        throw error
+      }
     } 
   };
 
