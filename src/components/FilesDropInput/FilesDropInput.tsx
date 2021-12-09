@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
+import React, { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FilesDropInputProps, FileWithSize } from '../../helpers/types';
 
