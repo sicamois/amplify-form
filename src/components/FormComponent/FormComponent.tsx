@@ -197,7 +197,7 @@ const FormComponent: FC<FormComponentProps> = ({
         <MultipleSelectField
           name={explicitName}
           label={label}
-          options={of?.options! || options!}
+          options={of?.options || options!}
           selectLabel={select}
           {...props}
         />
