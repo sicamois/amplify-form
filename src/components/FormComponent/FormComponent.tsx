@@ -223,25 +223,6 @@ const FormComponent: FC<FormComponentProps> = ({
     return <Fragment></Fragment>;
   };
 
-  //     case 'relationship':
-  //       if (relationships) {
-  //         const typedProps = props as SelectFieldProps;
-  //         const relation = relationships.find(
-  //           relationship => (relationship.name = typedProps.name)
-  //         );
-  //         typedProps.options = relation?.options || [];
-  //         typedProps.label = relation?.label || props.name;
-  //         return (
-  //           <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4">
-  //             <legend className="text-red-900 font-black text-lg px-2">
-  //               {fieldLabel(typedProps.label!)}
-  //             </legend>
-  //             <SelectField {...typedProps} />
-  //           </fieldset>
-  //         );
-  //       }
-  //       break;
-
   const fixMultipleSelectValues = (values: FormValues) => {
     listFields.forEach(key => {
       const options = loadashGet(values, key) as Option[];

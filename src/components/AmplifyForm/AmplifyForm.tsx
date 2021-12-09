@@ -78,14 +78,23 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   };
 
   const submitAndUpload = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
-    await Promise.all(
-      Object.keys(formSchema).map(async fieldname => {
-        const fieldProps = formSchema[fieldname] as FormSchema;
-        if (fieldProps.kind == 'file') values[fieldname] = await uploadFiles(values, fieldname);
-      })
-    );
-    trimValues(values);
-    onSubmit ? await onSubmit(values, formikHelpers) : null;
+    const { resetForm, setSubmitting } = formikHelpers;
+    try {
+      await Promise.all(
+        Object.keys(formSchema).map(async fieldname => {
+          const fieldProps = formSchema[fieldname] as FormSchema;
+          if (fieldProps.kind == 'file') values[fieldname] = await uploadFiles(values, fieldname);
+        })
+      );
+      trimValues(values);
+      onSubmit ? await onSubmit(values, formikHelpers) : null;
+      resetForm()
+    } catch (error) {
+      const typedError = error as Error;
+      alert(`Error : ${typedError.message} \n${typedError.stack}`)
+    } finally {
+      setSubmitting(false)
+    }
   };
 
   const trimValues = (values: FormValues) => {
