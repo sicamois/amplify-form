@@ -224,16 +224,17 @@ const FormComponent: FC<FormComponentProps> = ({
   };
 
   const fixMultipleSelectValues = (values: FormValues) => {
+    const fixedValues = {...values}
     listFields.forEach(key => {
-      const options = loadashGet(values, key) as Option[];
+      const options = loadashGet(fixedValues, key) as Option[];
       if (options)
         loadashSet(
-          values,
+          fixedValues,
           key,
           options.map(option => option.value)
         );
     });
-    return values;
+    return fixedValues;
   };
 
   const submitHandler = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
