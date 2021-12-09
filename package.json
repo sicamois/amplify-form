@@ -42,7 +42,13 @@
     "version-beta": "yarn build && npm version prerelease --preid=beta",
     "version-minor": "yarn build && npm version minor"
   },
-  "dependencies": {},
+  "dependencies": {
+    "formik": "^2.2.9",
+    "loadash": "^1.0.0",
+    "react-dropzone": "^11.4.2",
+    "react-select": "^5.2.1",
+    "yup": "^0.32.11"
+  },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@types/lodash": "^4.14.178",
@@ -53,22 +59,17 @@
     "cssnano": "^5.0.12",
     "eslint": "8.4.1",
     "eslint-config-next": "12.0.7",
-    "formik": "^2.2.9",
-    "loadash": "^1.0.0",
     "next": "12.0.7",
     "postcss": "^8.4.4",
     "postcss-import": "^14.0.2",
     "prismjs": "^1.25.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-dropzone": "^11.4.2",
-    "react-select": "^5.2.1",
     "rollup-plugin-postcss": "^4.0.2",
     "tailwindcss": "^2.2.19",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
-    "typescript": "4.5.2",
-    "yup": "^0.32.11"
+    "typescript": "4.5.2"
   },
   "peerDependencies": {
     "aws-amplify": "^4.3",

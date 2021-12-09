@@ -1,6 +1,7 @@
 // If you want to use other PostCSS plugins, see the following:
 // https://tailwindcss.com/docs/using-with-preprocessors
 module.exports = {
+  extract: true,
   plugins: {
     'postcss-import': {},
     tailwindcss: {},
