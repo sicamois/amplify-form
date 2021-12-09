@@ -176,6 +176,7 @@ export const MultipleSelectField: FC<SelectFieldProps> = ({
   placeholder = '',
   options,
   selectLabel = 'Select',
+  multiple,
   ...rest
 }) => {
   const [{ name, onChange, ...otherFieldProps }, , { setValue }] =
@@ -188,7 +189,7 @@ export const MultipleSelectField: FC<SelectFieldProps> = ({
         <ReactSelect
           styles={customStyles}
           options={options}
-          isMulti
+          isMulti={multiple || undefined}
           isSearchable={false}
           placeholder={selectLabel}
           onChange={values => setValue(values)}

@@ -180,18 +180,18 @@ const FormComponent: FC<FormComponentProps> = ({
 
     if (kind == 'boolean') return <CheckboxField name={explicitName} label={label} {...props} />;
 
-    if (kind == 'select')
-      return (
-        <SelectField
-          name={explicitName}
-          label={label}
-          options={options!}
-          selectLabel={select}
-          {...props}
-        />
-      );
+    // if (kind == 'select')
+    //   return (
+    //     <SelectField
+    //       name={explicitName}
+    //       label={label}
+    //       options={options!}
+    //       selectLabel={select}
+    //       {...props}
+    //     />
+    //   );
 
-    if (kind == 'relationship')
+    if (kind == 'relationship' || kind == 'select')
       return (
         <FieldSet name={name} label={label}>
           <SelectField
