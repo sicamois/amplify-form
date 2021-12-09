@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { FC, Fragment } from 'react';
+import React from 'react';
 import { ErrorMessage, Field, useField } from 'formik';
 import ReactSelect, { MultiValue, StylesConfig } from 'react-select';
 import FilesDropInput from '../FilesDropInput';
@@ -39,7 +38,7 @@ export const fieldSizeMap: Map<string, string> = new Map([
   ['screen', 'w-screen'],
 ]);
 
-const FieldWithError: FC<FieldProps> = ({
+const FieldWithError: React.FC<FieldProps> = ({
   name,
   label,
   labelCentered,
@@ -48,7 +47,7 @@ const FieldWithError: FC<FieldProps> = ({
   children,
 }) => {
   return (
-    <Fragment>
+    <>
       <div className="py-2">
         <div className="relative">
           {children}
@@ -71,22 +70,22 @@ const FieldWithError: FC<FieldProps> = ({
           )}
         />
       </div>
-    </Fragment>
+    </>
   );
 };
 
-export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
+export const FieldSet: React.FC<FieldProps> = ({ label, theme, children }) => {
   return (
-    <Fragment>
+    <>
       <fieldset className={theme?.fieldSetStyle || fieldSetStyle}>
         <legend className={theme?.legendStyle || legendStyle}>{label}</legend>
         {children}
       </fieldset>
-    </Fragment>
+    </>
   );
 };
 
-export const TextField: FC<FieldProps> = ({
+export const TextField: React.FC<FieldProps> = ({
   name,
   fieldSize = 'full',
   theme,
@@ -107,7 +106,7 @@ export const TextField: FC<FieldProps> = ({
   );
 };
 
-export const TextAreaField: FC<FieldProps> = ({
+export const TextAreaField: React.FC<FieldProps> = ({
   name,
   fieldSize = 'full',
   theme,
@@ -128,7 +127,7 @@ export const TextAreaField: FC<FieldProps> = ({
   );
 };
 
-export const SelectField: FC<SelectFieldProps> = ({
+export const SelectField: React.FC<SelectFieldProps> = ({
   name,
   fieldSize = 'full',
   theme,
@@ -170,7 +169,7 @@ const customStyles: StylesConfig<Option, true> = {
   }),
 };
 
-export const MultipleSelectField: FC<SelectFieldProps> = ({
+export const MultipleSelectField: React.FC<SelectFieldProps> = ({
   fieldSize = '3xl',
   theme,
   options,
@@ -199,7 +198,7 @@ export const MultipleSelectField: FC<SelectFieldProps> = ({
   );
 };
 
-export const NumberField: FC<FieldProps> = ({
+export const NumberField: React.FC<FieldProps> = ({
   name,
   fieldSize = 'md',
   theme,
@@ -222,7 +221,7 @@ export const NumberField: FC<FieldProps> = ({
   );
 };
 
-export const CheckboxField: FC<FieldProps> = ({
+export const CheckboxField: React.FC<FieldProps> = ({
   name,
   fieldSize = 'md',
   theme,
@@ -243,7 +242,7 @@ export const CheckboxField: FC<FieldProps> = ({
   );
 };
 
-export const FilesDropField: FC<FilesDropFieldProps> = ({
+export const FilesDropField: React.FC<FilesDropFieldProps> = ({
   name,
   fieldSize = 'max',
   theme,
@@ -265,7 +264,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   };
 
   return (
-    <Fragment>
+    <>
       <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 px-2 py-4">
         <legend className="text-red-900 font-black text-lg px-2">{label}</legend>
         <div className="px-2">
@@ -281,20 +280,20 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
           </FieldWithError>
         </div>
       </fieldset>
-    </Fragment>
+    </>
   );
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme, type, ...rest }) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = ({ title, theme, type, ...rest }) => {
   return (
-    <Fragment>
+    <>
       <button
         type="submit"
         className={`disabled:opacity-70 ${theme?.submitButtonStyle || submitButtonStyle}`}
         {...rest}>
         {title}
       </button>
-    </Fragment>
+    </>
   );
 };

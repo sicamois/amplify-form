@@ -1,6 +1,5 @@
 import './styles/index.css'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { FC } from 'react';
+import React from 'react';
 import Amplify, { Storage } from 'aws-amplify';
 import FormComponent from './components/FormComponent';
 import { formSchemaFor } from './helpers/graphql-helpers';
@@ -16,7 +15,7 @@ import {
   ObjectWithKey,
 } from './helpers/types';
 
-const AmplifyForm: FC<AmplifyFormProps> = ({
+const AmplifyForm: React.FC<AmplifyFormProps> = ({
   amplifyConfig,
   graphQLJSONSchema,
   entity,
