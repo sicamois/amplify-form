@@ -1,2 +1,2 @@
 import './styles/global.css'
-export * from './components/AmplifyForm'
+export { default } from './components/AmplifyForm/AmplifyForm'
