@@ -5,24 +5,11 @@ const regeneratorRuntime = require("regenerator-runtime/runtime");
 
 module.exports = {
     "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "useBuiltIns": "entry",
-                "corejs": "3.0"
-            },
-        ],
-        [
-            "@babel/preset-react",
-            {
-                targets: {
-                    node: "current",
-                },
-            },
-        ],
+        "@babel/preset-env",
+        "@babel/preset-react",
         "@babel/preset-typescript",
     ],
-    // "plugins": [
-    //     "@babel/plugin-transform-runtime",
-    //   ]
+    "plugins": [
+        "@babel/plugin-proposal-class-properties",
+      ]
 }

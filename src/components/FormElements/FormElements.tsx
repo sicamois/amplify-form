@@ -1,4 +1,5 @@
-import React, { FC, Fragment } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FC, Fragment } from 'react';
 import { ErrorMessage, Field, useField } from 'formik';
 import ReactSelect, { MultiValue, StylesConfig } from 'react-select';
 import FilesDropInput from '../FilesDropInput';
@@ -172,11 +173,11 @@ const customStyles: StylesConfig<Option, true> = {
 export const MultipleSelectField: FC<SelectFieldProps> = ({
   fieldSize = '3xl',
   theme,
-  placeholder = '',
   options,
   selectLabel = 'Select',
   ...rest
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [{ name, onChange, ...otherFieldProps }, _, { setValue }] =
     useField<MultiValue<Option>>(rest);
 
@@ -225,7 +226,6 @@ export const CheckboxField: FC<FieldProps> = ({
   name,
   fieldSize = 'md',
   theme,
-  step = 1,
   ...rest
 }) => {
   return (
@@ -248,12 +248,15 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   fieldSize = 'max',
   theme,
   label,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   required,
   multiple,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   defaultValue,
   ...rest
 }) => {
-  const [field, _, helpers] = useField({ name, multiple });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [field, _meta, helpers] = useField({ name, multiple });
 
   const { setValue } = helpers;
   const { value } = field;
@@ -282,6 +285,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme, type, ...rest }) => {
   return (
     <Fragment>

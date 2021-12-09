@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FilesDropInputProps, FileWithSize } from '../../helpers/types';
 
@@ -46,7 +48,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
 
         const imageFromFile = async (file: FileWithSize) => {
           return new Promise<HTMLImageElement>((resolve, reject) => {
-            let reader = new FileReader();
+            const reader = new FileReader();
 
             reader.onload = async () => {
               const image = await readImageAsync(reader.result as string);

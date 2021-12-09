@@ -15,15 +15,11 @@
   ],
   "version": "0.2.1-beta.46",
   "license": "MIT",
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=15",
     "npm": ">=5"
   },
-  "files": [
-    "dist",
-    "README.md"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sicamois/amplify-form.git"
@@ -40,10 +36,6 @@
     "version-minor": "yarn build && npm version minor"
   },
   "dependencies": {
-    "@tailwindcss/forms": "^0.3.4",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "react-dropzone": "^11.4.2",
@@ -51,39 +43,38 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
-    "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "autoprefixer": "^10.4.0",
     "aws-amplify": "^4.3.10",
-    "babel-core": "^6.26.3",
     "babel-loader": "^8.2.3",
-    "babel-runtime": "^6.26.0",
     "css-loader": "^6.5.1",
     "eslint": "^8.4.1",
     "eslint-plugin-react": "^7.27.1",
-    "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.4",
     "postcss-import": "^14.0.2",
     "postcss-loader": "^6.2.1",
     "prettier": "^2.5.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "rollup": "^2.60.2",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-typescript2": "^0.31.1",
     "style-loader": "^3.3.1",
     "tailwindcss": "^2.2.19",
     "tslib": "^2.3.1",
     "typescript": "^4.5.2",
-    "typescript-plugin-css-modules": "^3.4.0",
+    "url-loader": "^4.1.1",
     "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
+    "webpack-cli": "^4.9.1",
+    "webpack-node-externals": "^3.0.0"
   },
   "peerDependencies": {
     "aws-amplify": "^4.3.0",

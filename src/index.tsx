@@ -1,5 +1,6 @@
 import './styles/index.css'
-import React, { FC } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FC } from 'react';
 import { Amplify, Storage } from 'aws-amplify';
 import FormComponent from './components/FormComponent';
 import { formSchemaFor } from './helpers/graphql-helpers';
@@ -89,7 +90,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   };
 
   const trimValues = (values: FormValues) => {
-    const action = (object: ObjectWithKey, _key: string, keyWithPrefix: string, value: any) => {
+    const action = (object: ObjectWithKey, _key: string, keyWithPrefix: string, value: unknown) => {
       if (value == '') {
         loadashSet(object, keyWithPrefix, null);
       }

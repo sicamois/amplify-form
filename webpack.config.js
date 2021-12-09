@@ -1,10 +1,19 @@
 const isProductionMode = process.env.NODE_ENV === "production";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const path = require('path')
+const pkg = require('./package.json');
+const nodeExternals = require('webpack-node-externals');
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 
 module.exports = {
   mode: isProductionMode ? "production" : "development",
+  entry: "./src/index.tsx", // <- starting point for bundle 
+  output: {
+    path: path.resolve(__dirname, 'dist'), //<-where to save ur bundle 
+    filename: "index.js", //<-filename for bundled file
+    library: pkg.name,
+    libraryTarget: "commonjs2" //<- to which version are we compiling js 
+  },
   module: {
     rules: [
       {
@@ -15,7 +24,8 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          isProductionMode ? MiniCssExtractPlugin.loader : 'style-loader',
+          // isProductionMode ? MiniCssExtractPlugin.loader : 'style-loader',
+          'style-loader',
           'css-loader',
           'postcss-loader'
 
@@ -23,17 +33,19 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new MiniCssExtractPlugin(),
-  ],
+  target: "node",
+  // plugins: [
+  //   new MiniCssExtractPlugin(),
+  // ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
-  externals: {
-    'aws-amplify': {
-      commonjs: "aws-amplify",
-      commonjs2: "aws-amplify",
-    },
+  externals: [nodeExternals()]
+  // externals: {
+  //   'aws-amplify': {
+  //     commonjs: "aws-amplify",
+  //     commonjs2: "aws-amplify",
+  //   },
     // Don't bundle react or react-dom      
     // react: {
     //   commonjs: "react",
@@ -47,5 +59,5 @@ module.exports = {
     //   amd: "ReactDOM",
     //   root: "ReactDOM"
     // }
-  }
+  // }
 };
