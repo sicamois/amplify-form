@@ -96,7 +96,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
       resetForm()
     } catch (error) {
       const typedError = error as Error;
-      alert(`Error : ${typedError.message} \n${typedError.stack}`)
+      alert(`Error : ${typedError.message}`)
     } finally {
       setSubmitting(false)
     }
