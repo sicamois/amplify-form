@@ -191,20 +191,7 @@ const FormComponent: FC<FormComponentProps> = ({
     //     />
     //   );
 
-    if (kind == 'relationship' || kind == 'select')
-      return (
-        <FieldSet name={name} label={label}>
-          <SelectField
-            name={explicitName}
-            label={''}
-            options={options!}
-            selectLabel={select}
-            {...props}
-          />
-        </FieldSet>
-      );
-
-    if (kind == 'list' && of?.kind == 'select') {
+    if ((kind == 'list' && of?.kind == 'select') || kind == 'select') {
       listFields.add(explicitName);
       return (
         <MultipleSelectField
@@ -216,6 +203,19 @@ const FormComponent: FC<FormComponentProps> = ({
         />
       );
     }
+
+    if (kind == 'relationship')
+      return (
+        <FieldSet name={name} label={label}>
+          <SelectField
+            name={explicitName}
+            label={''}
+            options={options!}
+            selectLabel={select}
+            {...props}
+          />
+        </FieldSet>
+      );
 
     if (kind == 'file')
       return <FilesDropField name={explicitName} label={label} {...props}></FilesDropField>;
