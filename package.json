@@ -39,8 +39,7 @@
     "build": "rm -r -f dist && yarn build:tsdx",
     "build:tsdx": "tsdx build --name amplify-form --format cjs,esm,umd --tsconfig ./tsconfig.tsdx.json",
     "version-beta": "yarn build && npm version prerelease --preid=beta",
-    "version-minor": "yarn build && npm version minor",
-    "version-preminor": "yarn build && npm version preminor"
+    "version-minor": "yarn build && npm version minor"
   },
   "dependencies": {
     "formik": "^2.2.9",
