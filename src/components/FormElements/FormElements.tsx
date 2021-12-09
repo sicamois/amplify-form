@@ -171,7 +171,7 @@ const customStyles: StylesConfig<Option, true> = {
 };
 
 export const MultipleSelectField: FC<SelectFieldProps> = ({
-  fieldSize = '3xl',
+  fieldSize = 'md',
   theme,
   placeholder = '',
   options,
