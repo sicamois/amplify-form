@@ -241,6 +241,7 @@ const FormComponent: FC<FormComponentProps> = ({
 
   const submitHandler = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
     const fixedValues = fixMultipleSelectValues(values);
+    alert(JSON.stringify(fixedValues, null, 2))
     onSubmit ? await onSubmit(fixedValues, formikHelpers) : null;
   };
 
