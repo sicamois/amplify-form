@@ -71,6 +71,6 @@ This library relies heavily on the tremendous work of others :
 - [React-Select](https://github.com/JedWatson/react-select) by [Jed Watson](https://github.com/JedWatson)
 - [React Dropzone](https://github.com/react-dropzone/react-dropzone) by [react-dropzone](https://github.com/react-dropzone)
   
-## [License](LICENSE)
+## License
 
-Under MIT License
+Under [MIT License](LICENSE)
