@@ -5,7 +5,7 @@ import { fieldSizeMap, textColorMap } from './components/FormElements/FormElemen
 export type Value = string | number | boolean | string[] | Option[] | FileWithSize | FileWithSize[];
 
 export interface FormTheme {
-  color?: TextColor;
+  color?: Color;
 }
 
 const fieldSizeMapKeys = Array.from(fieldSizeMap.keys());
@@ -14,7 +14,7 @@ export type FieldSize = typeof fieldSizeMapKeys[number];
 
 const textColorMapKeys = Array.from(textColorMap.keys());
 
-export type TextColor = typeof textColorMapKeys[number];
+export type Color = typeof textColorMapKeys[number];
 
 export interface FormValues {
   [k: string]: Value | FormValues | undefined;
