@@ -36,7 +36,7 @@ $ yarn add amplify-form
 
 ## Usage
 
-`create-item-page`:
+`create-item-page.js`:
 
 ```js
 // dependencies
@@ -61,7 +61,8 @@ export default function Home() {
 
 ```
 
-**Notes:**  
+### Notes
+
 You need to pass the name of the entity you want to create a new record of.  
 In this example, the *entity* is named *Item*.  
 Thus, the prop you need to pass is `entity='Item'`.  
