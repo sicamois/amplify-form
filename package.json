@@ -40,7 +40,7 @@
     "build": "rm -r -f dist && yarn build:tsdx",
     "build:tsdx": "tsdx build --name amplify-form --format cjs,esm,umd --tsconfig ./tsconfig.tsdx.json",
     "publish-beta": "yarn build && npm version prerelease --preid=beta && npm publish -tag=beta",
-    "publish-patch": "yarn build && npm version patch && npm publish",
+    "publish-patch": "yarn build && npm version patch && npm publish && git push",
     "publish-minor": "yarn build && npm version minor && npm publish",
     "publish-major": "yarn build && npm version major && npm publish",
     "login-npm": "npm adduser"
