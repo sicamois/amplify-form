@@ -154,16 +154,16 @@ const FormComponent: FC<FormComponentProps> = ({
       );
 
     if (kind == 'string' || kind == 'email' || kind == 'url')
-      return <TextField name={explicitName} label={label} {...props} />;
+      return <TextField name={explicitName} label={label} theme={theme} {...props} />;
 
-    if (kind == 'textarea') return <TextAreaField name={explicitName} label={label} {...props} />;
+    if (kind == 'textarea') return <TextAreaField name={explicitName} label={label} theme={theme} {...props} />;
 
-    if (kind == 'int') return <NumberField name={explicitName} label={label} {...props} />;
+    if (kind == 'int') return <NumberField name={explicitName} label={label} theme={theme} {...props} />;
 
     if (kind == 'float')
-      return <NumberField name={explicitName} label={label} {...props} step={0.01} />;
+      return <NumberField name={explicitName} label={label} theme={theme} {...props} step={0.01} />;
 
-    if (kind == 'boolean') return <CheckboxField name={explicitName} label={label} {...props} />;
+    if (kind == 'boolean') return <CheckboxField name={explicitName} label={label} theme={theme} {...props} />;
 
     // if (kind == 'select')
     //   return (
@@ -184,6 +184,7 @@ const FormComponent: FC<FormComponentProps> = ({
           label={label}
           options={of?.options || options!}
           selectLabel={select}
+          theme={theme}
           {...props}
         />
       );
@@ -197,13 +198,14 @@ const FormComponent: FC<FormComponentProps> = ({
             label={''}
             options={options!}
             selectLabel={select}
+            theme={theme}
             {...props}
           />
         </FieldSet>
       );
 
     if (kind == 'file')
-      return <FilesDropField name={explicitName} label={label} {...props}></FilesDropField>;
+      return <FilesDropField name={explicitName} label={label} theme={theme} {...props}></FilesDropField>;
 
     return <Fragment></Fragment>;
   };
