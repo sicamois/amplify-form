@@ -34,9 +34,35 @@ or
 $ yarn add amplify-form
 ```
 
-<!-- ## Usage
+## Usage
 
-### Typescript -->
+`create-item-page`:
+
+```js
+// dependencies
+import Amplify from 'aws-amplify';
+import AmpliForm from 'amplify-form';
+
+// Path to the JSON representation of the GraphQL Schema
+import schema from '../graphql/schema.json';
+
+export default function Home() {
+
+  return (
+    <div>
+        <h1>Create a new Item</h1>
+
+        <AmplifyForm
+          graphQLJSONSchema={schema}
+          entity='Item'
+          />
+    </div>
+  )
+}
+
+```
+
+**Note:** You need to pass the name of the entity you want to create a new record of. In this example, the *entity* is named *Item*. Thus, the prop you need to pass is `entity='Item`
 
 <!-- ## Add images or files
 
