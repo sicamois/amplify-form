@@ -1,5 +1,5 @@
 {
-  "name": "@sicamois/amplify-form",
+  "name": "amplify-form",
   "description": "Create Form for your GaphQL API in Amplify",
   "author": "Pierre-olivier Sicamois",
   "keywords": [
@@ -31,7 +31,7 @@
     "url": "git+https://github.com/sicamois/amplify-form.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
+    "registry": "https://npm.pkg.github.com/sicamois",
     "access": "public"
   },
   "scripts": {
