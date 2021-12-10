@@ -1,24 +1,20 @@
 import { HTMLProps } from 'react';
 import { FormikHelpers } from 'formik';
-import { fieldSizeMap } from './components/FormElements';
+import { fieldSizeMap, textColorMap } from './components/FormElements/FormElements';
 
 export type Value = string | number | boolean | string[] | Option[] | FileWithSize | FileWithSize[];
 
 export interface FormTheme {
-  fieldSetStyle?: string;
-  legendStyle?: string;
-  labelStyle?: string;
-  fieldStyle?: string;
-  checkboxStyle?: string;
-  multiSelectStyle?: string;
-  errorStyle?: string;
-  imagesDropLabelStyle?: string;
-  submitButtonStyle?: string;
+  color?: TextColor;
 }
 
 const fieldSizeMapKeys = Array.from(fieldSizeMap.keys());
 
 export type FieldSize = typeof fieldSizeMapKeys[number];
+
+const textColorMapKeys = Array.from(textColorMap.keys());
+
+export type TextColor = typeof textColorMapKeys[number];
 
 export interface FormValues {
   [k: string]: Value | FormValues | undefined;
