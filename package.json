@@ -31,6 +31,7 @@
     "url": "git+https://github.com/sicamois/amplify-form.git"
   },
   "publishConfig": {
+    "registry":"https://npm.pkg.github.com",
     "access": "public"
   },
   "scripts": {
