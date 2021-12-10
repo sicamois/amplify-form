@@ -5,3 +5,23 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/sicamois/amplify-form.svg?style=flat-square)](https://github.com/sicamois/amplify-form)
 
 Create Form for your GaphQL API in Amplify
+
+<!-- ## Installation -->
+
+<!-- ## Usage -->
+
+<!-- ## Add images or files
+
+### File field declaration
+
+### Amplify storage props -->
+
+<!-- ## Relationship -->
+
+<!-- ## Field labels -->
+
+<!-- ## Theming -->
+
+<!-- ## Field customisation -->
+
+<!-- ## Acknoledgement -->
