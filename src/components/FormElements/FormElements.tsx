@@ -18,12 +18,11 @@ const labelStyle =
   'text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm';
 const fieldStyle =
   'bg-transparent border-gray-300 text-gray-900 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0';
-const checkboxStyle =
-  'bg-transparent border-gray-300 rounded border-2 w-5 h-5 focus:ring-0';
+const checkboxStyle = 'bg-transparent border-gray-300 rounded border-2 w-5 h-5 focus:ring-0';
 const multiSelectStyle = 'border-gray-300 border-0 border-b-2 relative';
 const errorStyle = 'text-red-700 text-xs';
 const submitButtonStyle =
-  'hover:bg-red-800 w-min my-4 px-14 py-2 text-center text-xl font-bold text-white rounded shadow-xl';
+  'hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold text-white rounded shadow-xl';
 
 export const fieldSizeMap: Map<string, string> = new Map([
   ['xs', 'w-14'],
@@ -49,7 +48,7 @@ export const textColorMap: Map<string | undefined, string> = new Map([
   ['indigo', 'text-indigo-900'],
   ['purple', 'text-purple-900'],
   ['pink', 'text-pink-900'],
-  [undefined, 'text-red-900']
+  [undefined, 'text-red-900'],
 ]);
 
 export const borderColorMap: Map<string | undefined, string> = new Map([
@@ -63,7 +62,7 @@ export const borderColorMap: Map<string | undefined, string> = new Map([
   ['indigo', 'border-indigo-900'],
   ['purple', 'border-purple-900'],
   ['pink', 'border-pink-900'],
-  [undefined, 'border-red-900']
+  [undefined, 'border-red-900'],
 ]);
 
 export const bgColorMap: Map<string | undefined, string> = new Map([
@@ -77,7 +76,7 @@ export const bgColorMap: Map<string | undefined, string> = new Map([
   ['indigo', 'bg-indigo-900'],
   ['purple', 'bg-purple-900'],
   ['pink', 'bg-pink-900'],
-  [undefined, 'bg-red-900']
+  [undefined, 'bg-red-900'],
 ]);
 
 const FieldWithError: FC<FieldProps> = ({
@@ -98,7 +97,8 @@ const FieldWithError: FC<FieldProps> = ({
               className={`${labelStyle} peer-focus:${textColorMap.get(theme?.color)} ${
                 labelCentered ? 'text-center' : ''
               } ${fieldSizeMap.get(fieldSize)}`}
-              htmlFor={name}>
+              htmlFor={name}
+            >
               {label}
             </label>
           )}
@@ -106,9 +106,7 @@ const FieldWithError: FC<FieldProps> = ({
         <ErrorMessage
           name={name}
           render={msg => (
-            <div className={`${errorStyle} ${fieldSizeMap.get(fieldSize)}`}>
-              {msg}
-            </div>
+            <div className={`${errorStyle} ${fieldSizeMap.get(fieldSize)}`}>{msg}</div>
           )}
         />
       </div>
@@ -116,14 +114,10 @@ const FieldWithError: FC<FieldProps> = ({
   );
 };
 
-export const FieldSet: FC<FieldProps> = ({
-  label,
-  theme,
-  children,
-}) => {
+export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
   return (
     <fieldset className={fieldSetStyle}>
-      <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
+      <legend className={`disabled:opacity-70 ${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
       {children}
     </fieldset>
   );
@@ -139,7 +133,9 @@ export const TextField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(fieldSize)}`}
+        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+          fieldSize
+        )}`}
         type="text"
         id={name}
         name={name}
@@ -161,7 +157,9 @@ export const TextAreaField: FC<FieldProps> = ({
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
         as="textarea"
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(fieldSize)} focus:h-32`}
+        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+          fieldSize
+        )} focus:h-32`}
         id={name}
         name={name}
         placeholder={placeholder}
@@ -182,7 +180,9 @@ export const NumberField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(fieldSize)}`}
+        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+          fieldSize
+        )}`}
         type="number"
         id={name}
         name={name}
@@ -267,23 +267,23 @@ export const SelectField: FC<SelectFieldProps> = ({
   multiple,
   ...rest
 }) => {
-
   const fieldname = rest.name;
 
-  const validate = (value: FormValues ) => {
+  const validate = (value: FormValues) => {
     if (value[fieldname] == '') {
       return 'Required';
     }
     return;
   };
 
-  const [{ name, onChange, ...otherFieldProps }, , { setValue }] =
-    useField<MultiValue<Option>>({ validate, ...rest });
-    
+  const [{ name, onChange, ...otherFieldProps }, , { setValue }] = useField<MultiValue<Option>>({
+    validate,
+    ...rest,
+  });
+
   return (
     <FieldWithError fieldSize={fieldSize} theme={theme} {...rest}>
-      <div
-        className={`${multiSelectStyle} ${fieldSizeMap.get(fieldSize)}`}>
+      <div className={`${multiSelectStyle} ${fieldSizeMap.get(fieldSize)}`}>
         <ReactSelect
           styles={customStyles}
           options={options}
@@ -321,7 +321,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
       {/* <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 px-2 py-4"> */}
       <fieldset className={fieldSetStyle}>
         {/* <legend className="text-red-900 font-black text-lg px-2">{label}</legend> */}
-        <legend className={labelStyle}>{label}</legend>
+        <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
         <div className="px-2">
           <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
             <FilesDropInput
@@ -345,7 +345,8 @@ export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme, type, ...res
       <button
         type="submit"
         className={`disabled:opacity-70 ${bgColorMap.get(theme?.color)} ${submitButtonStyle}`}
-        {...rest}>
+        {...rest}
+      >
         {title}
       </button>
     </Fragment>
