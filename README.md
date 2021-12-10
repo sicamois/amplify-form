@@ -72,3 +72,5 @@ This library relies heavily on the tremendous work of others :
 - [React Dropzone](https://github.com/react-dropzone/react-dropzone) by [react-dropzone](https://github.com/react-dropzone)
   
 ## [License](LICENSE)
+
+Under MIT License
