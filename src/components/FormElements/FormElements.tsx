@@ -323,9 +323,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
 
   return (
     <Fragment>
-      {/* <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 px-2 py-4"> */}
       <fieldset className={fieldSetStyle}>
-        {/* <legend className="text-red-900 font-black text-lg px-2">{label}</legend> */}
         <legend className={`${textColorMap.get(theme.color)} ${legendStyle}`}>{label}</legend>
         <div className="px-2">
           <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
