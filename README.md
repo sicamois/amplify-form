@@ -95,7 +95,7 @@ In order to generate the JSON representation of the GraphQL schema, you need to 
 - For bugs and feature requests, please create an issue.
 - Pull requests must be accompanied by passing automated tests (`$ npm test`).
 
-## Acknoledgement
+## Acknowledgement
 
 This library relies heavily on the tremendous work of others :
 
