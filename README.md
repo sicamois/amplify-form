@@ -42,8 +42,7 @@ Import the component into your file. Pass the JSON representation of the GraphQL
 `create-item-page.js`:
 
 ```js
-// dependencies
-import Amplify from 'aws-amplify';
+// Import AmplifyForm
 import AmpliForm from 'amplify-form';
 
 // Path to the JSON representation of the GraphQL Schema
