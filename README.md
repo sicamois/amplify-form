@@ -64,14 +64,11 @@ export default function Home() {
 ### Notes
 
 You need to pass the name of the entity you want to create a new record of.  
-In this example, the *entity* is named *Item*.  
-Thus, the prop you need to pass is `entity='Item'`.  
+In this example, the *entity* is named *Item*. Thus, the prop you need to pass is `entity='Item'`.  
 
-The JSON representation of the GraphQL schema is by default located in the `graphql` folder (itself located on the project root or in the `src` folder.  
-Look for the `schema.json` file if you have any trouble.  
+The JSON representation of the GraphQL schema is by default located in the `graphql` folder (itself located on the project root or in the `src` folder. Look for the `schema.json` file if you have any trouble.  
 
-In order to generate the JSON representation of the GraphQL schema, you need to run Amplify codegen on the API at least once.  
-Generally, it means that you need to have executed the `Amplify push` command at least once.
+In order to generate the JSON representation of the GraphQL schema, you need to run Amplify codegen on the API at least once. Generally, it means that you need to have executed the `Amplify push` command at least once.
 
 <!-- ## Add images or files
 
