@@ -7,11 +7,12 @@
     "component",
     "form",
     "amplify",
-    "graphql",
+    "graphQL",
     "graph-ql",
     "aws",
     "react-component",
-    "ui"
+    "ui",
+    "typescript"
   ],
   "version": "0.4.1-beta.2",
   "main": "dist/index.js",
