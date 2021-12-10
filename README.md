@@ -38,7 +38,7 @@ $ yarn add amplify-form
 
 Import the component into your file. Pass the JSON representation of the GraphQL API that Amplify has generated for you and the name of the entity you want to edit.
 
-- Exemple page : `create-item-page.ts`:
+- Example page : `create-item-page.ts`:
 
 ```js
 // Import AmplifyForm
@@ -47,7 +47,7 @@ import AmpliForm from 'amplify-form';
 // Path to the JSON representation of the GraphQL Schema
 import schema from '../graphql/schema.json';
 
-// Import function to process the Form values
+// Import function to process the Form values (see below for example code)
 import addItem from '../utilities/add-item';
 
 export default Home = () => {
@@ -66,7 +66,7 @@ export default Home = () => {
 
 ```
 
-### Basic props
+### Required props
 
 - `entity`: the name of the entity you want to create a new record of.  
   In this example, the *entity* is named *Item*. Thus, the prop you need to pass is `entity='Item'`.  
@@ -77,7 +77,7 @@ export default Home = () => {
 - `onSubmit: async (values: FormValues) => void`: A callback function to retieves the form values. This object can directly be passed to Amplify `API.graphql()` function to add a new record.  
   The function can be asynchronous.
 
-  Exemple function : `utilities/add-item.ts`
+  Example function : `utilities/add-item.ts`
 
   ```js
   // Import Amplify
