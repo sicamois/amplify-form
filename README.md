@@ -4,9 +4,19 @@
 [![npm](https://img.shields.io/npm/dt/amplify-form.svg?style=flat-square)](https://www.npmjs.com/package/amplify-form)
 [![GitHub last commit](https://img.shields.io/github/last-commit/sicamois/amplify-form.svg?style=flat-square)](https://github.com/sicamois/amplify-form)
 
-Create Form for your GaphQL API in Amplify
+> Create Form for your GaphQL API in Amplify
 
-<!-- ## Installation -->
+## Installation
+
+```console
+$ npm install amplify-form
+```
+
+or
+
+```console
+$ yarn add amplify-form
+```
 
 <!-- ## Usage
 
