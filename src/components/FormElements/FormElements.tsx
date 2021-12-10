@@ -68,7 +68,6 @@ export const borderColorMap: Map<string | undefined, string> = new Map([
 
 export const bgColorMap: Map<string | undefined, string> = new Map([
   ['black', 'bg-black'],
-  ['white', 'bg-white'],
   ['gray', 'bg-gray-900'],
   ['red', 'bg-red-900'],
   ['blue', 'bg-blue-900'],
@@ -81,8 +80,8 @@ export const bgColorMap: Map<string | undefined, string> = new Map([
 ]);
 
 const defaultTheme: FormTheme = {
-  color: 'red'
-}
+  color: 'red',
+};
 
 const FieldWithError: FC<FieldProps> = ({
   name,
@@ -122,7 +121,7 @@ const FieldWithError: FC<FieldProps> = ({
 export const FieldSet: FC<FieldProps> = ({ label, theme = defaultTheme, children }) => {
   return (
     <fieldset className={fieldSetStyle}>
-      <legend className={`${textColorMap.get(theme.color)} ${bgColorMap.get(theme.color)} ${legendStyle}`}>{label}</legend>
+      <legend className={`${textColorMap.get(theme.color)} ${legendStyle}`}>{label}</legend>
       {children}
     </fieldset>
   );
@@ -342,7 +341,12 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   );
 };
 
-export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme = defaultTheme, type, ...rest }) => {
+export const SubmitButton: FC<SubmitButtonProps> = ({
+  title,
+  theme = defaultTheme,
+  type,
+  ...rest
+}) => {
   return (
     <Fragment>
       <button

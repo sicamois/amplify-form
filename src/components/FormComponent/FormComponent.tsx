@@ -28,7 +28,7 @@ const FormComponent: FC<FormComponentProps> = ({
   label,
   formSchema,
   onSubmit,
-  theme = {},
+  theme,
   messages = {},
 }) => {
   const defaultLabel = label;
@@ -39,10 +39,6 @@ const FormComponent: FC<FormComponentProps> = ({
     select = 'Select',
     submitAction = 'Create',
   } = messages;
-
-  const defaultFieldSetStyle =
-    'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
-  const defaultLegendStyle = 'text-red-900 font-black text-lg px-2';
 
   const listFields: Set<string> = new Set();
 
@@ -137,14 +133,6 @@ const FormComponent: FC<FormComponentProps> = ({
 
     setFormData({ initialValues, validationSchema });
   }, [formSchema, required]);
-
-  const { fieldSetStyle, legendStyle, ...otherThemeFields } = theme;
-
-  theme = {
-    fieldSetStyle: fieldSetStyle || defaultFieldSetStyle,
-    legendStyle: legendStyle || defaultLegendStyle,
-    ...otherThemeFields,
-  };
 
   const getFormElement = (name: string, formSchema: FormSchema, prefix = '', theme?: FormTheme) => {
     const { kind, label, options, of, required, defaultValue, ...props } = formSchema;
