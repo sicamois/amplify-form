@@ -92,6 +92,7 @@ export default Home = () => {
   import { FormValues } from 'amplify-form'
 
   export default addItem: async (values: FormValues) => {
+    Amplify.configure({...awsExports});
     await API.graphql({
       authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
       query: createItem,
