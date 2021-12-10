@@ -1,5 +1,5 @@
 {
-  "name": "amplify-form",
+  "name": "@sicamois/amplify-form",
   "description": "Create Form for your GaphQL API in Amplify",
   "author": "Pierre-olivier Sicamois",
   "keywords": [
