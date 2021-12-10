@@ -144,10 +144,10 @@ const FormComponent: FC<FormComponentProps> = ({
 
     if (!kind)
       return (
-        <FieldSet name={name} label={label || defaultLabel}>
+        <FieldSet name={name} label={label || defaultLabel} theme={theme}>
           {Object.keys(props!).map(fieldName => (
             <Fragment key={fieldName}>
-              {getFormElement(fieldName, props[fieldName]! as FormSchema, name, theme)}
+              {getFormElement(fieldName, props[fieldName]! as FormSchema, name, theme=theme)}
             </Fragment>
           ))}
         </FieldSet>
@@ -264,7 +264,7 @@ const FormComponent: FC<FormComponentProps> = ({
             return (
               <Form noValidate>
                 <div className="flex flex-col gap-4">
-                  {getFormElement('', formSchema, '', theme)}
+                  {getFormElement('', formSchema, '',  theme=theme)}
                   <div className="flex flex-row gap-4 items-center">
                     <SubmitButton
                       title={submitAction}
