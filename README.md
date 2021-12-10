@@ -55,7 +55,6 @@ export default Home = () => {
   return (
     <div>
         <h1>Create a new Item</h1>
-
         <AmplifyForm
           entity='Item'
           graphQLJSONSchema={schema}
