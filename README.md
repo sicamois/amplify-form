@@ -82,7 +82,7 @@ export default Home = () => {
   ```js
   // Import Amplify
   import Amplify, { API } from 'aws-amplify';
-  import awsExports from '../../aws-exports';
+  import awsExports from '../aws-exports';
   import { GraphQLResult, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
   import { createItem } from '../graphql/mutations';
   import { CreateItemInput, CreateItemMutation } from '../API';
