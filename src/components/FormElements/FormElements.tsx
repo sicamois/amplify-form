@@ -86,7 +86,13 @@ const FieldWithError: FC<FieldProps> = ({
   theme,
   children,
 }) => {
-  console.log('FieldWithError - theme color:', textColorMap.get(theme?.color))
+  console.log('FieldWithError - theme color:', textColorMap.get(theme?.color));
+  console.log(
+    'FieldWithError - className:',
+    `${labelStyle} peer-focus:${textColorMap.get(theme?.color)} ${
+      labelCentered ? 'text-center' : ''
+    } ${fieldSizeMap.get(fieldSize)}`
+  );
   return (
     <Fragment>
       <div className="py-2">
@@ -117,7 +123,7 @@ const FieldWithError: FC<FieldProps> = ({
 export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
   return (
     <fieldset className={fieldSetStyle}>
-        <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
+      <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
       {children}
     </fieldset>
   );
@@ -337,12 +343,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   );
 };
 
-export const SubmitButton: FC<SubmitButtonProps> = ({
-  title,
-  theme,
-  type,
-  ...rest
-}) => {
+export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme, type, ...rest }) => {
   return (
     <Fragment>
       <button
