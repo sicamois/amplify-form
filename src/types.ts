@@ -46,9 +46,9 @@ export interface FileWithStorageKey extends Omit<FileWithSize, 'preview'> {
   storageKey: string;
 }
 export interface AmplifyFormProps extends Omit<Omit<FormComponentProps, 'formSchema'>, 'label'> {
-  amplifyConfig?: any;
   graphQLJSONSchema: any;
   entity: string;
+  onSubmit: (values: FormValues) => void,
   fieldExtraProps?: FormSchema;
   labelMap?: Map<string, string>;
   storagePrefix?: string;
