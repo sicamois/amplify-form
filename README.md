@@ -16,10 +16,11 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Display custom field labels
 - Customize form apperance
 - Customize field apperance
+- Typescript friendly
 
 **Notes:**
 
-- **This plugin requires [AWS Amplify](https://github.com/aws-amplify/amplify-js) with a GraphQL API**
+- **This plugin requires [AWS Amplify](https://github.com/aws-amplify/amplify-js) with a GraphQL API configured**
 
 ## Installation
 
@@ -51,4 +52,23 @@ $ yarn add amplify-form
 
 <!-- ## Field customisation -->
 
-<!-- ## Acknoledgement -->
+---
+
+## Contributing
+
+- ⇄ Pull requests and ★ Stars are always welcome.
+- For bugs and feature requests, please create an issue.
+- Pull requests must be accompanied by passing automated tests (`$ npm test`).
+
+## Acknoledgement
+
+This library relies heavily on the tremendous work of others :
+
+- [React](https://github.com/facebook/react) by [Meta](https://github.com/facebook)
+- [TailwindCSS](https://github.com/tailwindlabs/tailwindcss) by [Tailwind Labs](https://github.com/tailwindlabs)
+- [Formik](https://github.com/jaredpalmer/formik) by [Jared Palmer](https://github.com/jaredpalmer)
+- [Yup](https://github.com/jquense/yup) by [Jason Quense](https://github.com/jquense)
+- [React-Select](https://github.com/JedWatson/react-select) by [Jed Watson](https://github.com/JedWatson)
+- [React Dropzone](https://github.com/react-dropzone/react-dropzone) by [react-dropzone](https://github.com/react-dropzone)
+  
+## [License](LICENSE)
