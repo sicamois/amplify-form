@@ -11,6 +11,7 @@ import {
   SubmitButtonProps,
   FormValues,
 } from '../../types';
+import { FormTheme } from '../..';
 
 const fieldSetStyle = 'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
 const legendStyle = 'font-black text-lg px-2';
@@ -79,12 +80,16 @@ export const bgColorMap: Map<string | undefined, string> = new Map([
   [undefined, 'bg-red-900'],
 ]);
 
+const defaultTheme: FormTheme = {
+  color: 'red'
+}
+
 const FieldWithError: FC<FieldProps> = ({
   name,
   label,
   labelCentered,
   fieldSize = 'full',
-  theme,
+  theme = defaultTheme,
   children,
 }) => {
   return (
@@ -94,7 +99,7 @@ const FieldWithError: FC<FieldProps> = ({
           {children}
           {label && (
             <label
-              className={`${labelStyle} peer-focus:${textColorMap.get(theme?.color)} ${
+              className={`${labelStyle} peer-focus:${textColorMap.get(theme.color)} ${
                 labelCentered ? 'text-center' : ''
               } ${fieldSizeMap.get(fieldSize)}`}
               htmlFor={name}
@@ -114,10 +119,10 @@ const FieldWithError: FC<FieldProps> = ({
   );
 };
 
-export const FieldSet: FC<FieldProps> = ({ label, children }) => {
+export const FieldSet: FC<FieldProps> = ({ label, theme = defaultTheme, children }) => {
   return (
     <fieldset className={fieldSetStyle}>
-      <legend className={`text-green-900 ${legendStyle}`}>{label}</legend>
+      <legend className={`${textColorMap.get(theme.color)} ${legendStyle}`}>{label}</legend>
       {children}
     </fieldset>
   );
@@ -126,14 +131,14 @@ export const FieldSet: FC<FieldProps> = ({ label, children }) => {
 export const TextField: FC<FieldProps> = ({
   name,
   fieldSize = 'full',
-  theme,
+  theme = defaultTheme,
   placeholder = ' ',
   ...rest
 }) => {
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+        className={`${fieldStyle}  focus:${borderColorMap.get(theme.color)} ${fieldSizeMap.get(
           fieldSize
         )}`}
         type="text"
@@ -149,7 +154,7 @@ export const TextField: FC<FieldProps> = ({
 export const TextAreaField: FC<FieldProps> = ({
   name,
   fieldSize = 'full',
-  theme,
+  theme = defaultTheme,
   placeholder = ' ',
   ...rest
 }) => {
@@ -157,7 +162,7 @@ export const TextAreaField: FC<FieldProps> = ({
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
         as="textarea"
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+        className={`${fieldStyle}  focus:${borderColorMap.get(theme.color)} ${fieldSizeMap.get(
           fieldSize
         )} focus:h-32`}
         id={name}
@@ -172,7 +177,7 @@ export const TextAreaField: FC<FieldProps> = ({
 export const NumberField: FC<FieldProps> = ({
   name,
   fieldSize = 'md',
-  theme,
+  theme = defaultTheme,
   placeholder = ' ',
   step = 1,
   ...rest
@@ -180,7 +185,7 @@ export const NumberField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+        className={`${fieldStyle}  focus:${borderColorMap.get(theme.color)} ${fieldSizeMap.get(
           fieldSize
         )}`}
         type="number"
@@ -197,7 +202,7 @@ export const NumberField: FC<FieldProps> = ({
 export const CheckboxField: FC<FieldProps> = ({
   name,
   fieldSize = 'md',
-  theme,
+  theme = defaultTheme,
   step = 1,
   ...rest
 }) => {
@@ -205,7 +210,7 @@ export const CheckboxField: FC<FieldProps> = ({
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} labelCentered={true} {...rest}>
       <div className={`relative p-3 flex justify-center ${fieldSizeMap.get(fieldSize)}`}>
         <Field
-          className={`${textColorMap.get(theme?.color)} ${checkboxStyle}`}
+          className={`${textColorMap.get(theme.color)} ${checkboxStyle}`}
           type="checkbox"
           id={name}
           name={name}
@@ -228,7 +233,7 @@ export const CheckboxField: FC<FieldProps> = ({
 //     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
 //       <Field
 //         as="select"
-//         className={`${theme?.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)}`}
+//         className={`${theme.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)}`}
 //         id={name}
 //         name={name}
 //         {...rest}>
@@ -260,7 +265,7 @@ const customStyles: StylesConfig<Option, true> = {
 
 export const SelectField: FC<SelectFieldProps> = ({
   fieldSize = 'md',
-  theme,
+  theme = defaultTheme,
   placeholder = '',
   options,
   selectLabel = 'Select',
@@ -301,7 +306,7 @@ export const SelectField: FC<SelectFieldProps> = ({
 export const FilesDropField: FC<FilesDropFieldProps> = ({
   name,
   fieldSize = 'max',
-  theme,
+  theme = defaultTheme,
   label,
   required,
   multiple,
@@ -321,7 +326,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
       {/* <fieldset className="flex flex-wrap flex-row justify-start border-2 border-gray-300 px-2 py-4"> */}
       <fieldset className={fieldSetStyle}>
         {/* <legend className="text-red-900 font-black text-lg px-2">{label}</legend> */}
-        <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
+        <legend className={`${textColorMap.get(theme.color)} ${legendStyle}`}>{label}</legend>
         <div className="px-2">
           <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
             <FilesDropInput
@@ -339,12 +344,12 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   );
 };
 
-export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme, type, ...rest }) => {
+export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme = defaultTheme, type, ...rest }) => {
   return (
     <Fragment>
       <button
         type="submit"
-        className={`disabled:opacity-70 ${bgColorMap.get(theme?.color)} ${submitButtonStyle}`}
+        className={`disabled:opacity-70 ${bgColorMap.get(theme.color)} ${submitButtonStyle}`}
         {...rest}
       >
         {title}
