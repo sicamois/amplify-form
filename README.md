@@ -62,8 +62,11 @@ export default function Home() {
 ```
 
 **Note:**
+
 You need to pass the name of the entity you want to create a new record of.
+
 In this example, the *entity* is named *Item*.
+
 Thus, the prop you need to pass is `entity='Item'`
 
 <!-- ## Add images or files
