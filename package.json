@@ -14,7 +14,7 @@
     "ui",
     "typescript"
   ],
-  "version": "0.9.4",
+  "version": "0.9.5-beta.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
@@ -31,7 +31,7 @@
     "url": "git+https://github.com/sicamois/amplify-form.git"
   },
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com",
+    "registry": "https://npm.pkg.github.com",
     "access": "public"
   },
   "scripts": {
