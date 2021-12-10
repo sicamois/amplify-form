@@ -51,18 +51,32 @@ export const textColorMap: Map<string | undefined, string> = new Map([
   [undefined, 'text-red-900'],
 ]);
 
-export const borderColorMap: Map<string | undefined, string> = new Map([
-  ['black', 'border-black'],
-  ['white', 'border-white'],
-  ['gray', 'border-gray-900'],
-  ['red', 'border-red-900'],
-  ['blue', 'border-blue-900'],
-  ['yellow', 'border-yellow-900'],
-  ['green', 'border-green-900'],
-  ['indigo', 'border-indigo-900'],
-  ['purple', 'border-purple-900'],
-  ['pink', 'border-pink-900'],
-  [undefined, 'border-red-900'],
+export const peerFocusTextColorMap: Map<string | undefined, string> = new Map([
+  ['black', 'peer-focus:text-black'],
+  ['white', 'peer-focus:text-white'],
+  ['gray', 'peer-focus:text-gray-900'],
+  ['red', 'peer-focus:text-red-900'],
+  ['blue', 'peer-focus:text-blue-900'],
+  ['yellow', 'peer-focus:text-yellow-900'],
+  ['green', 'peer-focus:text-green-900'],
+  ['indigo', 'peer-focus:text-indigo-900'],
+  ['purple', 'peer-focus:text-purple-900'],
+  ['pink', 'peer-focus:text-pink-900'],
+  [undefined, 'peer-focus:text-red-900'],
+]);
+
+export const focusBorderColorMap: Map<string | undefined, string> = new Map([
+  ['black', 'focus:border-black'],
+  ['white', 'focus:border-white'],
+  ['gray', 'focus:border-gray-900'],
+  ['red', 'focus:border-red-900'],
+  ['blue', 'focus:border-blue-900'],
+  ['yellow', 'focus:border-yellow-900'],
+  ['green', 'focus:border-green-900'],
+  ['indigo', 'focus:border-indigo-900'],
+  ['purple', 'focus:border-purple-900'],
+  ['pink', 'focus:border-pink-900'],
+  [undefined, 'focus:border-red-900'],
 ]);
 
 export const bgColorMap: Map<string | undefined, string> = new Map([
@@ -86,13 +100,6 @@ const FieldWithError: FC<FieldProps> = ({
   theme,
   children,
 }) => {
-  console.log('FieldWithError - theme color:', textColorMap.get(theme?.color));
-  console.log(
-    'FieldWithError - className:',
-    `${labelStyle} peer-focus:${textColorMap.get(theme?.color)} ${
-      labelCentered ? 'text-center' : ''
-    } ${fieldSizeMap.get(fieldSize)}`
-  );
   return (
     <Fragment>
       <div className="py-2">
@@ -100,7 +107,7 @@ const FieldWithError: FC<FieldProps> = ({
           {children}
           {label && (
             <label
-              className={`${labelStyle} peer-focus:${textColorMap.get(theme?.color)} ${
+              className={`${labelStyle} ${peerFocusTextColorMap.get(theme?.color)} ${
                 labelCentered ? 'text-center' : ''
               } ${fieldSizeMap.get(fieldSize)}`}
               htmlFor={name}
@@ -139,7 +146,7 @@ export const TextField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+        className={`${fieldStyle} ${focusBorderColorMap.get(theme?.color)} ${fieldSizeMap.get(
           fieldSize
         )}`}
         type="text"
@@ -163,7 +170,7 @@ export const TextAreaField: FC<FieldProps> = ({
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
         as="textarea"
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+        className={`${fieldStyle} ${focusBorderColorMap.get(theme?.color)} ${fieldSizeMap.get(
           fieldSize
         )} focus:h-32`}
         id={name}
@@ -186,7 +193,7 @@ export const NumberField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        className={`${fieldStyle}  focus:${borderColorMap.get(theme?.color)} ${fieldSizeMap.get(
+        className={`${fieldStyle} ${focusBorderColorMap.get(theme?.color)} ${fieldSizeMap.get(
           fieldSize
         )}`}
         type="number"
