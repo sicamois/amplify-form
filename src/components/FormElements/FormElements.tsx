@@ -114,10 +114,10 @@ const FieldWithError: FC<FieldProps> = ({
   );
 };
 
-export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
+export const FieldSet: FC<FieldProps> = ({ label, children }) => {
   return (
     <fieldset className={fieldSetStyle}>
-      <legend className={`disabled:opacity-70 ${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
+      <legend className={`text-green-900 ${legendStyle}`}>{label}</legend>
       {children}
     </fieldset>
   );
