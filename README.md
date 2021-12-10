@@ -38,7 +38,7 @@ $ yarn add amplify-form
 
 Import the component into your file. Pass the JSON representation of the GraphQL API that Amplify has generated for you and the name of the entity you want to edit.
 
-- Exemple `create-item-page.js`:
+- Exemple page : `create-item-page.ts`:
 
 ```js
 // Import AmplifyForm
@@ -50,7 +50,7 @@ import schema from '../graphql/schema.json';
 // Import function to process the Form values
 import addItem from '../utilities/add-item';
 
-export default function Home() {
+export default Home = () => {
   return (
     <div>
         <h1>Create a new Item</h1>
@@ -76,6 +76,31 @@ export default function Home() {
 
 - `onSubmit: async (values: FormValues) => void`: A callback function to retieves the form values. This object can directly be passed to Amplify `API.graphql()` function to add a new record.  
   The function can be asynchronous.
+
+  Exemple function : `utilities/add-item.ts`
+
+  ```js
+  // Import Amplify
+  import Amplify, { API } from 'aws-amplify';
+  import awsExports from '../../aws-exports';
+  import { GraphQLResult, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
+  import { createItem } from '../graphql/mutations';
+  import { CreateItemInput, CreateItemMutation } from '../API';
+
+  // Import type for Typescript
+  import { FormValues } from 'amplify-form'
+
+  export default addItem: async (values: FormValues) => {
+    await API.graphql({
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+      query: createItem,
+      variables: {
+        input: values,
+      },
+    });
+  }
+
+  ```
 
 <!-- ## Add images or files
 
