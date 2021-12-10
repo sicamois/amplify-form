@@ -15,7 +15,7 @@
   ],
   "version": "0.4.1-beta.1",
   "main": "dist/index.js",
-  "typings": "dist/types.d.ts",
+  "typings": "dist/index.d.ts",
   "license": "MIT",
   "files": [
     "README.md",
