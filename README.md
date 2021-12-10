@@ -17,8 +17,8 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Customize form apperance
 - Customize field apperance -->
 - Typescript friendly
-  
-**Notes:**
+
+**Note:**
 
 - **This plugin requires [AWS Amplify](https://github.com/aws-amplify/amplify-js) with a GraphQL API configured**
 
