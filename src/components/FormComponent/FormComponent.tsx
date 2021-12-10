@@ -192,7 +192,7 @@ const FormComponent: FC<FormComponentProps> = ({
 
     if (kind == 'relationship')
       return (
-        <FieldSet name={name} label={label}>
+        <FieldSet name={name} label={label} theme={theme}>
           <SelectField
             name={explicitName}
             label={''}

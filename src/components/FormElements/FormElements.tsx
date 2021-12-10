@@ -86,6 +86,7 @@ const FieldWithError: FC<FieldProps> = ({
   theme,
   children,
 }) => {
+  console.log('FieldWithError - theme color:', textColorMap.get(theme?.color))
   return (
     <Fragment>
       <div className="py-2">
