@@ -36,6 +36,8 @@ $ yarn add amplify-form
 
 ## Usage
 
+Import the component into your file. Pass the JSON representation of the GraphQL API that Amplify has generated for you and the name of the entity you want to edit.
+
 `create-item-page.js`:
 
 ```js
