@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Amplify, Storage } from 'aws-amplify';
+import { Storage } from 'aws-amplify';
 import FormComponent from '../FormComponent';
 import { formSchemaFor } from '../../utils/form-schema';
 import { parseObject } from '../../utils/parse-object';
@@ -15,7 +15,6 @@ import {
 } from '../../types';
 
 const AmplifyForm: FC<AmplifyFormProps> = ({
-  amplifyConfig,
   graphQLJSONSchema,
   entity,
   fieldExtraProps,
@@ -26,7 +25,6 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   onSubmit,
   ...rest
 }) => {
-  amplifyConfig ? Amplify.configure({ ...amplifyConfig }) : null;
 
   const formSchema = formSchemaFor(graphQLJSONSchema, entity, 'create', labelMap);
 
@@ -92,11 +90,12 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
         })
       );
       trimValues(values);
-      onSubmit ? await onSubmit(values, formikHelpers) : null;
+      onSubmit ? await onSubmit(values) : null;
       resetForm()
     } catch (error) {
       const typedError = error as Error;
-      alert(`Error : ${typedError.message}`)
+      console.error('AmplifyForm has encountered an error :', typedError)
+      alert(`Error : ${typedError.message} (see console logs)`)
     } finally {
       setSubmitting(false)
     }
