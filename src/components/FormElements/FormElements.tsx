@@ -298,6 +298,7 @@ export const SelectField: FC<SelectFieldProps> = ({
     <FieldWithError fieldSize={fieldSize} theme={theme} {...rest}>
       <div className={`${multiSelectStyle} ${fieldSizeMap.get(fieldSize)}`}>
         <ReactSelect
+          className='peer'
           styles={customStyles}
           options={options}
           isMulti={multiple || undefined}
