@@ -8,7 +8,9 @@ Create Form for your GaphQL API in Amplify
 
 <!-- ## Installation -->
 
-<!-- ## Usage -->
+<!-- ## Usage
+
+### Typescript -->
 
 <!-- ## Add images or files
 
