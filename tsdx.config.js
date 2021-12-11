@@ -12,7 +12,7 @@ module.exports = {
         : plugin
     );
     config.plugins.push(
-      postcss({ extract: true })
+      postcss()
     );
     // if (opts.format === 'esm') {
     //   config = { ...config, preserveModules: true }
