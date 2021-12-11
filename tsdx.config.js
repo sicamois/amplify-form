@@ -14,7 +14,7 @@ module.exports = {
     config.plugins.push(
       postcss()
     );
-    // if (opts.format === 'esm') {
+    // if (options.format === 'esm') {
     //   config = { ...config, preserveModules: true }
     //   config.output = { ...config.output, dir: 'dist/', entryFileNames: '[name].esm.js' }
     //   delete config.output.file
