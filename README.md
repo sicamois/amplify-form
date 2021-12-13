@@ -156,10 +156,10 @@ export default Home = () => {
 **Notes:**
 
 - If you have multiples fields to display as `<textarea>`, you pass them all in a single array.  
-  E.g. `textAreas=['description', 'annotations', 'seo_summary']`
+  e.g. `textAreas=['description', 'annotations', 'seo_summary']`
 
 - Names are compatible with dotted notation.  
-  E.g. `textAreas=['details.description']`
+  e.g. `textAreas=['details.description']`
 
 ### Advanced usage
 
