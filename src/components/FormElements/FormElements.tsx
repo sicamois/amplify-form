@@ -30,7 +30,7 @@ const checkboxStyle = 'bg-transparent border-gray-300 rounded border-2 w-5 h-5 f
 const multiSelectStyle = 'border-gray-300 border-0 border-b-2 relative';
 const errorStyle = 'text-red-700 text-xs';
 const submitButtonStyle =
-  'hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold text-white rounded shadow-xl';
+  'hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold rounded shadow-xl';
 
 const FieldWithError: FC<FieldProps> = ({
   name,
@@ -270,7 +270,10 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
 
   return (
     <Fragment>
-      <fieldset className={fieldSetStyle}>
+      <fieldset
+        className={`${
+          theme?.branding == 'full' ? borderColorMap.get(theme.color) : ''
+        } ${fieldSetStyle}`}>
         <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
         <div className="px-2">
           <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
@@ -280,6 +283,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
               getFiles={processFiles}
               multiple={multiple}
               value={value}
+              theme={theme}
               {...rest}
             />
           </FieldWithError>

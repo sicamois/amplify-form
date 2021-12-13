@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FilesDropInputProps, FileWithSize } from '../../types';
-import { bgColorMap, borderColorMap } from '../../utils/theme-maps';
+import { bgColorMap, borderColorMap, textColorMap } from '../../utils/theme-maps';
 
 const instructionsStyle = 'border-2 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';
 
@@ -146,7 +146,10 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   const fileList = (
     <aside className="flex flex-col flex-wrap mt-4 gap-4">
       {files.map((file, index) => (
-        <ul className="text-sm" key={index}>
+        <ul
+          className={`${theme?.branding == 'full' ? textColorMap.get(theme?.color) : ''} text-sm`}
+          key={index}
+        >
           <li>
             File: <span className="font-light">{file.name}</span>
           </li>
@@ -159,10 +162,8 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
     <section className="container">
       <div
         {...getRootProps({
-          className: `${
-            theme?.branding == 'full' ? bgColorMap.get(theme?.color) : 'bg-gray-200'
-          } ${
-            theme?.branding == 'full' ? borderColorMap.get(theme?.color) : 'bg-gray-600'
+          className: `${theme?.branding == 'full' ? bgColorMap.get(theme?.color) : 'bg-gray-200'} ${
+            theme?.branding == 'full' ? borderColorMap.get(theme?.color) : 'border-gray-600'
           } ${instructionsStyle}`,
         })}
       >
