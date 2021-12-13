@@ -46,15 +46,25 @@ export interface FileWithSize extends File {
 export interface FileWithStorageKey extends Omit<FileWithSize, 'preview'> {
   storageKey: string;
 }
-export interface AmplifyFormProps extends Omit<Omit<FormComponentProps, 'formSchema'>, 'label'> {
+export interface FileField {
+  fileType?: string,
+  text?: string
+}
+export interface AmplifyFormProps {
   graphQLJSONSchema: any;
   entity: string;
   onSubmit: (values: FormValues) => void,
-  fieldExtraProps?: FormSchema;
-  labelMap?: Map<string, string>;
-  storagePrefix?: string;
   label?: string;
-  storageLevel?: 'public' | 'protected' | 'private';
+  fileFields?: string[] | Record<string, FileField>
+  relationships?: Relationship[];
+  fieldsConfig?: FormSchema;
+  theme?: FormTheme;
+  messages?: Messages;
+  labelMap?: Map<string, string>;
+  storageConfig?: {
+    storagePrefix?: string;
+    storageLevel?: 'public' | 'protected' | 'private';
+  }
 }
 
 export interface FilesDropInputProps extends Omit<HTMLProps<HTMLInputElement>, 'defaultValue'> {

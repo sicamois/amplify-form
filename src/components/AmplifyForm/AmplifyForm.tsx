@@ -17,26 +17,47 @@ import {
 const AmplifyForm: FC<AmplifyFormProps> = ({
   graphQLJSONSchema,
   entity,
-  fieldExtraProps,
-  labelMap,
-  storagePrefix = '',
-  storageLevel = 'public',
-  label = entity,
   onSubmit,
+  label = entity,
+  fileFields,
+  fieldsConfig,
+  labelMap,
+  storageConfig,
   ...rest
 }) => {
 
+  const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {}
+
   const formSchema = formSchemaFor(graphQLJSONSchema, entity, 'create', labelMap);
 
-  if (fieldExtraProps) {
-    Object.keys(fieldExtraProps).forEach(field => {
-      const fieldProps = fieldExtraProps[field] as FormSchema;
+  if (fieldsConfig) {
+    Object.keys(fieldsConfig).forEach(field => {
+      const fieldProps = fieldsConfig[field] as FormSchema;
       if (fieldProps) {
         Object.keys(fieldProps).forEach(key => {
           loadashSet(formSchema, `${field}.${key}`, fieldProps[key]);
         });
       }
     });
+  }
+
+  if (fileFields) {
+    if (Array.isArray(fileFields)) {
+      fileFields.forEach(fileField => {
+        if(typeof fileField == 'string') {
+          loadashSet(formSchema, `${fileField}.kind`, 'file');
+        }
+      })
+    } else {
+      Object.keys(fileFields).forEach(fieldname => {
+        loadashSet(formSchema, `${fieldname}.kind`, 'file');
+        const fieldProps = fileFields[fieldname]
+        Object.keys(fieldProps).forEach(prop => {
+          if (prop == 'fileType' || prop == 'text'){
+          loadashSet(formSchema, `${fieldname}.${prop}`, fieldProps[prop]);}
+        })
+      })
+    }
   }
 
   const uploadFile = async (file: FileWithSize) => {
