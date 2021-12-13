@@ -13,7 +13,7 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Create a form for any of your [AWS Amplify GraphQL API](https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/js/)
 - Generate `values` that can be directly passed to grapql
 - Create automatically `<select>` for your enums
-- Add `<textarea>` for long text
+- Add `<textarea>` for long text ([here](#Add-a-`<textarea>`))
 - Typescript friendly
 
 <!-- - Add files or images, they are automaticcaly uploaded to your [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/)
