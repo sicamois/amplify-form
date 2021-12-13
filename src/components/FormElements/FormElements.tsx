@@ -20,7 +20,7 @@ import {
   textColorMap,
 } from '../../utils/theme-maps';
 
-const fieldSetStyle = 'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
+const fieldSetStyle = 'flex flex-wrap flex-row justify-start border-2 p-4 gap-3';
 const legendStyle = 'font-black text-lg px-2';
 const labelStyle =
   'text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm';
@@ -272,7 +272,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
     <Fragment>
       <fieldset
         className={`${
-          theme?.branding == 'full' ? borderColorMap.get(theme.color) : ''
+          theme?.branding == 'full' ? borderColorMap.get(theme?.color) : ''
         } ${fieldSetStyle}`}>
         <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
         <div className="px-2">

@@ -162,8 +162,12 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
     <section className="container">
       <div
         {...getRootProps({
-          className: `${theme?.branding == 'full' ? bgColorMap.get(theme?.color) : 'bg-gray-200'} ${
+          className: `${
+            theme?.branding == 'full' ? bgColorMap.get(theme?.color) : 'bg-gray-200'
+          } ${
             theme?.branding == 'full' ? borderColorMap.get(theme?.color) : 'border-gray-600'
+          } ${
+            theme?.branding == 'full' ? textColorMap.get(theme?.color) : ''
           } ${instructionsStyle}`,
         })}
       >
