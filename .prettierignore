@@ -1,5 +1,14 @@
-# Ignore artifacts:
+node_modules
+.next
 dist
-
-# Ignore all HTML files:
-*.html
+public
+amplify
+src/graphql
+src/aws-exports.js
+src/API.ts
+.*
+*.config.js
+package.json
+tsconfig.json
+next-env.d.ts
+README.md
