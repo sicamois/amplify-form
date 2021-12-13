@@ -65,3 +65,16 @@ export const fieldSizeMap: Map<string, string> = new Map([
     ['pink', 'bg-pink-600'],
     [undefined, 'bg-red-900'],
   ]);
+  
+  export const accentColorMap: Map<string | undefined, string> = new Map([
+    ['black', 'accent-black'],
+    ['gray', 'accent-gray-600'],
+    ['red', 'accent-red-600'],
+    ['blue', 'accent-blue-600'],
+    ['yellow', 'accent-yellow-600'],
+    ['green', 'accent-green-600'],
+    ['indigo', 'accent-indigo-600'],
+    ['purple', 'accent-purple-600'],
+    ['pink', 'accent-pink-600'],
+    [undefined, 'accent-red-900'],
+  ]);

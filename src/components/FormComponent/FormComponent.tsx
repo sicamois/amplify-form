@@ -23,6 +23,7 @@ import { Formik, Form, FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
 import loadashGet from 'lodash/get';
 import { FormComponentProps, FormSchema, FormTheme, FormValues, Option } from '../../types';
+import { accentColorMap } from '../../utils/theme-maps';
 
 const FormComponent: FC<FormComponentProps> = ({
   label,
@@ -261,7 +262,9 @@ const FormComponent: FC<FormComponentProps> = ({
         >
           {({ isSubmitting, isValid }) => {
             return (
-              <Form noValidate>
+              <Form
+                className={accentColorMap.get(theme?.color)}
+                noValidate>
                 <div className="flex flex-col gap-4">
                   {getFormElement('', formSchema, '',  theme=theme)}
                   <div className="flex flex-row gap-4 items-center">

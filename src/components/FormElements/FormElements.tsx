@@ -157,7 +157,7 @@ export const CheckboxField: FC<FieldProps> = ({
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} labelCentered={true} {...rest}>
       <div className={`relative p-3 flex justify-center ${fieldSizeMap.get(fieldSize)}`}>
         <Field
-          className={`${textColorMap.get(theme?.color)} ${checkboxStyle}`}
+          className={checkboxStyle}
           type="checkbox"
           id={name}
           name={name}
