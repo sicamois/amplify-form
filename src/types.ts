@@ -1,6 +1,6 @@
 import { HTMLProps } from 'react';
 import { FormikHelpers } from 'formik';
-import { fieldSizeMap, textColorMap } from './components/FormElements/FormElements';
+import { fieldSizeMap, textColorMap } from './utils/theme-maps';
 
 export type Value = string | number | boolean | string[] | Option[] | FileWithSize | FileWithSize[];
 

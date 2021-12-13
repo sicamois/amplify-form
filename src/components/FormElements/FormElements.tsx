@@ -11,6 +11,13 @@ import {
   SubmitButtonProps,
   FormValues,
 } from '../../types';
+import {
+  bgColorMap,
+  fieldSizeMap,
+  focusBorderColorMap,
+  peerFocusTextColorMap,
+  textColorMap,
+} from '../../utils/theme-maps';
 
 const fieldSetStyle = 'flex flex-wrap flex-row justify-start border-2 border-gray-300 p-4 gap-3';
 const legendStyle = 'font-black text-lg px-2';
@@ -23,74 +30,6 @@ const multiSelectStyle = 'border-gray-300 border-0 border-b-2 relative';
 const errorStyle = 'text-red-700 text-xs';
 const submitButtonStyle =
   'hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold text-white rounded shadow-xl';
-
-export const fieldSizeMap: Map<string, string> = new Map([
-  ['xs', 'w-14'],
-  ['sm', 'w-20'],
-  ['md', 'w-36'],
-  ['lg', 'w-64'],
-  ['xl', 'w-96'],
-  ['2xl', 'w-100'],
-  ['3xl', 'w-200'],
-  ['full', 'w-full'],
-  ['max', 'w-max'],
-  ['screen', 'w-screen'],
-]);
-
-export const textColorMap: Map<string | undefined, string> = new Map([
-  ['black', 'text-black'],
-  ['white', 'text-white'],
-  ['gray', 'text-gray-600'],
-  ['red', 'text-red-600'],
-  ['blue', 'text-blue-600'],
-  ['yellow', 'text-yellow-600'],
-  ['green', 'text-green-600'],
-  ['indigo', 'text-indigo-600'],
-  ['purple', 'text-purple-600'],
-  ['pink', 'text-pink-600'],
-  [undefined, 'text-red-900'],
-]);
-
-export const peerFocusTextColorMap: Map<string | undefined, string> = new Map([
-  ['black', 'peer-focus:text-black'],
-  ['white', 'peer-focus:text-white'],
-  ['gray', 'peer-focus:text-gray-600'],
-  ['red', 'peer-focus:text-red-600'],
-  ['blue', 'peer-focus:text-blue-600'],
-  ['yellow', 'peer-focus:text-yellow-600'],
-  ['green', 'peer-focus:text-green-600'],
-  ['indigo', 'peer-focus:text-indigo-600'],
-  ['purple', 'peer-focus:text-purple-600'],
-  ['pink', 'peer-focus:text-pink-600'],
-  [undefined, 'peer-focus:text-red-900'],
-]);
-
-export const focusBorderColorMap: Map<string | undefined, string> = new Map([
-  ['black', 'focus:border-black'],
-  ['white', 'focus:border-white'],
-  ['gray', 'focus:border-gray-600'],
-  ['red', 'focus:border-red-600'],
-  ['blue', 'focus:border-blue-600'],
-  ['yellow', 'focus:border-yellow-600'],
-  ['green', 'focus:border-green-600'],
-  ['indigo', 'focus:border-indigo-600'],
-  ['purple', 'focus:border-purple-600'],
-  ['pink', 'focus:border-pink-600'],
-  [undefined, 'focus:border-red-900'],
-]);
-
-export const bgColorMap: Map<string | undefined, string> = new Map([
-  ['black', 'bg-black'],
-  ['gray', 'bg-gray-600'],
-  ['red', 'bg-red-600'],
-  ['blue', 'bg-blue-600'],
-  ['yellow', 'bg-yellow-600'],
-  ['green', 'bg-green-600'],
-  ['indigo', 'bg-indigo-600'],
-  ['purple', 'bg-purple-600'],
-  ['pink', 'bg-pink-600'],
-  [undefined, 'bg-red-900'],
-]);
 
 const FieldWithError: FC<FieldProps> = ({
   name,
@@ -298,7 +237,7 @@ export const SelectField: FC<SelectFieldProps> = ({
     <FieldWithError fieldSize={fieldSize} theme={theme} {...rest}>
       <div className={`${multiSelectStyle} ${fieldSizeMap.get(fieldSize)}`}>
         <ReactSelect
-          className='peer'
+          className="peer"
           styles={customStyles}
           options={options}
           isMulti={multiple || undefined}
