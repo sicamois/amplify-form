@@ -167,6 +167,8 @@ For finer control over the `<textarea>`, you can pass `HTMLTextAreaElement` prop
 
 For this, you should pass an object to `textAreas` (not an array, which is reserved for the simpler form). The fields to display as `<textarea>` are the keys, and the value for each key is an object containing the `HTMLTextAreaElement` props you want to set.
 
+⚠️ some `HTMLTextAreaElement` props might not work has they may be overwritten somewhere else in the code... Use at your own risks !
+
 **Example:**
 
 ```js
