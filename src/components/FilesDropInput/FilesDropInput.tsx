@@ -19,7 +19,9 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
 
   // Reset Files when Form is reset (initialValue = '')
   useEffect(() => {
+    console.log('useEffect')
     if (value == '') {
+      console.log('init value')
       // make sure to revoke the data uris to avoid memory leaks
       revokePreviews(files)
       setFiles([]);
@@ -28,11 +30,13 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   } , [value, files]);
 
   const revokePreviews = useCallback((files: FileWithSize[]) => {
+    console.log('revokePreviews')
     files.forEach(file => (file.preview ? URL.revokeObjectURL(file.preview) : null));
   }, [])
 
   const onDrop = useCallback(
     async (acceptedFiles: FileWithSize[]) => {
+      console.log('onDrop')
       if (fileType.startsWith('image/')) {
         const readImageAsync = async (imageSrc: string) => {
           return new Promise<HTMLImageElement>((resolve, reject) => {
