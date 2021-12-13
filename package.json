@@ -39,7 +39,7 @@
     "lint": "next lint",
     "prettier-fix": "prettier --write .",
     "build": "rm -r -f dist && yarn build:tsdx",
-    "build:tsdx": "NODE_ENV=production tsdx build --name amplify-form --format cjs,esm,umd --tsconfig ./tsconfig.tsdx.json",
+    "build:tsdx": "NODE_ENV=production tsdx build --name amplify-form --tsconfig ./tsconfig.tsdx.json",
     "publish-beta": "yarn build && npm version prerelease --preid=beta && npm publish -tag=beta && git push",
     "publish-patch": "yarn build && npm version patch && npm publish && git push",
     "publish-minor": "yarn build && npm version minor && npm publish && git push",
