@@ -11,13 +11,16 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 **Functionalities:**
 
 - Create a form for any of your [AWS Amplify GraphQL API](https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/js/)
-- Create automatically Select fields for your enums
+- Generate `values` that can be directly passed to grapql
+- Create automatically `<select>` for your enums
+- Add `<textarea>` for long text
+- Typescript friendly
+
 <!-- - Add files or images, they are automaticcaly uploaded to your [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/)
 - Add relationship between items
 - Display custom field labels
 - Customize form apperance
 - Customize field apperance -->
-- Typescript friendly
 
 **Note:**
 
@@ -110,7 +113,7 @@ AmplifyForm has a simple solution for that :
 
 - `textAreas` : A prop where you pass an array containing all the string fields that need to be displayed as `<textarea>`.
 
-### Exemple
+### Example
 
 Let's say your GraphQL model `schema.grapql` is a simple Todo list :
 
@@ -149,6 +152,10 @@ export default Home = () => {
   );
 };
 ```
+
+*Notes:*
+
+- If you have multiples fields to display as `<textarea>`, you pass them all in a single array. E.g. `textAreas={['description', 'annotations', 'seo_summary']}`
 
 <!-- ## Add images or files
 
