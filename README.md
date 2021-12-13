@@ -155,7 +155,50 @@ export default Home = () => {
 
 *Notes:*
 
-- If you have multiples fields to display as `<textarea>`, you pass them all in a single array. E.g. `textAreas={['description', 'annotations', 'seo_summary']}`
+- If you have multiples fields to display as `<textarea>`, you pass them all in a single array.  
+  E.g. `textAreas=['description', 'annotations', 'seo_summary']`
+
+- Names are compatible with dotted notation.  
+  E.g. `textAreas=['details.description']`
+
+### Advanced usage
+
+For finer control over the `<textarea>`, you can pass `HTMLTextAreaElement` props to `textAreas`.  
+
+For this, you should pass an object to `textAreas` (not an array, which is reserved for the simpler form). The fields to display as `<textarea>` are the keys, and the value for each key is an object containning the `HTMLTextAreaElement` props you want to set.
+
+*Example:*
+
+```js
+// Import AmplifyForm
+import AmplifyForm from 'amplify-form';
+
+// Path to the JSON representation of the GraphQL Schema
+import schema from '../graphql/schema.json';
+
+// Import function to process the Form values (see below for example code)
+import addItem from '../utilities/add-item';
+
+export default Home = () => {
+  const textAreasConfig = {
+    'description': {
+      readOnly: true,
+      col: 4
+    }
+  }
+  return (
+    <div>
+      <h1>Create a new Item</h1>
+      <AmplifyForm
+        entity="Item"
+        graphQLJSONSchema={schema}
+        onSubmit={addItem}
+        textAreas={textAreasConfig}
+      />
+    </div>
+  );
+};
+```
 
 <!-- ## Add images or files
 
