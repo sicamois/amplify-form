@@ -20,7 +20,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   // Reset Files when Form is reset (initialValue = '')
   useEffect(() => {
     console.log('useEffect')
-    if (value == '') {
+    if (value == '' && files.length > 0) {
       console.log('init value')
       // make sure to revoke the data uris to avoid memory leaks
       revokePreviews(files)
