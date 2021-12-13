@@ -298,7 +298,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme, type, ...res
     <Fragment>
       <button
         type="submit"
-        className={`disabled:opacity-70 ${bgColorMap.get(theme?.color)} ${textColorMap.get(theme?.color)} ${submitButtonStyle}`}
+        className={`disabled:opacity-70 ${bgColorMap.get(theme?.color) || 'bg-gray-200'} ${textColorMap.get(theme?.color)} ${submitButtonStyle}`}
         {...rest}
       >
         {title}
