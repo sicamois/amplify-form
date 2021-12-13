@@ -59,7 +59,7 @@ export default Home = () => {
     <div>
       <h1>Create a new Item</h1>
       <AmplifyForm
-        entity="Item"
+        entity='Item'
         graphQLJSONSchema={schema}
         onSubmit={addItem}
       />
@@ -107,7 +107,7 @@ export default Home = () => {
 
 ## Add a `<textarea>`
 
-By default, strings in GraphQL model are transformed into `<input type="text">`. This is generally ok, but some strings are meant "long" text, like `description`, `content`, `text`, etc.
+By default, strings in GraphQL model are transformed into `<input type='text'>`. This is generally ok, but some strings are meant "long" text, like `description`, `content`, `text`, etc.
 
 AmplifyForm has a simple solution for that :
 
@@ -143,7 +143,7 @@ export default Home = () => {
     <div>
       <h1>Create a new Item</h1>
       <AmplifyForm
-        entity="Item"
+        entity='Item'
         graphQLJSONSchema={schema}
         onSubmit={addItem}
         textAreas={['description']}
@@ -190,7 +190,7 @@ export default Home = () => {
     <div>
       <h1>Create a new Item</h1>
       <AmplifyForm
-        entity="Item"
+        entity='Item'
         graphQLJSONSchema={schema}
         onSubmit={addItem}
         textAreas={textAreasConfig}
