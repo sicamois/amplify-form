@@ -153,7 +153,7 @@ export default Home = () => {
 };
 ```
 
-*Notes:*
+**Notes:**
 
 - If you have multiples fields to display as `<textarea>`, you pass them all in a single array.  
   E.g. `textAreas=['description', 'annotations', 'seo_summary']`
@@ -165,9 +165,9 @@ export default Home = () => {
 
 For finer control over the `<textarea>`, you can pass `HTMLTextAreaElement` props to `textAreas`.  
 
-For this, you should pass an object to `textAreas` (not an array, which is reserved for the simpler form). The fields to display as `<textarea>` are the keys, and the value for each key is an object containning the `HTMLTextAreaElement` props you want to set.
+For this, you should pass an object to `textAreas` (not an array, which is reserved for the simpler form). The fields to display as `<textarea>` are the keys, and the value for each key is an object containing the `HTMLTextAreaElement` props you want to set.
 
-*Example:*
+**Example:**
 
 ```js
 // Import AmplifyForm
