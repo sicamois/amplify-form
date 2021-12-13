@@ -14,7 +14,7 @@
     "ui",
     "typescript"
   ],
-  "version": "0.9.6-beta.6",
+  "version": "0.9.6-beta.7",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
