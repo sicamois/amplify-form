@@ -195,6 +195,13 @@ const FormComponent: FC<FormComponentProps> = ({
       );
     }
 
+    if (kind == 'list' && of?.kind == 'unhandled') {
+      listFields.add(explicitName);
+      return (
+        <div></div>
+      );
+    }
+
     if (kind == 'relationship')
       return (
         <FieldSet name={name} label={label} theme={theme}>
