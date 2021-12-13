@@ -44,7 +44,11 @@ const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
 const getLabel = (name: string, labelMap?: Map<string, string>) =>
   capitalize(labelMap?.get(name) || name);
 
-const getEnumValues = (name: string, types: Field[], labelMap?: Map<string, string>): Option[] => {
+const getEnumValues = (
+  name: string,
+  types: Field[],
+  labelMap?: Map<string, string>
+): Option[] => {
   const field = types.find(type => type.name == name && type.kind == 'ENUM');
   if (!field) throw Error(`Unable to find enum ${name}`);
   return field.enumValues!.map(value => {
@@ -65,10 +69,15 @@ export const formSchemaFor = (
   const types = getTypesFor(graphqlJSONSchema);
 
   const formSchemaForTypes = (fullEntity: string) => {
-    const baseField = types.find(type => type.name.toLowerCase() == fullEntity.toLowerCase());
+    const baseField = types.find(
+      type => type.name.toLowerCase() == fullEntity.toLowerCase()
+    );
     if (!baseField) throw Error(`Unable to find field ${fullEntity}`);
 
-    const fields = baseField.kind == 'INPUT_OBJECT' ? baseField.inputFields! : baseField.fields;
+    const fields =
+      baseField.kind == 'INPUT_OBJECT'
+        ? baseField.inputFields!
+        : baseField.fields;
     if (!fields) throw Error(`Unable to find fields for ${fullEntity}`);
 
     const fieldFrom: (type: Type) => FormSchema = type => {
@@ -78,16 +87,23 @@ export const formSchemaFor = (
         return field;
       }
       if (type.name == 'ID') return { kind: 'relationship' };
-      if (type.kind == 'SCALAR' && type.name != 'ID') return { kind: type.name!.toLowerCase() };
+      if (type.kind == 'SCALAR' && type.name != 'ID')
+        return { kind: type.name!.toLowerCase() };
       if (type.kind == 'LIST') {
-        const field: FormSchema = { kind: 'list', of: {kind: 'unhandled'}, multiple: true};
+        const field: FormSchema = {
+          kind: 'list',
+          of: { kind: 'unhandled' },
+          multiple: true,
+        };
         const ofFormSchema = fieldFrom(type.ofType!)!;
-        if (ofFormSchema.kind == 'select')
-          field.of = ofFormSchema;
-        return field
+        if (ofFormSchema.kind == 'select') field.of = ofFormSchema;
+        return field;
       }
       if (type.kind == 'ENUM')
-        return { kind: 'select', options: getEnumValues(type.name!, types, labelMap) };
+        return {
+          kind: 'select',
+          options: getEnumValues(type.name!, types, labelMap),
+        };
       if (type.kind == 'INPUT_OBJECT' || type.kind == 'OBJECT')
         return formSchemaForTypes(type.name!);
       return {};
@@ -95,7 +111,11 @@ export const formSchemaFor = (
 
     const formSchema: FormSchema = {};
     fields.forEach(field => {
-      if (field.name == 'id' || field.name.toLowerCase() == 'propertyadlocationid') return;
+      if (
+        field.name == 'id' ||
+        field.name.toLowerCase() == 'propertyadlocationid'
+      )
+        return;
       const fieldSchema = fieldFrom(field.type!);
       fieldSchema.defaultValue = field.defaultValue;
       fieldSchema.label = getLabel(field.name, labelMap);

@@ -2,7 +2,12 @@ import { ObjectWithKey } from '../types';
 
 export const parseObject = (
   object: ObjectWithKey,
-  action: (object: ObjectWithKey, key: string, keyWithPrefix: string, value: any) => any,
+  action: (
+    object: ObjectWithKey,
+    key: string,
+    keyWithPrefix: string,
+    value: any
+  ) => any,
   prefix?: string,
   initialObject?: ObjectWithKey
 ) => {

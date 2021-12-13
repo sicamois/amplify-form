@@ -22,7 +22,13 @@ import {
 import { Formik, Form, FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
 import loadashGet from 'lodash/get';
-import { FormComponentProps, FormSchema, FormTheme, FormValues, Option } from '../../types';
+import {
+  FormComponentProps,
+  FormSchema,
+  FormTheme,
+  FormValues,
+  Option,
+} from '../../types';
 import { accentColorMap } from '../../utils/theme-maps';
 
 const FormComponent: FC<FormComponentProps> = ({
@@ -104,17 +110,21 @@ const FormComponent: FC<FormComponentProps> = ({
         if (kind == 'boolean') return yupBoolean();
         if (kind == 'select' || kind == 'relationship') {
           const shape: { [k: string]: AnySchema } = {};
-          Object.keys(options![0]).forEach(field => (shape[field] = yupString()));
+          Object.keys(options![0]).forEach(
+            field => (shape[field] = yupString())
+          );
           return yupObject().shape(shape);
         }
         if (kind == 'list') {
-          let ofObject = yupObject()
+          let ofObject = yupObject();
           if (of?.kind == 'select' && of?.options) {
             const shape: { [k: string]: AnySchema } = {};
-            Object.keys(of!.options![0]).forEach(field => (shape[field] = yupString()));
+            Object.keys(of!.options![0]).forEach(
+              field => (shape[field] = yupString())
+            );
             ofObject = yupObject().shape(shape);
           }
-          return yupArray().of(ofObject)
+          return yupArray().of(ofObject);
         }
         if (kind == 'file') return yupMixed();
         if (kind == 'id') return yupString();
@@ -125,9 +135,10 @@ const FormComponent: FC<FormComponentProps> = ({
       Object.keys(aFormSchema).map(fieldName => {
         const fieldInfos = aFormSchema[fieldName]! as FormSchema;
         const validationObject = validationObjectFrom(fieldInfos);
-        shape[fieldName] = (fieldInfos.required && !fieldInfos.readOnly
-          ? validationObject.required()
-          : validationObject
+        shape[fieldName] = (
+          fieldInfos.required && !fieldInfos.readOnly
+            ? validationObject.required()
+            : validationObject
         ).label(fieldInfos.label || fieldName);
       });
       return validationSchemaTemp.shape(shape);
@@ -139,8 +150,14 @@ const FormComponent: FC<FormComponentProps> = ({
     setFormData({ initialValues, validationSchema });
   }, [formSchema, required]);
 
-  const getFormElement = (name: string, formSchema: FormSchema, prefix = '', theme?: FormTheme) => {
-    const { kind, label, options, of, required, defaultValue, ...props } = formSchema;
+  const getFormElement = (
+    name: string,
+    formSchema: FormSchema,
+    prefix = '',
+    theme?: FormTheme
+  ) => {
+    const { kind, label, options, of, required, defaultValue, ...props } =
+      formSchema;
     const explicitName = (prefix ? prefix + '.' : '') + name;
 
     if (!formSchema) {
@@ -152,23 +169,62 @@ const FormComponent: FC<FormComponentProps> = ({
         <FieldSet name={name} label={label || defaultLabel} theme={theme}>
           {Object.keys(props!).map(fieldName => (
             <Fragment key={fieldName}>
-              {getFormElement(fieldName, props[fieldName]! as FormSchema, name, theme=theme)}
+              {getFormElement(
+                fieldName,
+                props[fieldName]! as FormSchema,
+                name,
+                (theme = theme)
+              )}
             </Fragment>
           ))}
         </FieldSet>
       );
 
     if (kind == 'string' || kind == 'email' || kind == 'url')
-      return <TextField name={explicitName} label={label} theme={theme} {...props} />;
+      return (
+        <TextField name={explicitName} label={label} theme={theme} {...props} />
+      );
 
-    if (kind == 'textarea') return <TextAreaField name={explicitName} label={label} theme={theme} {...props} />;
+    if (kind == 'textarea')
+      return (
+        <TextAreaField
+          name={explicitName}
+          label={label}
+          theme={theme}
+          {...props}
+        />
+      );
 
-    if (kind == 'int') return <NumberField name={explicitName} label={label} theme={theme} {...props} />;
+    if (kind == 'int')
+      return (
+        <NumberField
+          name={explicitName}
+          label={label}
+          theme={theme}
+          {...props}
+        />
+      );
 
     if (kind == 'float')
-      return <NumberField name={explicitName} label={label} theme={theme} {...props} step={0.01} />;
+      return (
+        <NumberField
+          name={explicitName}
+          label={label}
+          theme={theme}
+          {...props}
+          step={0.01}
+        />
+      );
 
-    if (kind == 'boolean') return <CheckboxField name={explicitName} label={label} theme={theme} {...props} />;
+    if (kind == 'boolean')
+      return (
+        <CheckboxField
+          name={explicitName}
+          label={label}
+          theme={theme}
+          {...props}
+        />
+      );
 
     // if (kind == 'select')
     //   return (
@@ -210,30 +266,37 @@ const FormComponent: FC<FormComponentProps> = ({
       );
 
     if (kind == 'file')
-      return <FilesDropField name={explicitName} label={label} theme={theme} {...props}></FilesDropField>;
+      return (
+        <FilesDropField
+          name={explicitName}
+          label={label}
+          theme={theme}
+          {...props}></FilesDropField>
+      );
 
     return <Fragment></Fragment>;
   };
 
   const deepCopyValues = (values: FormValues) => {
-    const copiedValue = {...values};
+    const copiedValue = { ...values };
     Object.keys(values).forEach(key => {
-      const value = values[key]
+      const value = values[key];
       if (
         typeof value === 'object' &&
         !(value instanceof File) &&
         !Array.isArray(value) &&
-        value !== null) {
-          loadashSet(copiedValue, key, deepCopyValues({...value})) 
-        }
-    })
+        value !== null
+      ) {
+        loadashSet(copiedValue, key, deepCopyValues({ ...value }));
+      }
+    });
     return copiedValue;
-  }
+  };
 
   const fixMultipleSelectValues = (values: FormValues) => {
     const fixedValues = deepCopyValues(values) as FormValues;
     listFields.forEach(key => {
-      const value = loadashGet(fixedValues, key) as (Option | Option[]);
+      const value = loadashGet(fixedValues, key) as Option | Option[];
       if (Array.isArray(value)) {
         const options = value as Option[];
         if (options)
@@ -250,7 +313,10 @@ const FormComponent: FC<FormComponentProps> = ({
     return fixedValues;
   };
 
-  const submitHandler = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
+  const submitHandler = async (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>
+  ) => {
     const fixedValues = fixMultipleSelectValues(values);
     onSubmit ? await onSubmit(fixedValues, formikHelpers) : null;
   };
@@ -262,15 +328,12 @@ const FormComponent: FC<FormComponentProps> = ({
           enableReinitialize
           initialValues={formData.initialValues}
           validationSchema={formData.validationSchema}
-          onSubmit={submitHandler}
-        >
+          onSubmit={submitHandler}>
           {({ isSubmitting, isValid }) => {
             return (
-              <Form
-                className={accentColorMap.get(theme?.color)}
-                noValidate>
+              <Form className={accentColorMap.get(theme?.color)} noValidate>
                 <div className="flex flex-col gap-4">
-                  {getFormElement('', formSchema, '',  theme=theme)}
+                  {getFormElement('', formSchema, '', (theme = theme))}
                   <div className="flex flex-row gap-4 items-center">
                     <SubmitButton
                       title={submitAction}
@@ -278,9 +341,13 @@ const FormComponent: FC<FormComponentProps> = ({
                       disabled={isSubmitting && !isValid}
                     />
                     {!isValid ? (
-                      <p className="pt-1 text-red-500 font-semibold">{invalidError}</p>
+                      <p className="pt-1 text-red-500 font-semibold">
+                        {invalidError}
+                      </p>
                     ) : null}
-                    {isSubmitting && isValid ? <p className="pt-1">Création en cours...</p> : null}
+                    {isSubmitting && isValid ? (
+                      <p className="pt-1">Création en cours...</p>
+                    ) : null}
                   </div>
                 </div>
               </Form>

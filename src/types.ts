@@ -2,11 +2,18 @@ import { HTMLProps } from 'react';
 import { FormikHelpers } from 'formik';
 import { fieldSizeMap, textColorMap } from './utils/theme-maps';
 
-export type Value = string | number | boolean | string[] | Option[] | FileWithSize | FileWithSize[];
+export type Value =
+  | string
+  | number
+  | boolean
+  | string[]
+  | Option[]
+  | FileWithSize
+  | FileWithSize[];
 
 export interface FormTheme {
   color?: Color;
-  branding?: 'basic' | 'full'
+  branding?: 'basic' | 'full';
 }
 
 const fieldSizeMapKeys = Array.from(fieldSizeMap.keys());
@@ -47,15 +54,16 @@ export interface FileWithStorageKey extends Omit<FileWithSize, 'preview'> {
   storageKey: string;
 }
 export interface FileField {
-  fileType?: string,
-  text?: string
+  fileType?: string;
+  text?: string;
 }
 export interface AmplifyFormProps {
   graphQLJSONSchema: any;
   entity: string;
-  onSubmit: (values: FormValues) => void,
+  onSubmit: (values: FormValues) => void;
   label?: string;
-  fileFields?: string[] | Record<string, FileField>
+  textAreas?: string[] | Record<string, HTMLProps<HTMLTextAreaElement>>;
+  fileFields?: string[] | Record<string, FileField>;
   relationships?: Relationship[];
   fieldsConfig?: FormSchema;
   theme?: FormTheme;
@@ -64,10 +72,11 @@ export interface AmplifyFormProps {
   storageConfig?: {
     storagePrefix?: string;
     storageLevel?: 'public' | 'protected' | 'private';
-  }
+  };
 }
 
-export interface FilesDropInputProps extends Omit<HTMLProps<HTMLInputElement>, 'defaultValue'> {
+export interface FilesDropInputProps
+  extends Omit<HTMLProps<HTMLInputElement>, 'defaultValue'> {
   text?: string;
   theme?: FormTheme;
   fileType?: string;
@@ -82,7 +91,10 @@ export interface FilesDropInputProps extends Omit<HTMLProps<HTMLInputElement>, '
 export interface FormComponentProps {
   label: string;
   formSchema: FormSchema;
-  onSubmit?: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => void;
+  onSubmit?: (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>
+  ) => void;
   relationships?: Relationship[];
   theme?: FormTheme;
   messages?: Messages;

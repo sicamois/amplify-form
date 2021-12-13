@@ -19,16 +19,43 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   entity,
   onSubmit,
   label = entity,
+  textAreas,
   fileFields,
   fieldsConfig,
   labelMap,
   storageConfig,
   ...rest
 }) => {
+  const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {};
 
-  const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {}
+  const updateFormSchema: (fields: any, kind: string) => void = (
+    fields,
+    kind
+  ) => {
+    if (Array.isArray(fields)) {
+      fields.forEach(field => {
+        if (typeof field == 'string') {
+          loadashSet(formSchema, `${field}.kind`, kind);
+        }
+      });
+    } else {
+      Object.keys(fields).forEach(fieldname => {
+        loadashSet(formSchema, `${fieldname}.kind`, 'file');
+        const fieldProps = fields[fieldname];
+        Object.keys(fieldProps).forEach(prop => {
+          loadashSet(formSchema, `${fieldname}.${prop}`, fieldProps[prop]);
+        });
+      });
+    }
+  };
 
-  const formSchema = formSchemaFor(graphQLJSONSchema, entity, 'create', labelMap);
+  // Create formSchema
+  const formSchema = formSchemaFor(
+    graphQLJSONSchema,
+    entity,
+    'create',
+    labelMap
+  );
 
   if (fieldsConfig) {
     Object.keys(fieldsConfig).forEach(field => {
@@ -41,24 +68,8 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     });
   }
 
-  if (fileFields) {
-    if (Array.isArray(fileFields)) {
-      fileFields.forEach(fileField => {
-        if(typeof fileField == 'string') {
-          loadashSet(formSchema, `${fileField}.kind`, 'file');
-        }
-      })
-    } else {
-      Object.keys(fileFields).forEach(fieldname => {
-        loadashSet(formSchema, `${fieldname}.kind`, 'file');
-        const fieldProps = fileFields[fieldname]
-        Object.keys(fieldProps).forEach(prop => {
-          if (prop == 'fileType' || prop == 'text'){
-          loadashSet(formSchema, `${fieldname}.${prop}`, fieldProps[prop]);}
-        })
-      })
-    }
-  }
+  if (fileFields) updateFormSchema(fileFields, 'file');
+  if (textAreas) updateFormSchema(textAreas, 'textarea');
 
   const uploadFile = async (file: FileWithSize) => {
     try {
@@ -69,13 +80,13 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
       return putResult.key;
     } catch (value) {
       if ((value as any)?.errors) {
-        const readbleErrors = value as unknown as { message: string }[]
+        const readbleErrors = value as unknown as { message: string }[];
         throw new Error(readbleErrors.map(error => error.message).join(','));
       } else {
-        const error = value as Error
-        throw error
+        const error = value as Error;
+        throw error;
       }
-    } 
+    }
   };
 
   const uploadFiles = async (values: FormValues, fileFieldName: string) => {
@@ -101,29 +112,38 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     }
   };
 
-  const submitAndUpload = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
+  const submitAndUpload = async (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>
+  ) => {
     const { resetForm, setSubmitting } = formikHelpers;
     try {
       await Promise.all(
         Object.keys(formSchema).map(async fieldname => {
           const fieldProps = formSchema[fieldname] as FormSchema;
-          if (fieldProps.kind == 'file') values[fieldname] = await uploadFiles(values, fieldname);
+          if (fieldProps.kind == 'file')
+            values[fieldname] = await uploadFiles(values, fieldname);
         })
       );
       trimValues(values);
       onSubmit ? await onSubmit(values) : null;
-      resetForm()
+      resetForm();
     } catch (error) {
       const typedError = error as Error;
-      console.error('AmplifyForm has encountered an error :', typedError)
-      alert(`Error : ${typedError.message} (see console logs)`)
+      console.error('AmplifyForm has encountered an error :', typedError);
+      alert(`Error : ${typedError.message} (see console logs)`);
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   };
 
   const trimValues = (values: FormValues) => {
-    const action = (object: ObjectWithKey, _key: string, keyWithPrefix: string, value: any) => {
+    const action = (
+      object: ObjectWithKey,
+      _key: string,
+      keyWithPrefix: string,
+      value: any
+    ) => {
       if (value == '') {
         loadashSet(object, keyWithPrefix, null);
       }
@@ -132,7 +152,12 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   };
 
   return (
-    <FormComponent formSchema={formSchema} onSubmit={submitAndUpload} label={label} {...rest} />
+    <FormComponent
+      formSchema={formSchema}
+      onSubmit={submitAndUpload}
+      label={label}
+      {...rest}
+    />
   );
 };
 

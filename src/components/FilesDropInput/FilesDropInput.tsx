@@ -1,9 +1,20 @@
-import React, { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  FC,
+  DragEventHandler,
+} from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FilesDropInputProps, FileWithSize } from '../../types';
-import { bgColorMap, borderColorMap, textColorMap } from '../../utils/theme-maps';
+import {
+  bgColorMap,
+  borderColorMap,
+  textColorMap,
+} from '../../utils/theme-maps';
 
-const instructionsStyle = 'border-2 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';
+const instructionsStyle =
+  'border-2 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';
 
 const FilesDropInput: FC<FilesDropInputProps> = ({
   text = "Drag 'n' drop some files here, or click to select files",
@@ -22,12 +33,14 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
     if (value == '') {
       setFiles([]);
     }
-    return revokePreviews(files)
-  } , [value]);
+    return revokePreviews(files);
+  }, [value]);
 
   const revokePreviews = useCallback((files: FileWithSize[]) => {
-    files.forEach(file => (file.preview ? URL.revokeObjectURL(file.preview) : null));
-  }, [])
+    files.forEach(file =>
+      file.preview ? URL.revokeObjectURL(file.preview) : null
+    );
+  }, []);
 
   const onDrop = useCallback(
     async (acceptedFiles: FileWithSize[]) => {
@@ -72,7 +85,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
       }
 
       // Cleanup Preview on current images
-      revokePreviews(files)
+      revokePreviews(files);
       // Set new files
       setFiles(acceptedFiles);
       getFiles(acceptedFiles);
@@ -153,9 +166,10 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
     <aside className="flex flex-col flex-wrap mt-4 gap-4">
       {files.map((file, index) => (
         <ul
-          className={`${theme?.branding == 'full' ? textColorMap.get(theme?.color) : ''} text-sm`}
-          key={index}
-        >
+          className={`${
+            theme?.branding == 'full' ? textColorMap.get(theme?.color) : ''
+          } text-sm`}
+          key={index}>
           <li>
             File: <span className="font-light">{file.name}</span>
           </li>
@@ -169,18 +183,25 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
       <div
         {...getRootProps({
           className: `${
-            theme?.branding == 'full' ? bgColorMap.get(theme?.color) : 'bg-gray-200'
+            theme?.branding == 'full'
+              ? bgColorMap.get(theme?.color)
+              : 'bg-gray-200'
           } ${
-            theme?.branding == 'full' ? borderColorMap.get(theme?.color) : 'border-gray-600'
+            theme?.branding == 'full'
+              ? borderColorMap.get(theme?.color)
+              : 'border-gray-600'
           } ${
             theme?.branding == 'full' ? textColorMap.get(theme?.color) : ''
           } ${instructionsStyle}`,
-        })}
-      >
+        })}>
         <input {...getInputProps()} />
         <p>{text}</p>
       </div>
-      {files.length ? (fileType.startsWith('image/') ? imageThumbs : fileList) : null}
+      {files.length
+        ? fileType.startsWith('image/')
+          ? imageThumbs
+          : fileList
+        : null}
     </section>
   );
 };
