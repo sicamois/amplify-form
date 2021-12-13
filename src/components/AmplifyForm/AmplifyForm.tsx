@@ -40,7 +40,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
       });
     } else {
       Object.keys(fields).forEach(fieldname => {
-        loadashSet(formSchema, `${fieldname}.kind`, 'file');
+        loadashSet(formSchema, `${fieldname}.kind`, kind);
         const fieldProps = fields[fieldname];
         Object.keys(fieldProps).forEach(prop => {
           loadashSet(formSchema, `${fieldname}.${prop}`, fieldProps[prop]);
