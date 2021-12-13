@@ -19,14 +19,22 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
 
   // Reset Files when Form is reset (initialValue = '')
   useEffect(() => {
-    if (value == '') {
-      // make sure to revoke the data uris to avoid memory leaks
-      files.forEach(file => (file.preview ? URL.revokeObjectURL(file.preview) : null));
-      setFiles([]);
+    if (files.length > 0) {
+      revokePreviews(files)
+      if (value == '') {
+        // make sure to revoke the data uris to avoid memory leaks
+        setFiles([]);
+      }
     }
-  }, [value]);
+    setAcceptedFiles(files)
+    return revokePreviews(files)
+  } , [value, files]);
 
-  const onDrop = useCallback(
+  const revokePreviews = useCallback((files: FileWithSize[]) => {
+    files.forEach(file => (file.preview ? URL.revokeObjectURL(file.preview) : null));
+  }, [])
+
+  const setAcceptedFiles = useCallback(
     async (acceptedFiles: FileWithSize[]) => {
       if (fileType.startsWith('image/')) {
         const readImageAsync = async (imageSrc: string) => {
@@ -115,7 +123,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: fileType,
-    onDrop,
+    onDrop: setFiles,
     multiple,
   });
 
