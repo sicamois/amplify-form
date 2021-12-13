@@ -6,6 +6,7 @@ export type Value = string | number | boolean | string[] | Option[] | FileWithSi
 
 export interface FormTheme {
   color?: Color;
+  branding?: 'basic' | 'full'
 }
 
 const fieldSizeMapKeys = Array.from(fieldSizeMap.keys());
@@ -58,7 +59,7 @@ export interface AmplifyFormProps extends Omit<Omit<FormComponentProps, 'formSch
 
 export interface FilesDropInputProps extends Omit<HTMLProps<HTMLInputElement>, 'defaultValue'> {
   text?: string;
-  className?: string;
+  theme?: FormTheme;
   fileType?: string;
   thumbnailSize?: {
     width: number;

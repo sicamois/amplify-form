@@ -13,6 +13,7 @@ import {
 } from '../../types';
 import {
   bgColorMap,
+  borderColorMap,
   fieldSizeMap,
   focusBorderColorMap,
   peerFocusTextColorMap,
@@ -68,7 +69,11 @@ const FieldWithError: FC<FieldProps> = ({
 
 export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
   return (
-    <fieldset className={fieldSetStyle}>
+    <fieldset
+      className={`${
+        theme?.branding == 'full' ? borderColorMap.get(theme.color) : ''
+      } ${fieldSetStyle}`}
+    >
       <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>{label}</legend>
       {children}
     </fieldset>
@@ -156,13 +161,7 @@ export const CheckboxField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} labelCentered={true} {...rest}>
       <div className={`relative p-3 flex justify-center ${fieldSizeMap.get(fieldSize)}`}>
-        <Field
-          className={checkboxStyle}
-          type="checkbox"
-          id={name}
-          name={name}
-          {...rest}
-        />
+        <Field className={checkboxStyle} type="checkbox" id={name} name={name} {...rest} />
       </div>
     </FieldWithError>
   );
@@ -295,7 +294,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({ title, theme, type, ...res
     <Fragment>
       <button
         type="submit"
-        className={`disabled:opacity-70 ${bgColorMap.get(theme?.color)} ${submitButtonStyle}`}
+        className={`disabled:opacity-70 ${bgColorMap.get(theme?.color)} ${textColorMap.get(theme?.color)} ${submitButtonStyle}`}
         {...rest}
       >
         {title}

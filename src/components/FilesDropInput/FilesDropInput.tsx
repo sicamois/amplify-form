@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useEffect, FC, DragEventHandler } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FilesDropInputProps, FileWithSize } from '../../types';
+import { bgColorMap, borderColorMap } from '../../utils/theme-maps';
 
-const defaultInstructionsStyle =
-  'bg-gray-100 border-2 border-gray-400 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';
+const instructionsStyle = 'border-2 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';
 
 const FilesDropInput: FC<FilesDropInputProps> = ({
   text = "Drag 'n' drop some files here, or click to select files",
-  className = defaultInstructionsStyle,
+  theme,
   fileType = 'image/*',
   thumbnailSize,
   getFiles,
@@ -159,8 +159,13 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
     <section className="container">
       <div
         {...getRootProps({
-          className: className,
-        })}>
+          className: `${
+            theme?.branding == 'full' ? bgColorMap.get(theme?.color) : 'bg-gray-200'
+          } ${
+            theme?.branding == 'full' ? borderColorMap.get(theme?.color) : 'bg-gray-600'
+          } ${instructionsStyle}`,
+        })}
+      >
         <input {...getInputProps()} />
         <p>{text}</p>
       </div>
