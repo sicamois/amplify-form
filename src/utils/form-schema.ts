@@ -80,9 +80,11 @@ export const formSchemaFor = (
       if (type.name == 'ID') return { kind: 'relationship' };
       if (type.kind == 'SCALAR' && type.name != 'ID') return { kind: type.name!.toLowerCase() };
       if (type.kind == 'LIST') {
+        const field: FormSchema = { kind: 'list', of: {kind: 'unhandled'}, multiple: true};
         const ofFormSchema = fieldFrom(type.ofType!)!;
         if (ofFormSchema.kind == 'select')
-          return { kind: 'list', of: ofFormSchema, multiple: true };
+          field.of = ofFormSchema;
+        return field
       }
       if (type.kind == 'ENUM')
         return { kind: 'select', options: getEnumValues(type.name!, types, labelMap) };

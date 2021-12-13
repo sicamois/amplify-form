@@ -107,10 +107,14 @@ const FormComponent: FC<FormComponentProps> = ({
           Object.keys(options![0]).forEach(field => (shape[field] = yupString()));
           return yupObject().shape(shape);
         }
-        if (kind == 'list' && of!.options) {
-          const shape: { [k: string]: AnySchema } = {};
-          Object.keys(of!.options![0]).forEach(field => (shape[field] = yupString()));
-          return yupArray().of(yupObject().shape(shape));
+        if (kind == 'list') {
+          let ofObject = yupObject()
+          if (of?.kind == 'select' && of?.options) {
+            const shape: { [k: string]: AnySchema } = {};
+            Object.keys(of!.options![0]).forEach(field => (shape[field] = yupString()));
+            ofObject = yupObject().shape(shape);
+          }
+          return yupArray().of(ofObject)
         }
         if (kind == 'file') return yupMixed();
         if (kind == 'id') return yupString();
