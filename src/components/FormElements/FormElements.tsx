@@ -111,7 +111,7 @@ export const TextField: FC<FieldProps> = ({
 
 export const TextAreaField: FC<FieldProps> = ({
   name,
-  fieldSize = 'full',
+  fieldSize = '3xl',
   theme,
   placeholder = ' ',
   ...rest
