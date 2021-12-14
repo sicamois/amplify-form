@@ -27,6 +27,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   fieldsSize,
   fieldsConfig,
   labelMap,
+  imageFields,
   fileFields,
   storageConfig,
   ...rest
@@ -35,12 +36,14 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
 
   const updateFormSchema: (
     fields: TextAreas | FileFields,
-    kind: string
-  ) => void = (fields, kind) => {
+    kind: string,
+    images?: boolean,
+  ) => void = (fields, kind, images = false) => {
     if (Array.isArray(fields)) {
-      fields.forEach(field => {
-        if (typeof field == 'string') {
-          loadashSet(formSchema, `${field}.kind`, kind);
+      fields.forEach(fieldname => {
+        if (typeof fieldname == 'string') {
+          loadashSet(formSchema, `${fieldname}.kind`, kind);
+          if (images) loadashSet(formSchema, `${fieldname}.fileType`, 'image/*');
         }
       });
     } else {
@@ -75,6 +78,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   }
 
   if (fileFields) updateFormSchema(fileFields, 'file');
+  if (imageFields) updateFormSchema(imageFields, 'file', true);
   if (textAreas) updateFormSchema(textAreas, 'textarea');
 
   // Add fields size

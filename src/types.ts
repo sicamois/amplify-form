@@ -76,6 +76,7 @@ export interface AmplifyFormProps {
   label?: string;
   textAreas?: TextAreas;
   fileFields?: FileFields;
+  imageFields?: FileFields;
   relationships?: Relationship[];
   fieldsSize?: FieldsSize;
   fieldsConfig?: FormSchema;
