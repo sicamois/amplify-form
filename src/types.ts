@@ -80,7 +80,6 @@ export interface AmplifyFormProps {
   fieldsSize?: FieldsSize;
   fieldsConfig?: FormSchema;
   theme?: FormTheme;
-  messages?: Messages;
   labelMap?: Map<string, string>;
   storageConfig?: {
     storagePrefix?: string;

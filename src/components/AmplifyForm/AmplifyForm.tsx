@@ -15,6 +15,7 @@ import {
   ObjectWithKey,
   FileFields,
   TextAreas,
+  Messages,
 } from '../../types';
 
 const AmplifyForm: FC<AmplifyFormProps> = ({
@@ -23,10 +24,10 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   onSubmit,
   label = entity,
   textAreas,
-  fileFields,
   fieldsSize,
   fieldsConfig,
   labelMap,
+  fileFields,
   storageConfig,
   ...rest
 }) => {
@@ -163,11 +164,19 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     parseObject(values, action);
   };
 
+  const messages: Messages = {
+    invalidError: labelMap?.get('message:invalidError'),
+    required: labelMap?.get('message:required'),
+    select: labelMap?.get('message:select'),
+    submitAction: labelMap?.get('message:submitAction'),
+  };
+
   return (
     <FormComponent
       formSchema={formSchema}
       onSubmit={submitAndUpload}
       label={label}
+      messages={messages}
       {...rest}
     />
   );
