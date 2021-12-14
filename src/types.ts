@@ -60,7 +60,9 @@ export interface FileField {
 
 export type FileFields = string[] | Record<string, FileField>;
 
-export type TextAreas = string[] | Record<string, HTMLProps<HTMLTextAreaElement>>;
+export type TextAreas =
+  | string[]
+  | Record<string, HTMLProps<HTMLTextAreaElement>>;
 export interface AmplifyFormProps {
   graphQLJSONSchema: any;
   entity: string;
