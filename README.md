@@ -29,13 +29,13 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 ## Installation
 
 ```console
-$ npm install amplify-form
+npm install amplify-form
 ```
 
 or
 
 ```console
-$ yarn add amplify-form
+yarn add amplify-form
 ```
 
 ## Usage
