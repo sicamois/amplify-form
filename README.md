@@ -213,6 +213,7 @@ You can add _special names_ in the `labelMap` to customize Error or Feedback mes
 - `'message:required'`: Gives feedback to the user signaling that a required field is empty. It appears under the field as _'${fieldname} ${required}'_ (for example _'name required'_). _Default_: `'required'`
 - '`message:select'`: Text that appears in all `<select>`. Warning : this apply to single and multi select_Default_: `'Select'`
 - `'message:submitAction'`: The text of the `submit button`. _Default_: `'Create'`
+- `'message:creating'`: The appearing while the record is created in the backend. _Default_: `'Creating Item...'`
 
 **Example:**
 

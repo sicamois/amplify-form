@@ -173,6 +173,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     required: labelMap?.get('message:required'),
     select: labelMap?.get('message:select'),
     submitAction: labelMap?.get('message:submitAction'),
+    creating: labelMap?.get('message:creating'),
   };
 
   return (

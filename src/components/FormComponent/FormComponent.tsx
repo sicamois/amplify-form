@@ -49,6 +49,7 @@ const FormComponent: FC<FormComponentProps> = ({
     required = 'required',
     select = 'Select',
     submitAction = 'Create',
+    creating = 'Creating item...',
   } = messages;
 
   const listFields: Set<string> = new Set();
@@ -350,7 +351,7 @@ const FormComponent: FC<FormComponentProps> = ({
                       </p>
                     ) : null}
                     {isSubmitting && isValid ? (
-                      <p className="pt-1">Création en cours...</p>
+                      <p className="pt-1">{creating}</p>
                     ) : null}
                   </div>
                 </div>
