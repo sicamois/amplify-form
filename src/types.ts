@@ -57,13 +57,17 @@ export interface FileField {
   fileType?: string;
   text?: string;
 }
+
+export type FileFields = string[] | Record<string, FileField>;
+
+export type TextAreas = string[] | Record<string, HTMLProps<HTMLTextAreaElement>>;
 export interface AmplifyFormProps {
   graphQLJSONSchema: any;
   entity: string;
   onSubmit: (values: FormValues) => void;
   label?: string;
-  textAreas?: string[] | Record<string, HTMLProps<HTMLTextAreaElement>>;
-  fileFields?: string[] | Record<string, FileField>;
+  textAreas?: TextAreas;
+  fileFields?: FileFields;
   relationships?: Relationship[];
   fieldsConfig?: FormSchema;
   theme?: FormTheme;

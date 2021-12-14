@@ -5,6 +5,7 @@ import { formSchemaFor } from '../../utils/form-schema';
 import { parseObject } from '../../utils/parse-object';
 import { FormikHelpers } from 'formik';
 import loadashSet from 'lodash/set';
+import loadashGet from 'lodash/get';
 import {
   AmplifyFormProps,
   FormSchema,
@@ -12,6 +13,8 @@ import {
   FormValues,
   FileWithStorageKey,
   ObjectWithKey,
+  FileFields,
+  TextAreas,
 } from '../../types';
 
 const AmplifyForm: FC<AmplifyFormProps> = ({
@@ -28,10 +31,10 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
 }) => {
   const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {};
 
-  const updateFormSchema: (fields: any, kind: string) => void = (
-    fields,
-    kind
-  ) => {
+  const updateFormSchema: (
+    fields: TextAreas | FileFields,
+    kind: string
+  ) => void = (fields, kind) => {
     if (Array.isArray(fields)) {
       fields.forEach(field => {
         if (typeof field == 'string') {
@@ -43,7 +46,8 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
         loadashSet(formSchema, `${fieldname}.kind`, kind);
         const fieldProps = fields[fieldname];
         Object.keys(fieldProps).forEach(prop => {
-          loadashSet(formSchema, `${fieldname}.${prop}`, fieldProps[prop]);
+          const value = loadashGet(fieldProps, prop)
+          loadashSet(formSchema, `${fieldname}.${prop}`, value);
         });
       });
     }
