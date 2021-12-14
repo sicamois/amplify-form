@@ -19,7 +19,7 @@ const instructionsStyle =
 const FilesDropInput: FC<FilesDropInputProps> = ({
   text = "Drag 'n' drop some files here, or click to select files",
   theme,
-  fileType = '*',
+  fileType,
   thumbnailSize,
   multiple,
   setValue,
@@ -50,7 +50,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   const onDrop = useCallback(
     async (acceptedFiles: FileWithSize[]) => {
       console.log(`onDrop - acceptedFiles (${acceptedFiles.length}) ${acceptedFiles}`)
-      if (fileType.startsWith('image/')) {
+      if (fileType && fileType.startsWith('image/')) {
         const readImageAsync = async (imageSrc: string) => {
           return new Promise<HTMLImageElement>((resolve, reject) => {
             const image = new Image();
@@ -206,7 +206,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
         <p>{text}</p>
       </div>
       {files.length
-        ? fileType.startsWith('image/')
+        ? (fileType && fileType.startsWith('image/'))
           ? imageThumbs
           : fileList
         : null}
