@@ -18,7 +18,7 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Change **field size** ([here](#Change-field-size))
 - Customize Form **branding** ([here](#Customize-form-branding))
 - Add **`<textarea>`** for long text ([here](#Add-a-textarea))
-- Add drag'n'drop zone to **add images** with automatic uploads ([here](#Add-drag'n'drop-zone-to-add-images))
+- Add drag'n'drop zone to **add images** with automatic uploads ([here](#Add-drag-n-drop-zone-to-add-images))
 - Add drag'n'drop zone to **add files** with automatic uploads ([here](#Add-drag'n'drop-zone-to-add-files))
 - **Typescript** friendly
 
