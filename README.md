@@ -21,7 +21,6 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 
 <!-- - Add files or images, they are automaticcaly uploaded to your [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/)
 - Add relationship between items
-- Display custom field labels
 - Customize form apperance
 - Customize field apperance -->
 
