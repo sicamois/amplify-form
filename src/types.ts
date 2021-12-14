@@ -98,7 +98,7 @@ export interface FilesDropInputProps
     width: number;
     height: number;
   };
-  getFiles: (files: FileWithSize[]) => void;
+  setValue: (files: FileWithSize[]) => void;
   defaultValue?: FileWithSize[];
 }
 
@@ -182,7 +182,7 @@ export interface SelectFieldProps extends FieldProps {
 
 export interface FilesDropFieldProps
   extends Omit<FieldProps, 'defaultValue'>,
-    Omit<FilesDropInputProps, 'getFiles'> {
+    Omit<FilesDropInputProps, 'setValue'> {
   name: string;
 }
 

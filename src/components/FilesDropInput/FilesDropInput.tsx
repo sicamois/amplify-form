@@ -21,8 +21,8 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   theme,
   fileType = 'image/*',
   thumbnailSize,
-  getFiles,
   multiple,
+  setValue,
   value,
 }) => {
   const [files, setFiles] = useState<FileWithSize[]>([]);
@@ -31,7 +31,10 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   // Reset Files when Form is reset (initialValue = '')
   useEffect(() => {
     if (value == '') {
-      setFiles([]);
+      setFiles((prevState) => {
+        revokePreviews(prevState);
+        return []
+      });
     }
     return revokePreviews(files);
   }, [value]);
@@ -84,13 +87,14 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
         );
       }
 
-      // Cleanup Preview on current images
-      revokePreviews(files);
       // Set new files
-      setFiles(acceptedFiles);
-      getFiles(acceptedFiles);
+      setValue(acceptedFiles);
+      setFiles((prevState) => {
+        revokePreviews(prevState);
+        return acceptedFiles
+      });
     },
-    [getFiles, fileType]
+    [fileType]
   );
 
   const onDragStart: DragEventHandler<HTMLImageElement> = dragEvent => {
@@ -129,6 +133,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
     const dragFile = files[dragId!];
     newFiles.splice(dragId!, 1);
     newFiles.splice(dropId, 0, dragFile);
+    setDragId(undefined);
     setFiles(newFiles);
   };
 

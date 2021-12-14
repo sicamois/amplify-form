@@ -287,9 +287,9 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
 
   const { setValue } = helpers;
   const { value } = field;
-  const processFiles = (files: FileWithSize[]) => {
-    multiple ? setValue(files) : setValue(files[0]);
-  };
+  const processValue = (files: FileWithSize[]) => {
+    multiple ? setValue(files) : setValue(files[0])
+  }
 
   return (
     <Fragment>
@@ -309,10 +309,10 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
             <FilesDropInput
               name={name}
               id={name}
-              getFiles={processFiles}
               multiple={multiple}
               value={value}
               theme={theme}
+              setValue={processValue}
               {...rest}
             />
           </FieldWithError>
