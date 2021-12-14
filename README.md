@@ -228,6 +228,7 @@ import addTodo from '../utilities/add-todo';
 
 export default Home = () => {
   const labelMap: Map<string, string> = new Map([
+    ['name', 'Enter a name'],
     ['message:invalidError', 'Check invalid fields before submitting'],
     ['message:required', 'is required'],
     ['message:select', 'Choose'],
@@ -300,10 +301,11 @@ For a better branding, you use the `theme` prop with 2 props :
 
 - `color? = Color`: Set the `Color` scheme of the form.  
   As `AmplifyForm` uses [Tailwind CSS](https://tailwindcss.com) under the hood, it is based on Tailwind colors (as defined [here](https://tailwindcss.com/docs/customizing-colors)).  
-  *Note:* `Type Color = 'black' | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'red' | 'orange' | 'amber' | 'yellow' | 'lime' | 'green' | 'emerald' | 'teal' | 'cyan' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'`
+  *Note:* `Type Color = 'black' | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'red' | 'orange' | 'amber' | 'yellow' | 'lime' | 'green' | 'emerald' | 'teal' | 'cyan' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'`  
+  *Default* is `'red'`
 
 - `branding? = 'basic'| 'full'`: Set the level of branding you want to apply.  
-  Default is `'basic'`
+  *Default* is `'basic'`
 
 **Example:**
 
@@ -464,7 +466,7 @@ Upon submission (when you click the **Create** button), images will automaticall
 - [Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/) module must be delpoyed in your Amplify backend
 - Amplify must be configured on the page containing the AmplifyForm: typically via the `Amplify.configure({...awsExports})` command on the top of the file or in `_app.tsx`
 
-### Parsing returned values
+### Parsing returned values (image)
 
 As Images are not simple fields, the `values` returned by AmplifyForm must be parsed and reworked before being sent to GraphlQL API. This is achieve via the `onSubmit: async (values: FormValues) => void` prop of AmplifyForm.
 
@@ -472,15 +474,17 @@ The value returned by Amplify is either a single `FieldWithStorage` (for single 
 
 `FieldWithStorage` is a special type that contains all the informations you need about the image :
 
-- `name`: the name of the file
+- `name`: the name of the image
 - `storageKey`: the S3 key, typically used to download the image via `Storage.get(storageKey)` (details [here](https://docs.amplify.aws/lib/storage/download/q/platform/js/))
 - `type`: the MIME type of the image
 - `width`: the image width
 - `height`: the image height
 
-### Example
+### Example (image)
 
 Let's say your GraphQL model `schema.grapql` is a simple blog with Post, described in `Post`, and each Post has some images (at least one), described in `ImageFile` :
+
+`schema.graphql`:
 
 ```graphql
 type Post
@@ -505,6 +509,8 @@ And you create 2 functions :
 - `createPostInput` to put the image infos in the right place
 - `addPost` to create the new Post in the backend via the GraphQL API
 
+`pages/create-post.tsx`:
+
 ```js
 // Import Amplify
 import Amplify, { API } from 'aws-amplify';
@@ -512,6 +518,8 @@ import awsExports from '../aws-exports';
 import { createPost } from '../graphql/mutations';
 import { CreatePostMutation, ImageFileInput } from '../API';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 // Import AmplifyForm and types
 import AmplifyForm from 'amplify-form';
@@ -520,7 +528,7 @@ import { FormValues, FileWithStorage } from 'amplify-form'
 // Path to the JSON representation of the GraphQL Schema
 import schema from '../graphql/schema.json';
 
-export default CreatePost = () => {
+const CreatePost = () => {
 
   // Configure Amplify
   Amplify.configure({ ...awsExports });
@@ -583,6 +591,8 @@ export default CreatePost = () => {
     </div>
   );
 };
+
+export default withAuthenticator(() => CreatePost)
 ```
 
 ## Add drag'n'drop zone to add files
@@ -624,6 +634,8 @@ The value returned by Amplify is either a single `FieldWithStorage` (for single 
 
 Let's say your GraphQL model `schema.grapql` is a simple blog with Post, described in `Post`, and each Post has some attachements (at least one), described in `File` :
 
+`schema.graph.ql`
+
 ```graphql
 type Post
 @model {
@@ -646,6 +658,8 @@ And you create 2 functions :
 - `createPostInput` to put the file infos in the right place
 - `addPost` to create the new Post in the backend via the GraphQL API
 
+`pages/create-post.tsx`
+
 ```js
 // Import Amplify
 import Amplify, { API } from 'aws-amplify';
@@ -653,6 +667,8 @@ import awsExports from '../aws-exports';
 import { createPost } from '../graphql/mutations';
 import { CreatePostMutation, FileInput } from '../API';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 // Import AmplifyForm and types
 import AmplifyForm from 'amplify-form';
@@ -661,7 +677,7 @@ import { FormValues, FileWithStorage } from 'amplify-form'
 // Path to the JSON representation of the GraphQL Schema
 import schema from '../graphql/schema.json';
 
-export default CreatePost = () => {
+const CreatePost = () => {
 
   // Configure Amplify
   Amplify.configure({ ...awsExports });
@@ -723,6 +739,8 @@ export default CreatePost = () => {
     </div>
   );
 };
+
+export default withAuthenticator(() => CreatePost)
 ```
 
 <!-- ## Add images or files
