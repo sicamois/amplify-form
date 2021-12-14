@@ -12,9 +12,10 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 
 - Create a form for any of your [AWS Amplify GraphQL API](https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/js/)
 - Generate `values` that can be directly passed to grapql
-- Customize Form name ([here](#Add-a-label-to-the-form))
 - Create automatically `<select>` for your enums
+- Customize Form name ([here](#Add-a-label-to-the-form))
 - Add `<textarea>` for long text ([here](#Add-a-textarea))
+- Change field size ([here](#Change-field-size))
 - Typescript friendly
 
 <!-- - Add files or images, they are automaticcaly uploaded to your [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/)
@@ -105,13 +106,14 @@ export default Home = () => {
       })) as { data: CreateTodoMutation; errors: any[] };
       router.push(`/todo/${request.data.createTodo.id}`);
     } catch (response) {
-      if (response.message) {
+      if (response instanceof Error) {
         const error = response as Error
         throw error
+      } else {
+        const { errors } = response
+        console.error(...errors);
+        throw new Error(errors[0].message);
       }
-      const { errors } = response
-      console.error(...errors);
-      throw new Error(errors[0].message);
     }
   }
 
@@ -240,6 +242,46 @@ export default Home = () => {
         graphQLJSONSchema={schema}
         onSubmit={addTodo}
         textAreas={textAreasConfig}
+      />
+    </div>
+  );
+};
+```
+
+## Change field size
+
+Each field, depending on its type, has a default width.  
+If you want to change this default behaviour and set a particular size on some fields, set this prop:
+
+- `fieldsSize`: Pass an object with the fieldname as key and a `FieldSize` as value
+
+*Note:* `Type FieldSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full' | 'max' | 'screen'`
+
+**Example:**
+
+```js
+// Import AmplifyForm
+import AmplifyForm from 'amplify-form';
+
+// Path to the JSON representation of the GraphQL Schema
+import schema from '../graphql/schema.json';
+
+// Import function to process the Form values
+import addTodo from '../utilities/add-todo';
+
+export default Home = () => {
+  const fieldsSizeConfig = {
+    name: 'lg',
+    description: '3xl'
+  }
+  return (
+    <div>
+      <h1>Create a new To do</h1>
+      <AmplifyForm
+        entity='Todo'
+        graphQLJSONSchema={schema}
+        onSubmit={addTodo}
+        fieldsSize={fieldsSizeConfig}
       />
     </div>
   );
