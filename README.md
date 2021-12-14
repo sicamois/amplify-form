@@ -470,7 +470,7 @@ As Images are not simple fields, the `values` returned by AmplifyForm must be pa
 
 The value returned by Amplify is either a single `FieldWithStorage` (for single image) or a `FieldWithStorage[]` (for multiple images).
 
-`FieldWithStorage[]` is a special type that contains all the informations you need about the image :
+`FieldWithStorage` is a special type that contains all the informations you need about the image :
 
 - `name`: the name of the file
 - `storageKey`: the S3 key, typically used to download the image via `Storage.get(storageKey)` (details [here](https://docs.amplify.aws/lib/storage/download/q/platform/js/))
@@ -516,9 +516,6 @@ import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 // Import AmplifyForm and types
 import AmplifyForm from 'amplify-form';
 import { FormValues, FileWithStorage } from 'amplify-form'
-
-// Import NextJS router
-import { useRouter } from 'next/router';
 
 // Path to the JSON representation of the GraphQL Schema
 import schema from '../graphql/schema.json';
