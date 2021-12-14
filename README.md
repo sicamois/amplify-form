@@ -539,9 +539,9 @@ export default CreatePost = () => {
       const imageFiles: ImageFileType[] = fileValues.map(file => {
         return {
           s3_key: file.storageKey,
-          mime_type: file.type
-          width: file.width
-          height: file.height
+          mime_type: file.type,
+          width: file.width,
+          height: file.height,
         }
       });
       // Replace the value in postInput
@@ -576,11 +576,11 @@ export default CreatePost = () => {
 
   return (
     <div>
-      <h1>Create a new To do</h1>
+      <h1>Create a new Post</h1>
       <AmplifyForm
-        entity='Todo'
+        entity='Post'
         graphQLJSONSchema={schema}
-        onSubmit={addTodo}
+        onSubmit={addPost}
         textAreas={['content']}
         imageFields={imageFields}
       />
