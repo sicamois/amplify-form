@@ -30,7 +30,9 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
 
   // Reset Files when Form is reset (initialValue = '')
   useEffect(() => {
+    console.log('useEffect - value:', value)
     if (value == '') {
+      console.log('reinit files')
       setFiles((prevState) => {
         revokePreviews(prevState);
         return []
@@ -47,6 +49,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
 
   const onDrop = useCallback(
     async (acceptedFiles: FileWithSize[]) => {
+      console.log(`onDrop - acceptedFiles (${acceptedFiles.length}) ${acceptedFiles}`)
       if (fileType.startsWith('image/')) {
         const readImageAsync = async (imageSrc: string) => {
           return new Promise<HTMLImageElement>((resolve, reject) => {
