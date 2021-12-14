@@ -143,7 +143,7 @@ export const bgColorMap: Map<string | undefined, string> = new Map([
   ['fuchsia', 'bg-fuchsia-600'],
   ['pink', 'bg-pink-600'],
   ['rose', 'bg-pink-600'],
-  [undefined, 'bg-red-600'],
+  [undefined, 'bg-red-900'],
 ]);
 
 export const bgLightColorMap: Map<string | undefined, string> = new Map([

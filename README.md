@@ -303,7 +303,6 @@ For a better branding, you use the `theme` prop with 2 props :
 - `color? = Color`: Set the `Color` scheme of the form.  
   As `AmplifyForm` uses [Tailwind CSS](https://tailwindcss.com) under the hood, it is based on Tailwind colors (as defined [here](https://tailwindcss.com/docs/customizing-colors)).  
   *Note:* `Type Color = 'black' | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'red' | 'orange' | 'amber' | 'yellow' | 'lime' | 'green' | 'emerald' | 'teal' | 'cyan' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'`  
-  *Default* is `'red'`
 
 - `branding? = 'basic'| 'full'`: Set the level of branding you want to apply.  
   *Default* is `'basic'`
