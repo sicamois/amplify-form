@@ -531,7 +531,7 @@ export default CreatePost = () => {
   const imageFields = ['gallery']
 
   const createPostInput = (values: FormValues, imageFieldList: string[]) => {
-    const postInput: FormValues = {...values}
+    const postInput: FormValues = {...values};
     imageFieldList.map(imageFieldName => {
       // Retrieve the FileWithStorage array from values
       const fileValues = values[imageFieldName] as FileWithStorage[];
@@ -548,7 +548,7 @@ export default CreatePost = () => {
       postInput[imageFieldName] = imageFiles;
     });
     // Return the values now in the right format
-    return postInput
+    return postInput;
   }
 
   const addPost (values: FormValues) => {
@@ -563,16 +563,15 @@ export default CreatePost = () => {
       })) as { data: CreatePostMutation; errors: any[] };
     } catch (response) {
       if (response instanceof Error) {
-        const error = response as Error
-        throw error
+        const error = response as Error;
+        throw error;
       } else {
-        const { errors } = response
+        const { errors } = response;
         console.error(...errors);
         throw new Error(errors[0].message);
       }
     }
-
-  }
+  };
 
   return (
     <div>
