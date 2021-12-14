@@ -13,13 +13,13 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Create a form for any of your [AWS Amplify GraphQL API](https://docs.amplify.aws/lib/graphqlapi/getting-started/q/platform/js/)
 - Generate **`values`** that can be directly passed to grapql
 - Create automatically `<select>` for your **enums**
-- Customize **Form name** ([here](#Add-a-label-to-the-form))
-- Customize **fields label** and messages + localization ([here](#Customize-fields-label-and-messages-localization))
-- Change **field size** ([here](#Change-field-size))
-- Customize Form **branding** ([here](#Customize-form-branding))
-- Add **`<textarea>`** for long text ([here](#Add-a-textarea))
-- Add drag'n'drop zone to **add images** with automatic uploads ([here](#Add-drag-n-drop-zone-to-add-images))
-- Add drag'n'drop zone to **add files** with automatic uploads ([here](#Add-drag'n'drop-zone-to-add-files))
+- Customize **Form name** ([here](#add-a-label-to-the-form))
+- Customize **fields label** and messages + localization ([here](#customize-fields-label-and-messages-localization))
+- Change **field size** ([here](#change-field-size))
+- Customize Form **branding** ([here](#customize-form-branding))
+- Add **`<textarea>`** for long text ([here](#add-a-textarea))
+- Add drag'n'drop zone to **add images** with automatic uploads ([here](#add-dragndrop-zone-to-add-images))
+- Add drag'n'drop zone to **add files** with automatic uploads ([here](#add-dragndrop-zone-to-add-files))
 - **Typescript** friendly
 
 <!-- - Add files or images, they are automaticcaly uploaded to your [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/)
