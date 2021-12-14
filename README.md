@@ -531,14 +531,14 @@ export default CreatePost = () => {
     const postInput: FormValues = {...values};
     imageFieldList.map(imageFieldName => {
       // Retrieve the FileWithStorage array from values
-      const fileValues = values[imageFieldName] as FileWithStorage[];
+      const imageValues = values[imageFieldName] as FileWithStorage[];
       // Parse every value and transform it into ImageFileType
-      const imageFiles: ImageFileType[] = fileValues.map(file => {
+      const imageFiles: ImageFileInput[] = imageValues.map(image => {
         return {
-          s3_key: file.storageKey,
-          mime_type: file.type,
-          width: file.width,
-          height: file.height,
+          s3_key: image.storageKey,
+          mime_type: image.type,
+          width: image.width,
+          height: image.height,
         }
       });
       // Replace the value in postInput
@@ -579,6 +579,146 @@ export default CreatePost = () => {
         onSubmit={addPost}
         textAreas={['content']}
         imageFields={imageFields}
+      />
+    </div>
+  );
+};
+```
+
+## Add drag'n'drop zone to add files
+
+Sometimes you want to add files to your backend. GraphQL give no direct type to reference a file. So generally, files are uploaded to a S3 bucket and referenced in the API by a `string` (typically `s3_key`).
+
+Amplify give you the tools to simplify storage in S3, via the module [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/).
+
+But as files are only referenced in the GraphQL schema as `string`, you have to manually declare to AmplifyForm which fields are in reality files.
+
+It is quite straight-forward with this prop:
+
+- `fileFields?`: A prop where you pass an array containing all the fields that need to be displayed as `<input type='file'>`.
+
+**Note:** Instead of boring `<input type='file'>` AmplifyForm creates for you a nice drag'n'drop zone, based on [React Dropzone](https://react-dropzone.js.org).
+
+### Automatic file upload
+
+Upon submission (when you click the **Create** button), files will automatically be uploaded to your S3 Storage configured in your Amplify backend.
+
+**This has 2 requierements :**
+
+- [Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/) module must be delpoyed in your Amplify backend
+- Amplify must be configured on the page containing the AmplifyForm: typically via the `Amplify.configure({...awsExports})` command on the top of the file or in `_app.tsx`
+
+### Parsing returned values (files)
+
+As File are not simple fields, the `values` returned by AmplifyForm must be parsed and reworked before being sent to GraphlQL API. This is achieve via the `onSubmit: async (values: FormValues) => void` prop of AmplifyForm.
+
+The value returned by Amplify is either a single `FieldWithStorage` (for single file) or a `FieldWithStorage[]` (for multiple files).
+
+`FieldWithStorage` is a special type that contains all the informations you need about the file :
+
+- `name`: the name of the file
+- `storageKey`: the S3 key, typically used to download the file via `Storage.get(storageKey)` (details [here](https://docs.amplify.aws/lib/storage/download/q/platform/js/))
+- `type`: the MIME type of the file
+
+### Example (file)
+
+Let's say your GraphQL model `schema.grapql` is a simple blog with Post, described in `Post`, and each Post has some attachements (at least one), described in `File` :
+
+```graphql
+type Post
+@model {
+  id: ID!
+  title: String!
+  content: String!
+  attachements: [File!]!
+}
+
+type File {
+  name: String!
+  s3_key: String!
+  mime_type: String!
+}
+```
+
+You declare `attachements` as an _file field_ (also `content` as a `<textarea>`).  
+And you create 2 functions :
+
+- `createPostInput` to put the file infos in the right place
+- `addPost` to create the new Post in the backend via the GraphQL API
+
+```js
+// Import Amplify
+import Amplify, { API } from 'aws-amplify';
+import awsExports from '../aws-exports';
+import { createPost } from '../graphql/mutations';
+import { CreatePostMutation, FileInput } from '../API';
+import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
+
+// Import AmplifyForm and types
+import AmplifyForm from 'amplify-form';
+import { FormValues, FileWithStorage } from 'amplify-form'
+
+// Path to the JSON representation of the GraphQL Schema
+import schema from '../graphql/schema.json';
+
+export default CreatePost = () => {
+
+  // Configure Amplify
+  Amplify.configure({ ...awsExports });
+
+  const fileFields = ['attachements']
+
+  const createPostInput = (values: FormValues, fileFieldList: string[]) => {
+    const postInput: FormValues = {...values};
+    fileFieldList.map(fileFieldName => {
+      // Retrieve the FileWithStorage array from values
+      const fileValues = values[fileFieldName] as FileWithStorage[];
+      // Parse every value and transform it into ImageFileType
+      const files: FileInput[] = fileValues.map(file => {
+        return {
+          name: file.name,
+          s3_key: file.storageKey,
+          mime_type: file.type,
+        }
+      });
+      // Replace the value in postInput
+      postInput[fileFieldName] = files;
+    });
+    // Return the values now in the right format
+    return postInput;
+  }
+
+  const addPost (values: FormValues) => {
+    const postInput = createPostInput(values);
+    try {
+      const request = (await API.graphql({
+        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+        query: createPost,
+        variables: {
+          input: postInput,
+        },
+      })) as { data: CreatePostMutation; errors: any[] };
+    } catch (response) {
+      if (response instanceof Error) {
+        const error = response as Error;
+        throw error;
+      } else {
+        const { errors } = response;
+        console.error(...errors);
+        throw new Error(errors[0].message);
+      }
+    }
+  };
+
+  return (
+    <div>
+      <h1>Create a new Post</h1>
+      <AmplifyForm
+        entity='Post'
+        graphQLJSONSchema={schema}
+        onSubmit={addPost}
+        textAreas={['content']}
+        fileFields={fileFields}
       />
     </div>
   );
