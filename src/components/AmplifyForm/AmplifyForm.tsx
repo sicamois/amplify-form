@@ -78,8 +78,9 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
 
   // Add fields size
   if (fieldsSize) {
-    Object.keys(fieldsSize).forEach(fieldname => 
-      loadashSet(formSchema, `${fieldname}.fieldSize`, fieldsSize[fieldname]))
+    Object.keys(fieldsSize).forEach(fieldname =>
+      loadashSet(formSchema, `${fieldname}.fieldSize`, fieldsSize[fieldname])
+    );
   }
 
   const uploadFile = async (file: FileWithSize) => {

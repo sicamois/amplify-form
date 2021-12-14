@@ -66,7 +66,7 @@ export type TextAreas =
   | Record<string, HTMLProps<HTMLTextAreaElement>>;
 
 export interface FieldsSize {
-  [k: string]: FieldSize
+  [k: string]: FieldSize;
 }
 
 export interface AmplifyFormProps {
