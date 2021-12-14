@@ -382,8 +382,6 @@ export default Home = () => {
 
 <!-- ## Relationship -->
 
-<!-- ## Field labels -->
-
 <!-- ## Theming -->
 
 <!-- ## Field customisation -->
