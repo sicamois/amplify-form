@@ -14,7 +14,8 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Generate `values` that can be directly passed to grapql
 - Create automatically `<select>` for your enums
 - Customize Form name ([here](#Add-a-label-to-the-form))
-- Customize fields label and messages ([here](#Customize-fields-label-and-messages-localization))
+- Customize fields label and messages + localization ([here](#Customize-fields-label-and-messages-localization))
+- Customize Form branding ([here](#Customize-form-branding))
 - Add `<textarea>` for long text ([here](#Add-a-textarea))
 - Change field size ([here](#Change-field-size))
 - Typescript friendly
@@ -126,7 +127,7 @@ export default Home = () => {
 
 **Note:** It is a rather simplified version. In the real world, creation in the GraphQL API shouldn't be allowed with API_KEY:
 
-- `@auth` authorization rules should be properly set on your GraphQL model (see [here](https://docs.amplify.aws/cli/graphql/authorization-rules/))
+- `@auth` authorization rules should be properly set on your GraphQL schema (see [here](https://docs.amplify.aws/cli/graphql/authorization-rules/))
 - `authMode` should be set to `GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS`
 - Your page (or entire app) should be wrap with AWS Authenticator, like [`withAuthenticator`](https://ui.docs.amplify.aws/components/authenticator)
 
@@ -247,6 +248,50 @@ export default Home = () => {
 
 You can use `labelMap` prop for localization.
 
+## Customize Form branding
+
+The form comes with default color scheme.
+
+For a better branding, you use the `theme` prop with 2 props :
+
+- `color? = Color`: Set the `Color` scheme of the form.  
+  As `AmplifyForm` uses [Tailwind CSS](https://tailwindcss.com) under the hood, it is based on Tailwind colors (as defined [here](https://tailwindcss.com/docs/customizing-colors)).  
+  `Type Color = 'black' | 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'red' | 'orange' | 'amber' | 'yellow' | 'lime' | 'green' | 'emerald' | 'teal' | 'cyan' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose'`
+
+- `branding? = 'basic'| 'full'`: Set the level of branding you want to apply.  
+  Default is `'basic'`
+
+**Example:**
+
+```js
+// Import AmplifyForm and FormTheme
+import AmplifyForm from 'amplify-form';
+import { FormTheme } from 'amplify-form';
+
+// Path to the JSON representation of the GraphQL Schema
+import schema from '../graphql/schema.json';
+
+// Import function to process the Form values (see below for example code)
+import addTodo from '../utilities/add-todo';
+
+export default Home = () => {
+  const theme: FormTheme = {
+    color: 'lime',
+    branding: 'full',
+  }
+  return (
+    <div>
+      <h1>Create a new To do</h1>
+      <AmplifyForm
+        entity='Todo'
+        graphQLJSONSchema={schema}
+        onSubmit={addTodo}
+        theme={theme}
+      />
+    </div>
+  );
+};
+
 ## Add a `<textarea>`
 
 By default, strings in GraphQL model are transformed into `<input type='text'>`. This is generally ok, but some strings are meant "long" text, like `description`, `content`, `text`, etc.
@@ -314,17 +359,18 @@ For this, you should pass an object to `textAreas` (not an array, which is reser
 **Example:**
 
 ```js
-// Import AmplifyForm
+// Import AmplifyForm and TextAreas
 import AmplifyForm from 'amplify-form';
+import { TextAreas } from 'amplify-form';
 
 // Path to the JSON representation of the GraphQL Schema
 import schema from '../graphql/schema.json';
 
-// Import function to process the Form values (see below for example code)
+// Import function to process the Form values
 import addTodo from '../utilities/add-todo';
 
 export default Home = () => {
-  const textAreasConfig = {
+  const textAreasConfig: TextAreas = {
     'description': {
       readOnly: true,
       col: 4
@@ -356,8 +402,9 @@ If you want to change this default behaviour and set a particular size on some f
 **Example:**
 
 ```js
-// Import AmplifyForm
+// Import AmplifyForm and FieldsSize
 import AmplifyForm from 'amplify-form';
+import { FieldsSize } from 'amplify-form';
 
 // Path to the JSON representation of the GraphQL Schema
 import schema from '../graphql/schema.json';
@@ -366,7 +413,7 @@ import schema from '../graphql/schema.json';
 import addTodo from '../utilities/add-todo';
 
 export default Home = () => {
-  const fieldsSizeConfig = {
+  const fieldsSizeConfig: FieldsSize = {
     name: 'lg',
     description: '3xl'
   };
