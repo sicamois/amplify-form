@@ -24,6 +24,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   label = entity,
   textAreas,
   fileFields,
+  fieldsSize,
   fieldsConfig,
   labelMap,
   storageConfig,
@@ -74,6 +75,12 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
 
   if (fileFields) updateFormSchema(fileFields, 'file');
   if (textAreas) updateFormSchema(textAreas, 'textarea');
+
+  // Add fields size
+  if (fieldsSize) {
+    Object.keys(fieldsSize).forEach(fieldname => 
+      loadashSet(formSchema, `${fieldname}.fieldSize`, fieldsSize[fieldname]))
+  }
 
   const uploadFile = async (file: FileWithSize) => {
     try {

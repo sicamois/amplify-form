@@ -53,6 +53,7 @@ export interface FileWithSize extends File {
 export interface FileWithStorageKey extends Omit<FileWithSize, 'preview'> {
   storageKey: string;
 }
+
 export interface FileField {
   fileType?: string;
   text?: string;
@@ -63,6 +64,11 @@ export type FileFields = string[] | Record<string, FileField>;
 export type TextAreas =
   | string[]
   | Record<string, HTMLProps<HTMLTextAreaElement>>;
+
+export interface FieldsSize {
+  [k: string]: FieldSize
+}
+
 export interface AmplifyFormProps {
   graphQLJSONSchema: any;
   entity: string;
@@ -71,6 +77,7 @@ export interface AmplifyFormProps {
   textAreas?: TextAreas;
   fileFields?: FileFields;
   relationships?: Relationship[];
+  fieldsSize?: FieldsSize;
   fieldsConfig?: FormSchema;
   theme?: FormTheme;
   messages?: Messages;
