@@ -12,3 +12,4 @@ package.json
 tsconfig.json
 next-env.d.ts
 README.md
+*.html
