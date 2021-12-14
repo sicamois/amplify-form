@@ -13,6 +13,7 @@ import {
 } from '../../types';
 import {
   bgColorMap,
+  bgLightColorMap,
   borderColorMap,
   fieldSizeMap,
   focusBorderColorMap,
@@ -332,8 +333,14 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
       <button
         type="submit"
         className={`disabled:opacity-70 ${
-          bgColorMap.get(theme?.color) || 'bg-gray-200'
-        } ${textColorMap.get(theme?.color)} ${submitButtonStyle}`}
+          theme?.branding == 'full'
+            ? bgLightColorMap.get(theme?.color)
+            : bgColorMap.get(theme?.color) || 'bg-gray-200'
+        } ${
+          theme?.branding == 'full'
+            ? textColorMap.get(theme?.color)
+            : 'text-white'
+        } ${submitButtonStyle}`}
         {...rest}>
         {title}
       </button>
