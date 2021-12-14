@@ -147,7 +147,8 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
       resetForm();
     } catch (error) {
       const typedError = error as Error;
-      console.error('AmplifyForm has encountered an error :', typedError);
+      console.error('AmplifyForm has encountered an error:', typedError);
+      console.error('values:', values);
       alert(`Error : ${typedError.message} (see console logs)`);
     } finally {
       setSubmitting(false);
