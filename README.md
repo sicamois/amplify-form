@@ -95,8 +95,13 @@ export default Home = () => {
   // Import type for Typescript
   import { FormValues } from 'amplify-form'
 
+  // Import NextJS router
+  import { useRouter } from 'next/router';
+
+
   export default addTodo: async (values: FormValues) => {
     Amplify.configure({...awsExports});
+    const router = useRouter();
     try {
       const request = (await API.graphql({
         authMode: GRAPHQL_AUTH_MODE.API_KEY,
@@ -119,6 +124,12 @@ export default Home = () => {
   }
 
   ```
+
+**Note:** It is a rather simplified version. In the real world, creation in the GraphQL API shouldn't be allowed with API_KEY:
+
+- `@auth` authorization rules should be properly set on your GraphQL model (see [here](https://docs.amplify.aws/cli/graphql/authorization-rules/))
+- `authMode` should be set to `GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS`
+- Your page (or entire app) should be wrap with AWS Authenticator, like [`withAuthenticator`](https://ui.docs.amplify.aws/components/authenticator)
 
 ## Add a `label` to the form
 
