@@ -170,14 +170,14 @@ const FormComponent: FC<FormComponentProps> = ({
 
     if (!kind)
       return (
-        <FieldSet name={name} label={label || defaultLabel} theme={safeTheme}>
+        <FieldSet name={name} label={label || defaultLabel} theme={theme}>
           {Object.keys(props!).map(fieldName => (
             <Fragment key={fieldName}>
               {getFormElement(
                 fieldName,
                 props[fieldName]! as FormSchema,
                 name,
-                (theme = safeTheme)
+                (theme = theme)
               )}
             </Fragment>
           ))}
@@ -186,7 +186,7 @@ const FormComponent: FC<FormComponentProps> = ({
 
     if (kind == 'string' || kind == 'email' || kind == 'url')
       return (
-        <TextField name={explicitName} label={label} theme={safeTheme} {...props} />
+        <TextField name={explicitName} label={label} theme={theme} {...props} />
       );
 
     if (kind == 'textarea')
@@ -194,7 +194,7 @@ const FormComponent: FC<FormComponentProps> = ({
         <TextAreaField
           name={explicitName}
           label={label}
-          theme={safeTheme}
+          theme={theme}
           {...props}
         />
       );
@@ -204,7 +204,7 @@ const FormComponent: FC<FormComponentProps> = ({
         <NumberField
           name={explicitName}
           label={label}
-          theme={safeTheme}
+          theme={theme}
           {...props}
         />
       );
@@ -214,7 +214,7 @@ const FormComponent: FC<FormComponentProps> = ({
         <NumberField
           name={explicitName}
           label={label}
-          theme={safeTheme}
+          theme={theme}
           {...props}
           step={0.01}
         />
@@ -225,7 +225,7 @@ const FormComponent: FC<FormComponentProps> = ({
         <CheckboxField
           name={explicitName}
           label={label}
-          theme={safeTheme}
+          theme={theme}
           {...props}
         />
       );
@@ -249,7 +249,7 @@ const FormComponent: FC<FormComponentProps> = ({
           label={label}
           options={of?.options || options!}
           selectLabel={select}
-          theme={safeTheme}
+          theme={theme}
           {...props}
         />
       );
@@ -257,13 +257,13 @@ const FormComponent: FC<FormComponentProps> = ({
 
     if (kind == 'relationship')
       return (
-        <FieldSet name={name} label={label} theme={safeTheme}>
+        <FieldSet name={name} label={label} theme={theme}>
           <SelectField
             name={explicitName}
             label={''}
             options={options!}
             selectLabel={select}
-            theme={safeTheme}
+            theme={theme}
             {...props}
           />
         </FieldSet>
@@ -274,7 +274,7 @@ const FormComponent: FC<FormComponentProps> = ({
         <FilesDropField
           name={explicitName}
           label={label}
-          theme={safeTheme}
+          theme={theme}
           {...props}></FilesDropField>
       );
 
@@ -337,11 +337,11 @@ const FormComponent: FC<FormComponentProps> = ({
             return (
               <Form className={accentColorMap.get(theme?.color)} noValidate>
                 <div className="flex flex-col gap-4">
-                  {getFormElement('', formSchema, '', (theme = theme))}
+                  {getFormElement('', formSchema, '', (theme = safeTheme))}
                   <div className="flex flex-row gap-4 items-center">
                     <SubmitButton
                       title={submitAction}
-                      theme={safeTheme}
+                      theme={theme}
                       disabled={isSubmitting && !isValid}
                     />
                     {!isValid ? (
