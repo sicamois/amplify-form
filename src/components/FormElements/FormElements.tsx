@@ -233,7 +233,10 @@ export const SelectField: FC<SelectFieldProps> = ({
 
   return (
     <FieldWithError fieldSize={fieldSize} theme={theme} {...rest}>
-      <div className={`${multiSelectStyle} ${fieldSizeMap.get(adaptiveFieldSize)}`}>
+      <div
+        className={`${multiSelectStyle} ${fieldSizeMap.get(
+          adaptiveFieldSize
+        )}`}>
         <ReactSelect
           className="peer"
           styles={customStyles}
@@ -264,8 +267,8 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   const { setValue } = helpers;
   const { value } = field;
   const processValue = (files: FileWithSize[]) => {
-    multiple ? setValue(files) : setValue(files[0])
-  }
+    multiple ? setValue(files) : setValue(files[0]);
+  };
 
   return (
     <Fragment>

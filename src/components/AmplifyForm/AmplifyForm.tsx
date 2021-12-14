@@ -37,13 +37,14 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   const updateFormSchema: (
     fields: TextAreas | FileFields,
     kind: string,
-    images?: boolean,
+    images?: boolean
   ) => void = (fields, kind, images = false) => {
     if (Array.isArray(fields)) {
       fields.forEach(fieldname => {
         if (typeof fieldname == 'string') {
           loadashSet(formSchema, `${fieldname}.kind`, kind);
-          if (images) loadashSet(formSchema, `${fieldname}.fileType`, 'image/*');
+          if (images)
+            loadashSet(formSchema, `${fieldname}.fileType`, 'image/*');
         }
       });
     } else {

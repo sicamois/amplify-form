@@ -31,9 +31,9 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   // Reset Files when Form is reset (initialValue = '')
   useEffect(() => {
     if (value == '') {
-      setFiles((prevState) => {
+      setFiles(prevState => {
         revokePreviews(prevState);
-        return []
+        return [];
       });
     }
     return revokePreviews(files);
@@ -89,9 +89,9 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
 
       // Set new files
       setValue(acceptedFiles);
-      setFiles((prevState) => {
+      setFiles(prevState => {
         revokePreviews(prevState);
-        return acceptedFiles
+        return acceptedFiles;
       });
     },
     [fileType]
@@ -203,7 +203,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
         <p>{text}</p>
       </div>
       {files.length
-        ? (fileType && fileType.startsWith('image/'))
+        ? fileType && fileType.startsWith('image/')
           ? imageThumbs
           : fileList
         : null}

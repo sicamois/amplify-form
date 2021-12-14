@@ -40,9 +40,10 @@ const FormComponent: FC<FormComponentProps> = ({
 }) => {
   const defaultLabel = label;
 
-  const safeTheme: FormTheme = { 
-    color: textColorMap.has(theme.color) ? theme.color : undefined, 
-    branding: theme.branding == 'full' ? 'full' : 'basic' };
+  const safeTheme: FormTheme = {
+    color: textColorMap.has(theme.color) ? theme.color : undefined,
+    branding: theme.branding == 'full' ? 'full' : 'basic',
+  };
 
   const {
     invalidError = 'Some fields are invalid',
