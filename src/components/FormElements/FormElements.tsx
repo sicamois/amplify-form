@@ -288,7 +288,6 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   const { setValue } = helpers;
   const { value } = field;
   const processValue = (files: FileWithSize[]) => {
-    console.log(`processValue - files (${files.length}) ${files}`)
     multiple ? setValue(files) : setValue(files[0])
   }
 
