@@ -19,7 +19,7 @@ const instructionsStyle =
 const FilesDropInput: FC<FilesDropInputProps> = ({
   text = "Drag 'n' drop some files here, or click to select files",
   theme,
-  fileType = 'image/*',
+  fileType = '*',
   thumbnailSize,
   multiple,
   setValue,
