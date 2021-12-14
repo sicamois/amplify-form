@@ -14,6 +14,7 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Generate `values` that can be directly passed to grapql
 - Create automatically `<select>` for your enums
 - Customize Form name ([here](#Add-a-label-to-the-form))
+- Customize fields label and messages ([here](#Customize-fields-label-and-messages-localization))
 - Add `<textarea>` for long text ([here](#Add-a-textarea))
 - Change field size ([here](#Change-field-size))
 - Typescript friendly
@@ -151,6 +152,91 @@ export default Home = () => {
 };
 ```
 
+## Customize fields label and messages, localization
+
+By default, the fields are named after the name of the fields in the GraphQL schema.  
+
+If you want to use custom labels for some fields, use this prop:
+
+- `labelMap`: This takes a [`Map<string, string>`](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Map) as argument, linking field name and its label.
+
+**Example:**
+
+```js
+// Import AmplifyForm
+import AmplifyForm from 'amplify-form';
+
+// Path to the JSON representation of the GraphQL Schema
+import schema from '../graphql/schema.json';
+
+// Import function to process the Form values (see below for example code)
+import addTodo from '../utilities/add-todo';
+
+export default Home = () => {
+  const labelMap: Map<string, string> = new Map([
+    ['name', 'Enter a name'],
+    ['description', 'Enter a description'],
+  ]);
+  return (
+    <div>
+      <h1>Create a new To do</h1>
+      <AmplifyForm
+        entity='Todo'
+        graphQLJSONSchema={schema}
+        onSubmit={addTodo}
+        labelMap={labelMap}
+      />
+    </div>
+  );
+};
+```
+
+### Customize Error/Feedback messages
+
+You can add _special names_ in the `labelMap` to customize Error or Feedback messages :
+
+- `message:invalidError`: Gives feedback to the user signaling that some fields are invalid. It appears next to the `submit button`. _Default_: `'Some fields are invalid'`
+- `message:required`: Gives feedback to the user signaling that a required field is empty. It appears under the field as _'${fieldname} ${required}'_ (for example _'name required'_). _Default_: `'required'`
+- `message:select`: Text that appears in all `<select>`. Warning : this apply to single and multi select_Default_: `'Select'`
+- `message:submitAction`: The text of the `submit button`. _Default_: `'Create'`
+
+**Example:**
+
+```js
+// Import AmplifyForm
+import AmplifyForm from 'amplify-form';
+
+// Path to the JSON representation of the GraphQL Schema
+import schema from '../graphql/schema.json';
+
+// Import function to process the Form values (see below for example code)
+import addTodo from '../utilities/add-todo';
+
+export default Home = () => {
+  const labelMap: Map<string, string> = new Map([
+    ['message:invalidError', 'Check invalid fields before submitting'],
+    ['message:required', 'is required'],
+    ['message:select', 'Choose'],
+    ['message:submitAction', 'Create To do !'],
+  ]);
+  return (
+    <div>
+      <h1>Create a new To do</h1>
+      <AmplifyForm
+        entity='Todo'
+        graphQLJSONSchema={schema}
+        onSubmit={addTodo}
+        labelMap={labelMap}
+      />
+    </div>
+  );
+};
+```
+
+### Localization
+
+You can use `labelMap` prop for localization.
+
 ## Add a `<textarea>`
 
 By default, strings in GraphQL model are transformed into `<input type='text'>`. This is generally ok, but some strings are meant "long" text, like `description`, `content`, `text`, etc.
@@ -233,7 +319,7 @@ export default Home = () => {
       readOnly: true,
       col: 4
     }
-  }
+  };
   return (
     <div>
       <h1>Create a new To do</h1>
@@ -273,7 +359,7 @@ export default Home = () => {
   const fieldsSizeConfig = {
     name: 'lg',
     description: '3xl'
-  }
+  };
   return (
     <div>
       <h1>Create a new To do</h1>
