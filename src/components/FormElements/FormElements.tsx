@@ -188,31 +188,6 @@ export const CheckboxField: FC<FieldProps> = ({
   );
 };
 
-// export const SelectField: FC<SelectFieldProps> = ({
-//   name,
-//   fieldSize = 'full',
-//   theme,
-//   options,
-//   selectLabel = 'Select',
-//   ...rest
-// }) => {
-//   return (
-//     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
-//       <Field
-//         as="select"
-//         className={`${theme.fieldStyle || fieldStyle} ${fieldSizeMap.get(fieldSize)}`}
-//         id={name}
-//         name={name}
-//         {...rest}>
-//         <option value="">{selectLabel}</option>
-//         {options.map(option => (
-//           <option key={option.value} value={option.value} label={option.label || option.value} />
-//         ))}
-//       </Field>
-//     </FieldWithError>
-//   );
-// };
-
 const customStyles: StylesConfig<Option, true> = {
   control: styles => ({
     ...styles,
@@ -231,7 +206,7 @@ const customStyles: StylesConfig<Option, true> = {
 };
 
 export const SelectField: FC<SelectFieldProps> = ({
-  fieldSize = 'md',
+  fieldSize,
   theme,
   placeholder = '',
   options,
@@ -240,6 +215,7 @@ export const SelectField: FC<SelectFieldProps> = ({
   ...rest
 }) => {
   const fieldname = rest.name;
+  const adaptiveFieldSize = fieldSize || multiple ? '2xl' : 'md';
 
   const validate = (value: FormValues) => {
     if (value[fieldname] == '') {
@@ -257,7 +233,7 @@ export const SelectField: FC<SelectFieldProps> = ({
 
   return (
     <FieldWithError fieldSize={fieldSize} theme={theme} {...rest}>
-      <div className={`${multiSelectStyle} ${fieldSizeMap.get(fieldSize)}`}>
+      <div className={`${multiSelectStyle} ${fieldSizeMap.get(adaptiveFieldSize)}`}>
         <ReactSelect
           className="peer"
           styles={customStyles}
