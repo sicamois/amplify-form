@@ -81,14 +81,19 @@ export const formSchemaFor = (
     if (!fields) throw Error(`Unable to find fields for ${fullEntity}`);
 
     const fieldFrom: (type: Type) => FormSchema = type => {
+      
       if (type.kind == 'NON_NULL') {
         const field = fieldFrom(type.ofType!)!;
         field.required = true;
         return field;
       }
-      if (type.name == 'ID') return { kind: 'relationship' };
+
+      if (type.kind == 'SCALAR' && type.name == 'ID')
+        return { kind: 'relationship' };
+
       if (type.kind == 'SCALAR' && type.name != 'ID')
         return { kind: type.name!.toLowerCase() };
+
       if (type.kind == 'LIST') {
         const field: FormSchema = {
           kind: 'list',
@@ -99,11 +104,13 @@ export const formSchemaFor = (
         if (ofFormSchema.kind == 'select') field.of = ofFormSchema;
         return field;
       }
+
       if (type.kind == 'ENUM')
         return {
           kind: 'select',
           options: getEnumValues(type.name!, types, labelMap),
         };
+
       if (type.kind == 'INPUT_OBJECT' || type.kind == 'OBJECT')
         return formSchemaForTypes(type.name!);
       return {};
@@ -111,11 +118,7 @@ export const formSchemaFor = (
 
     const formSchema: FormSchema = {};
     fields.forEach(field => {
-      if (
-        field.name == 'id' ||
-        field.name.toLowerCase() == 'propertyadlocationid'
-      )
-        return;
+      if (field.name == 'id') return;
       const fieldSchema = fieldFrom(field.type!);
       fieldSchema.defaultValue = field.defaultValue;
       fieldSchema.label = getLabel(field.name, labelMap);
