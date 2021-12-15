@@ -1,5 +1,5 @@
-import { capitalize } from './capitalize';
 import { FormSchema, Option } from '../types';
+import lodashCapitalize from 'lodash/capitalize';
 
 interface Type {
   kind: string;
@@ -42,7 +42,7 @@ const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
 };
 
 const getLabel = (name: string, labelMap?: Map<string, string>) =>
-  capitalize(labelMap?.get(name) || name);
+  lodashCapitalize(labelMap?.get(name) || name).replaceAll('_', '');
 
 const getEnumValues = (
   name: string,
