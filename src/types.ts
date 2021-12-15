@@ -70,6 +70,11 @@ export interface FieldsSize {
   [k: string]: FieldSize;
 }
 
+export interface StorageConfig {
+  storagePrefix?: string;
+  storageLevel?: 'public' | 'protected' | 'private';
+}
+
 export interface AmplifyFormProps {
   graphQLJSONSchema: any;
   entity: string;
@@ -78,15 +83,12 @@ export interface AmplifyFormProps {
   textAreas?: TextAreas;
   fileFields?: FileFields;
   imageFields?: FileFields;
+  storageConfig?: StorageConfig;
   relationships?: Relationship[];
   fieldsSize?: FieldsSize;
-  fieldsConfig?: FormSchema;
+  fieldsProps?: Record<string, string | number | boolean>;
   theme?: FormTheme;
   labelMap?: Map<string, string>;
-  storageConfig?: {
-    storagePrefix?: string;
-    storageLevel?: 'public' | 'protected' | 'private';
-  };
 }
 
 export interface FilesDropInputProps
