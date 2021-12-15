@@ -18,6 +18,7 @@ import {
   FileFields,
   TextAreas,
   Messages,
+  FieldsProps,
 } from '../../types';
 
 const AmplifyForm: FC<AmplifyFormProps> = ({
@@ -27,7 +28,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   label = entity,
   textAreas,
   fieldsSize,
-  fieldsConfig,
+  fieldsProps,
   labelMap,
   imageFields,
   fileFields,
@@ -38,20 +39,20 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {};
 
   const updateFormSchema: (
-    fields: TextAreas | FileFields,
-    kind: string,
+    fields: TextAreas | FileFields | FieldsProps,
+    kind?: string,
     images?: boolean
   ) => void = (fields, kind, images = false) => {
     if (Array.isArray(fields)) {
       fields.forEach(fieldname => {
         if (typeof fieldname == 'string') {
-          lodashSet(formSchema, `${fieldname}.kind`, kind);
+          kind ? lodashSet(formSchema, `${fieldname}.kind`, kind) : null;
           if (images) lodashSet(formSchema, `${fieldname}.fileType`, 'image/*');
         }
       });
     } else {
       Object.keys(fields).forEach(fieldname => {
-        lodashSet(formSchema, `${fieldname}.kind`, kind);
+        kind ? lodashSet(formSchema, `${fieldname}.kind`, kind) : null;
         const fieldProps = fields[fieldname];
         Object.keys(fieldProps).forEach(prop => {
           const value = lodashGet(fieldProps, prop);
@@ -69,17 +70,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     labelMap
   );
 
-  if (fieldsConfig) {
-    Object.keys(fieldsConfig).forEach(field => {
-      const fieldProps = fieldsConfig[field] as FormSchema;
-      if (fieldProps) {
-        Object.keys(fieldProps).forEach(key => {
-          lodashSet(formSchema, `${field}.${key}`, fieldProps[key]);
-        });
-      }
-    });
-  }
-
+  if (fieldsProps) updateFormSchema(fieldsProps);
   if (fileFields) updateFormSchema(fileFields, 'file');
   if (imageFields) updateFormSchema(imageFields, 'file', true);
   if (textAreas) updateFormSchema(textAreas, 'textarea');

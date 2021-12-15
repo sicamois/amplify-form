@@ -75,6 +75,11 @@ export interface StorageConfig {
   storageLevel?: 'public' | 'protected' | 'private';
 }
 
+export type FieldsProps = Record<
+  string,
+  Record<string, string | number | boolean>
+>;
+
 export interface AmplifyFormProps {
   graphQLJSONSchema: any;
   entity: string;
@@ -86,7 +91,7 @@ export interface AmplifyFormProps {
   storageConfig?: StorageConfig;
   relationships?: Relationship[];
   fieldsSize?: FieldsSize;
-  fieldsProps?: Record<string, string | number | boolean>;
+  fieldsProps?: FieldsProps;
   theme?: FormTheme;
   labelMap?: Map<string, string>;
 }
