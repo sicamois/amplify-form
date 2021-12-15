@@ -70,8 +70,6 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     labelMap
   );
 
-  console.log('initial formSchema', formSchema);
-
   if (fieldsProps) updateFormSchema(fieldsProps);
   if (fileFields) updateFormSchema(fileFields, 'file');
   if (imageFields) updateFormSchema(imageFields, 'file', true);
@@ -127,8 +125,6 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
         : null;
     });
   }
-
-  console.log('final formSchema', formSchema);
 
   const uploadFile = async (file: FileWithSize) => {
     try {
