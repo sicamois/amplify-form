@@ -60,7 +60,7 @@ export interface FileFieldProps {
   text?: string;
 }
 
-export type FileFields = string[] | Record<string, FileFieldProps >;
+export type FileFields = string[] | Record<string, FileFieldProps>;
 
 export type TextAreas =
   | string[]

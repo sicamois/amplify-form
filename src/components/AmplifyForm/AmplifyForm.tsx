@@ -6,8 +6,8 @@ import { parseObject } from '../../utils/parse-object';
 import { FormikHelpers } from 'formik';
 import lodashSet from 'lodash/set';
 import lodashGet from 'lodash/get';
-import lodashCamel from 'lodash/camelCase'
-import lodashCapitalize from 'lodash/capitalize'
+import lodashCamel from 'lodash/camelCase';
+import lodashCapitalize from 'lodash/capitalize';
 import {
   AmplifyFormProps,
   FormSchema,
@@ -46,8 +46,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
       fields.forEach(fieldname => {
         if (typeof fieldname == 'string') {
           lodashSet(formSchema, `${fieldname}.kind`, kind);
-          if (images)
-            lodashSet(formSchema, `${fieldname}.fileType`, 'image/*');
+          if (images) lodashSet(formSchema, `${fieldname}.fileType`, 'image/*');
         }
       });
     } else {
@@ -95,32 +94,44 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   // Add relationships
   if (relationships) {
     relationships.forEach(relationship => {
-      const relationEntity = lodashCapitalize(relationship.entity)
-      const path = lodashCamel(relationship.path || `${entity}${relationEntity}Id`)
+      const relationEntity = lodashCapitalize(relationship.entity);
+      const path = lodashCamel(
+        relationship.path || `${entity}${relationEntity}Id`
+      );
       if (lodashGet(formSchema, `${path}.kind`) !== 'relationship')
-        throw new Error(`Error in relationship definition : Relationship with ${relationship.entity} doesn't exist in ${entity} (looking for field '${path}')`);
-      
+        throw new Error(
+          `Error in relationship definition : Relationship with ${relationship.entity} doesn't exist in ${entity} (looking for field '${path}')`
+        );
+
       const options = relationship.items.map(item => {
         const label = lodashGet(item, relationship.labelField);
         if (typeof label == 'string') {
           return {
             label: label,
             value: item.id,
-          }
+          };
         } else if (typeof label == 'number') {
           return {
             label: label.toString(),
             value: item.id,
-          }
+          };
         } else {
-          throw new Error(`Error in relationship definition : ${relationship.labelField} in 'items' must be a string or a number (is type '${typeof label}')`)
+          throw new Error(
+            `Error in relationship definition : ${
+              relationship.labelField
+            } in 'items' must be a string or a number (is type '${typeof label}')`
+          );
         }
       });
       lodashSet(formSchema, `${path}.options`, options);
-       
-      relationship.label ? lodashSet(formSchema, `${path}.label`, relationship.label) : null;
-      relationship.size ? lodashSet(formSchema, `${path}.size`, relationship.size) : null;
-    })
+
+      relationship.label
+        ? lodashSet(formSchema, `${path}.label`, relationship.label)
+        : null;
+      relationship.size
+        ? lodashSet(formSchema, `${path}.size`, relationship.size)
+        : null;
+    });
   }
 
   const uploadFile = async (file: FileWithSize) => {
