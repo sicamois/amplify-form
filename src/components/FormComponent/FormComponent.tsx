@@ -246,7 +246,8 @@ const FormComponent: FC<FormComponentProps> = ({
       );
     }
 
-    if (kind == 'relationship')
+    if (kind == 'relationship') {
+      listFields.add(explicitName);
       return (
         <FieldSet name={name} label={label} theme={theme}>
           <SelectField
@@ -259,6 +260,7 @@ const FormComponent: FC<FormComponentProps> = ({
           />
         </FieldSet>
       );
+    }
 
     if (kind == 'file')
       return (
