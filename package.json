@@ -40,7 +40,7 @@
     "lint": "next lint",
     "prettier-fix": "prettier --write .",
     "build": "rm -r -f dist && yarn build:tsdx",
-    "build:tsdx": "NODE_ENV=production tsdx build --name amplify-form --tsconfig ./tsconfig.tsdx.json",
+    "build:tsdx": "tsdx build --tsconfig tsconfig.tsdx.json",
     "publish-beta": "yarn build && npm version prerelease --preid=beta && npm publish -tag=beta && git push",
     "publish-patch": "yarn build && npm version patch && npm publish && git push",
     "publish-minor": "yarn build && npm version minor && npm publish && git push",
@@ -74,7 +74,7 @@
     "tailwindcss": "^3.0.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
-    "typescript": "4.5.4"
+    "typescript": "^4.5.4"
   },
   "peerDependencies": {
     "aws-amplify": "^4.3",
