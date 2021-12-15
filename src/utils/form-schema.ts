@@ -81,7 +81,6 @@ export const formSchemaFor = (
     if (!fields) throw Error(`Unable to find fields for ${fullEntity}`);
 
     const fieldFrom: (type: Type) => FormSchema = type => {
-      
       if (type.kind == 'NON_NULL') {
         const field = fieldFrom(type.ofType!)!;
         field.required = true;
