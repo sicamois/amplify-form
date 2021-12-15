@@ -20,6 +20,8 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Add **`<textarea>`** for long text ([here](#add-a-textarea))
 - Add drag'n'drop zone to **add images** with automatic uploads ([here](#add-dragndrop-zone-to-add-images))
 - Add drag'n'drop zone to **add files** with automatic uploads ([here](#add-dragndrop-zone-to-add-files))
+- Configure **Storage** ([here](#configure-storage))
+- Specify relationships ([here](#specify-relationships))
 - **Typescript** friendly
 
 <!-- - Add files or images, they are automaticcaly uploaded to your [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/)
@@ -27,9 +29,7 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Customize form apperance
 - Customize field apperance -->
 
-**Note:**
-
-- **This plugin requires [AWS Amplify](https://github.com/aws-amplify/amplify-js) with a GraphQL API configured**
+> Note: **This plugin requires [AWS Amplify](https://github.com/aws-amplify/amplify-js) with a GraphQL API configured**
 
 ## Installation
 
@@ -128,11 +128,11 @@ export default Home = () => {
 
   ```
 
-**Note:** It is a rather simplified version. In the real world, creation in the GraphQL API shouldn't be allowed with API_KEY:
-
-- `@auth` authorization rules should be properly set on your GraphQL schema (see [here](https://docs.amplify.aws/cli/graphql/authorization-rules/))
-- `authMode` should be set to `GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS`
-- Your page (or entire app) should be wrap with AWS Authenticator, like [`withAuthenticator`](https://ui.docs.amplify.aws/components/authenticator)
+>**Note:** It is a rather simplified version. In the real world, creation in the GraphQL API shouldn't be allowed with API_KEY:
+>
+>- `@auth` authorization rules should be properly set on your GraphQL schema (see [here](https://docs.amplify.aws/cli/graphql/authorization-rules/))
+>- `authMode` should be set to `GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS`
+>- Your page (or entire app) should be wrap with AWS Authenticator, like [`withAuthenticator`](https://ui.docs.amplify.aws/components/authenticator)
 
 ## Add a `label` to the form
 
@@ -387,12 +387,11 @@ export default Home = () => {
 };
 ```
 
-**Notes:**
-
-- If you have multiples fields to display as `<textarea>`, you pass them all in a single array.  
+>**Notes:**
+>
+>- If you have multiples fields to display as `<textarea>`, you pass them all in a single array.  
   e.g. `textAreas=['description', 'annotations', 'seo_summary']`
-
-- Names are compatible with dotted notation.  
+>- Names are compatible with dotted notation.  
   e.g. `textAreas=['details.description']`
 
 ### Advanced usage
@@ -445,11 +444,11 @@ Amplify give you the tools to simplify storage in S3, via the module [AWS Amplif
 
 But as images are only referenced in the GraphQL schema as `string`, you have to manually declare to AmplifyForm which fields are in reality images.
 
-It is quite straight-forward with this prop:
+It is quite straightforward with this prop:
 
 - `imageFields?`: A prop where you pass an array containing all the fields that need to be displayed as `<input type='file'>`.
 
-**Note:** Instead of boring `<input type='file'>` AmplifyForm creates for you a nice drag'n'drop zone, based on [React Dropzone](https://react-dropzone.js.org), and thumbnails.
+>**Note:** Instead of boring `<input type='file'>` AmplifyForm creates for you a nice drag'n'drop zone, based on [React Dropzone](https://react-dropzone.js.org), and thumbnails.
 
 ### Images re-ordering
 
@@ -460,6 +459,8 @@ The resulting `Array` in the `values` will be ordered accordingly.
 ### Automatic image upload
 
 Upon submission (when you click the **Create** button), images will automatically be uploaded to your S3 Storage configured in your Amplify backend.
+
+_Note:_ You can add configurations on the _Storage_ (detailed [here](#configure-storage))
 
 **This has 2 requierements :**
 
@@ -603,15 +604,17 @@ Amplify give you the tools to simplify storage in S3, via the module [AWS Amplif
 
 But as files are only referenced in the GraphQL schema as `string`, you have to manually declare to AmplifyForm which fields are in reality files.
 
-It is quite straight-forward with this prop:
+It is quite straightforward with this prop:
 
 - `fileFields?`: A prop where you pass an array containing all the fields that need to be displayed as `<input type='file'>`.
 
-**Note:** Instead of boring `<input type='file'>` AmplifyForm creates for you a nice drag'n'drop zone, based on [React Dropzone](https://react-dropzone.js.org).
+>**Note:** Instead of boring `<input type='file'>` AmplifyForm creates for you a nice drag'n'drop zone, based on [React Dropzone](https://react-dropzone.js.org).
 
 ### Automatic file upload
 
 Upon submission (when you click the **Create** button), files will automatically be uploaded to your S3 Storage configured in your Amplify backend.
+
+_Note:_ You can add configurations on the _Storage_ (detailed [here](#configure-storage))
 
 **This has 2 requierements :**
 
@@ -743,15 +746,148 @@ const CreatePost = () => {
 export default withAuthenticator(() => CreatePost)
 ```
 
-<!-- ## Add images or files
+### Configure Storage
 
-### File field declaration
+If you want to add additionnal configs to _Storage_ you can use the `storageConfig?`, with 2 props:
 
-### Amplify storage props -->
+- `storagePrefix?: string`: a prefix that will be add to `storageKey` in the `FileWithStorageKey` value.  
+  This can be useful if you want to give your _Storage_ some kind of folder-tree like organisation (with `storagePrefix='afoldername/'` for example)
+- `storageLevel?: 'public' | 'protected' | 'private'`: specify the file access level in _Storage_ (as defined [here](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/))
 
-<!-- ## Relationship -->
+### Specify relationships
 
-<!-- ## Theming -->
+In GraphQL schema you can add relationships between 2 entities with the `@connection` directive (as explained [here](https://docs.amplify.aws/cli-legacy/graphql-transformer/connection/)).
+
+In order for _AmplifyForm_ to display these relationships correctly, you need to specify a few infos in a `relationships?: Relationship[]` prop (note that you need to pass an array, as they can be multiple relationships).
+
+A relationship is displayed in _AmplifyForm_ as a `<select>`
+
+A `Relationship` object has this props:
+
+- `entity: string`: the name of the entity you established a connection to  
+  _If your entity is nested in an object, you can specific a `path?: string` with a "dotted" notation (e.g. `name='category` `path='details.category'`)_
+- `items: any[]`: an array conaining all possible values of the entity.
+  > **Note:** Each _item_ in _items_ must contain an _id_ field, as GraphQL establish the relationship with this field.
+- `labelField: string`: the field in the _item_ object you want to display in your `<select>`
+- `label?: string`: an optionnal label for the relationship
+- `size?: FieldSize`: an optionnal size (as using `fieldsSize` prop for a relationship wouldn't be very straightforward)
+
+**Example:**
+
+Let's say your GraphQL model `schema.grapql` is a project management tool with `Project` and `Team`. Each `Project` has a `Team` attached (via a `@connection` directive):
+
+`schema.graph.ql`
+
+```graphql
+type Project @model {
+  id: ID!
+  label: String
+  team: Team @connection
+}
+
+type Team @model {
+  id: ID!
+  name: String!
+  size: Int!
+}
+```
+
+`pages/create-project.tsx`
+
+```js
+// Import Amplify
+import Amplify, { API } from 'aws-amplify';
+import awsExports from '../aws-exports';
+import { createProject } from '../graphql/mutations';
+import { listTeams } from '../graphql/queries';
+import { 
+  CreateProjectMutation,
+  ListTeamsQuery,
+  Team 
+  } from '../API';
+import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// Import react hooks
+import { useEffect, useState } from 'react'
+
+// Import AmplifyForm and types
+import AmplifyForm from 'amplify-form';
+import { FormValues, Relationship } from 'amplify-form'
+
+// Path to the JSON representation of the GraphQL Schema
+import schema from '../graphql/schema.json';
+
+const CreatePost = () => {
+
+  // Configure Amplify
+  Amplify.configure({ ...awsExports });
+
+  // Fetch teams
+  const [teams, setTeams] = useState<Teams[]>();
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      const { data } = (await API.graphql({
+        authMode: GRAPHQL_AUTH_MODE.API_KEY,
+        query: listTeams,
+      })) as GraphQLResult<ListTeamsQuery>;
+      const _teams = (data?.listTeams?.items || []) as Team[];
+      setTeams(_teams);
+    }
+    fetchTeams();
+  }, [teams]);
+
+  if (!teams) {
+    return (
+      <p>loading...</p>
+    );}
+
+  const teamRelationship: Relationship = {
+    name: 'team',
+    items: teams,
+    labelField: 'name',
+    label: 'Pick a team',
+    size: 'lg',
+  }
+
+  const addProject (values: FormValues) => {
+    try {
+      const request = (await API.graphql({
+        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+        query: createProject,
+        variables: {
+          input: values,
+        },
+      })) as { data: CreateProjectMutation; errors: any[] };
+    } catch (response) {
+      if (response instanceof Error) {
+        const error = response as Error;
+        throw error;
+      } else {
+        const { errors } = response;
+        console.error(...errors);
+        throw new Error(errors[0].message);
+      }
+    }
+  };
+
+  return (
+    <div>
+      <h1>Create a new Post</h1>
+      <AmplifyForm
+        entity='Post'
+        graphQLJSONSchema={schema}
+        onSubmit={addPost}
+        relationships={[teamRelationship]}
+      />
+    </div>
+  );
+};
+
+export default withAuthenticator(() => CreatePost)
+```
 
 <!-- ## Field customisation -->
 
