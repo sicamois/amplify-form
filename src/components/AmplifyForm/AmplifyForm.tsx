@@ -4,8 +4,10 @@ import FormComponent from '../FormComponent';
 import { formSchemaFor } from '../../utils/form-schema';
 import { parseObject } from '../../utils/parse-object';
 import { FormikHelpers } from 'formik';
-import loadashSet from 'lodash/set';
-import loadashGet from 'lodash/get';
+import lodashSet from 'lodash/set';
+import lodashGet from 'lodash/get';
+import lodashCamel from 'lodash/camelCase'
+import lodashCapitalize from 'lodash/capitalize'
 import {
   AmplifyFormProps,
   FormSchema,
@@ -29,6 +31,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   labelMap,
   imageFields,
   fileFields,
+  relationships,
   storageConfig,
   ...rest
 }) => {
@@ -42,18 +45,18 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     if (Array.isArray(fields)) {
       fields.forEach(fieldname => {
         if (typeof fieldname == 'string') {
-          loadashSet(formSchema, `${fieldname}.kind`, kind);
+          lodashSet(formSchema, `${fieldname}.kind`, kind);
           if (images)
-            loadashSet(formSchema, `${fieldname}.fileType`, 'image/*');
+            lodashSet(formSchema, `${fieldname}.fileType`, 'image/*');
         }
       });
     } else {
       Object.keys(fields).forEach(fieldname => {
-        loadashSet(formSchema, `${fieldname}.kind`, kind);
+        lodashSet(formSchema, `${fieldname}.kind`, kind);
         const fieldProps = fields[fieldname];
         Object.keys(fieldProps).forEach(prop => {
-          const value = loadashGet(fieldProps, prop);
-          loadashSet(formSchema, `${fieldname}.${prop}`, value);
+          const value = lodashGet(fieldProps, prop);
+          lodashSet(formSchema, `${fieldname}.${prop}`, value);
         });
       });
     }
@@ -72,7 +75,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
       const fieldProps = fieldsConfig[field] as FormSchema;
       if (fieldProps) {
         Object.keys(fieldProps).forEach(key => {
-          loadashSet(formSchema, `${field}.${key}`, fieldProps[key]);
+          lodashSet(formSchema, `${field}.${key}`, fieldProps[key]);
         });
       }
     });
@@ -85,8 +88,39 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   // Add fields size
   if (fieldsSize) {
     Object.keys(fieldsSize).forEach(fieldname =>
-      loadashSet(formSchema, `${fieldname}.fieldSize`, fieldsSize[fieldname])
+      lodashSet(formSchema, `${fieldname}.fieldSize`, fieldsSize[fieldname])
     );
+  }
+
+  // Add relationships
+  if (relationships) {
+    relationships.forEach(relationship => {
+      const relationEntity = lodashCapitalize(relationship.entity)
+      const path = lodashCamel(relationship.path || `${entity}${relationEntity}Id`)
+      if (lodashGet(formSchema, `${path}.kind`) !== 'relationship')
+        throw new Error(`Error in relationship definition : Relationship with ${relationship.entity} doesn't exist in ${entity} (looking for field '${path}')`);
+      
+      const options = relationship.items.map(item => {
+        const label = lodashGet(item, relationship.labelField);
+        if (typeof label == 'string') {
+          return {
+            label: label,
+            value: item.id,
+          }
+        } else if (typeof label == 'number') {
+          return {
+            label: label.toString(),
+            value: item.id,
+          }
+        } else {
+          throw new Error(`Error in relationship definition : ${relationship.labelField} in 'items' must be a string or a number (is type '${typeof label}')`)
+        }
+      });
+      lodashSet(formSchema, `${path}.options`, options);
+       
+      relationship.label ? lodashSet(formSchema, `${path}.label`, relationship.label) : null;
+      relationship.size ? lodashSet(formSchema, `${path}.size`, relationship.size) : null;
+    })
   }
 
   const uploadFile = async (file: FileWithSize) => {
@@ -164,7 +198,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
       value: any
     ) => {
       if (value == '') {
-        loadashSet(object, keyWithPrefix, null);
+        lodashSet(object, keyWithPrefix, null);
       }
     };
     parseObject(values, action);

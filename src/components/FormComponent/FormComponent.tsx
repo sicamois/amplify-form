@@ -232,17 +232,6 @@ const FormComponent: FC<FormComponentProps> = ({
         />
       );
 
-    // if (kind == 'select')
-    //   return (
-    //     <SelectField
-    //       name={explicitName}
-    //       label={label}
-    //       options={options!}
-    //       selectLabel={select}
-    //       {...props}
-    //     />
-    //   );
-
     if ((kind == 'list' && of?.kind == 'select') || kind == 'select') {
       listFields.add(explicitName);
       return (

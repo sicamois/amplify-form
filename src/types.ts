@@ -29,12 +29,12 @@ export interface FormValues {
 }
 
 export interface Relationship {
-  name: string;
-  label: string;
-  options: {
-    value: string;
-    label: string;
-  }[];
+  entity: string;
+  path?: string;
+  items: any[];
+  labelField: string;
+  label?: string;
+  size?: FieldSize;
 }
 
 export interface Messages {
@@ -55,12 +55,12 @@ export interface FileWithStorageKey extends Omit<FileWithSize, 'preview'> {
   storageKey: string;
 }
 
-export interface FileField {
+export interface FileFieldProps {
   fileType?: string;
   text?: string;
 }
 
-export type FileFields = string[] | Record<string, FileField>;
+export type FileFields = string[] | Record<string, FileFieldProps >;
 
 export type TextAreas =
   | string[]
