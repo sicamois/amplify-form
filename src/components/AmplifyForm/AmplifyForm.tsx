@@ -110,7 +110,9 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
           throw new Error(
             `Error in relationship definition : ${
               relationship.labelField
-            } in 'items' must be a string or a number (is type '${typeof label}')`
+            } in 'items' must be a string or a number (${
+              relationship.labelField
+            } is of type '${typeof label}')`
           );
         }
       });
