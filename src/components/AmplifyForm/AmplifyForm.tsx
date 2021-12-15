@@ -70,6 +70,8 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
     labelMap
   );
 
+  console.log('initial formSchema', formSchema);
+
   if (fieldsProps) updateFormSchema(fieldsProps);
   if (fileFields) updateFormSchema(fileFields, 'file');
   if (imageFields) updateFormSchema(imageFields, 'file', true);
@@ -86,9 +88,8 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
   if (relationships) {
     relationships.forEach(relationship => {
       const relationEntity = lodashCapitalize(relationship.entity);
-      const path = lodashCamel(
-        relationship.path || `${entity}${relationEntity}Id`
-      );
+      const path =
+        relationship.path || lodashCamel(`${entity}${relationEntity}Id`);
       if (lodashGet(formSchema, `${path}.kind`) !== 'relationship')
         throw new Error(
           `Error in relationship definition : Relationship with ${relationship.entity} doesn't exist in ${entity} (looking for field '${path}')`
@@ -126,6 +127,8 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
         : null;
     });
   }
+
+  console.log('final formSchema', formSchema);
 
   const uploadFile = async (file: FileWithSize) => {
     try {
