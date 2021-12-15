@@ -8,7 +8,7 @@ import React, {
 import { useDropzone } from 'react-dropzone';
 import { FilesDropInputProps, FileWithSize } from '../../types';
 import {
-  bgColorMap,
+  bgLightColorMap,
   borderColorMap,
   textColorMap,
 } from '../../utils/theme-maps';
@@ -189,7 +189,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
         {...getRootProps({
           className: `${
             theme?.branding == 'full'
-              ? bgColorMap.get(theme?.color)
+              ? bgLightColorMap.get(theme?.color)
               : 'bg-gray-200'
           } ${
             theme?.branding == 'full'
