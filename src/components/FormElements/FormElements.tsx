@@ -189,23 +189,6 @@ export const CheckboxField: FC<FieldProps> = ({
   );
 };
 
-const customStyles: StylesConfig<Option, true> = {
-  control: styles => ({
-    ...styles,
-    backgroundColor: 'transparent',
-    border: 0,
-    boxShadow: 'transparent',
-  }),
-  input: styles => ({
-    ...styles,
-    backgroundColor: 'transparent',
-  }),
-  placeholder: styles => ({
-    ...styles,
-    color: 'black',
-  }),
-};
-
 export const SelectField: FC<SelectFieldProps> = ({
   fieldSize,
   theme,
@@ -217,6 +200,24 @@ export const SelectField: FC<SelectFieldProps> = ({
 }) => {
   const fieldname = rest.name;
   const adaptiveFieldSize = fieldSize || multiple ? '2xl' : 'md';
+
+  const customStyles: StylesConfig<Option, true> = {
+    control: styles => ({
+      ...styles,
+      backgroundColor: 'transparent',
+      border: 0,
+      boxShadow: 'transparent',
+      color: theme?.color || 'gray',
+    }),
+    input: styles => ({
+      ...styles,
+      backgroundColor: 'transparent',
+    }),
+    placeholder: styles => ({
+      ...styles,
+      color: 'black',
+    }),
+  };
 
   const validate = (value: FormValues) => {
     if (value[fieldname] == '') {
