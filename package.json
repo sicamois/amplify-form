@@ -42,6 +42,7 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
+    "fix-tags": "git fetch --tags -f",
     "prettier-fix": "prettier --write .",
     "build": "rm -r -f dist && yarn build:tsdx",
     "build:tsdx": "tsdx build --tsconfig tsconfig.tsdx.json",
