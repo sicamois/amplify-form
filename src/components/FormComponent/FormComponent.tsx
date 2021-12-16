@@ -114,7 +114,7 @@ const FormComponent: FC<FormComponentProps> = ({
         if (kind == 'float') return yupNumber();
         if (kind == 'number') return yupNumber();
         if (kind == 'boolean') return yupBoolean();
-        if (kind == 'select' || (kind == 'relationship' && options)) {
+        if ((kind == 'select' || kind == 'relationship') && options) {
           const shape: { [k: string]: AnySchema } = {};
           Object.keys(options![0]).forEach(
             field => (shape[field] = yupString())
