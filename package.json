@@ -15,7 +15,7 @@
     "ui",
     "typescript"
   ],
-  "version": "1.0.3-beta.2",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/amplify-form.esm.js",
