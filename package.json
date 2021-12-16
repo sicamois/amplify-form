@@ -55,6 +55,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "chroma-js": "^2.1.2",
     "formik": "^2.2.9",
     "loadash": "^1.0.0",
     "react-dropzone": "^11.4.2",
@@ -69,7 +70,6 @@
     "@types/react": "^17.0.37",
     "autoprefixer": "^10.4.0",
     "aws-amplify": "^4.3.11",
-    "chroma-js": "^2.1.2",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "latest",
