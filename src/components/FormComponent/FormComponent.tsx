@@ -29,7 +29,7 @@ import {
   FormValues,
   Option,
 } from '../../types';
-import { accentColorMap, textColorMap } from '../../utils/theme-maps';
+import { textColorMap } from '../../utils/theme-maps';
 
 const FormComponent: FC<FormComponentProps> = ({
   label,
