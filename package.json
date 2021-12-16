@@ -35,6 +35,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "lint-staged": {
+      "**/*": "prettier --write --ignore-unknown"
+  },
   "scripts": {
     "dev": "next dev",
     "start": "next start",
@@ -46,7 +49,8 @@
     "publish-patch": "yarn build && npm version patch && npm publish && git push",
     "publish-minor": "yarn build && npm version minor && npm publish && git push",
     "publish-major": "yarn build && npm version major && npm publish && git push",
-    "login-npm": "npm adduser"
+    "login-npm": "npm adduser",
+    "prepare": "husky install"
   },
   "dependencies": {
     "formik": "^2.2.9",
@@ -62,12 +66,15 @@
     "@types/react": "^17.0.37",
     "autoprefixer": "^10.4.0",
     "aws-amplify": "^4.3.11",
-    "eslint": "^8.4.1",
-    "eslint-config-next": "^12.0.7",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "eslint-config-prettier": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
     "next": "^12.0.7",
     "node-notifier": "^10.0.0",
     "postcss": "^8.4.5",
-    "prettier": "^2.5.1",
+    "prettier": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rollup-plugin-postcss": "^4.0.2",
