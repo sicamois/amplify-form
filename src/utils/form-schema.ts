@@ -42,7 +42,7 @@ const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
 };
 
 const getLabel = (name: string, labelMap?: Map<string, string>) =>
-  lodashCapitalize(labelMap?.get(name) || name).replaceAll('_', '');
+  lodashCapitalize(labelMap?.get(name) || name).replaceAll('_', ' ');
 
 const getEnumValues = (
   name: string,
