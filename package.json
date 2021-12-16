@@ -56,30 +56,30 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
+    "@babel/core": "^7.16.5",
     "@types/lodash": "^4.14.178",
-    "@types/node": "16.11.13",
-    "@types/react": "17.0.37",
+    "@types/node": "^17.0.0",
+    "@types/react": "^17.0.37",
     "autoprefixer": "^10.4.0",
-    "aws-amplify": "^4.3.10",
-    "eslint": "8.4.1",
-    "eslint-config-next": "12.0.7",
-    "next": "12.0.7",
+    "aws-amplify": "^4.3.11",
+    "eslint": "^8.4.1",
+    "eslint-config-next": "^12.0.7",
+    "next": "^12.0.7",
     "node-notifier": "^10.0.0",
-    "postcss": "^8.4.4",
+    "postcss": "^8.4.5",
     "prettier": "^2.5.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-visualizer": "^5.5.2",
-    "tailwindcss": "^3.0.1",
+    "tailwindcss": "^3.0.5",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
-    "aws-amplify": "^4.3",
-    "react": "^16 || ^17 || ^18",
-    "react-dom": "^16 || ^17 || ^18"
+    "aws-amplify": "^4.3.11",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
