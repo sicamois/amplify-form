@@ -19,6 +19,7 @@ import {
   borderColorMap,
   fieldSizeMap,
   focusBorderColorMap,
+  optionColorMap,
   peerFocusTextColorMap,
   textColorMap,
 } from '../../utils/theme-maps';
@@ -202,7 +203,7 @@ export const SelectField: FC<SelectFieldProps> = ({
   const fieldname = rest.name;
   const adaptiveFieldSize = fieldSize || multiple ? '2xl' : 'md';
 
-  const color = chroma(theme?.color || 'gray');
+  const color = chroma(optionColorMap.get(theme?.color)!);
   const customStyles: StylesConfig<Option, true> = {
     control: styles => ({
       ...styles,
