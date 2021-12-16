@@ -12,6 +12,7 @@ import {
   FormValues,
 } from '../../types';
 import {
+  accentColorMap,
   bgColorMap,
   bgLightColorMap,
   borderColorMap,
@@ -177,7 +178,7 @@ export const CheckboxField: FC<FieldProps> = ({
           fieldSize
         )}`}>
         <Field
-          className={checkboxStyle}
+          className={`${accentColorMap.get(theme?.color)} ${checkboxStyle}`}
           type="checkbox"
           id={name}
           name={name}

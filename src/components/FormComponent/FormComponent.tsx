@@ -328,7 +328,7 @@ const FormComponent: FC<FormComponentProps> = ({
           onSubmit={submitHandler}>
           {({ isSubmitting, isValid }) => {
             return (
-              <Form className={accentColorMap.get(theme?.color)} noValidate>
+              <Form noValidate>
                 <div className="flex flex-col gap-4">
                   {getFormElement('', formSchema, '', (theme = safeTheme))}
                   <div className="flex flex-row gap-4 items-center">
