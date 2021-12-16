@@ -47,7 +47,7 @@
     "build": "rm -r -f dist && yarn build:tsdx",
     "build:tsdx": "tsdx build --tsconfig tsconfig.tsdx.json",
     "publish-push": "npm publish && git push --quiet",
-    "publish-beta": "yarn build && npm version prerelease --preid=beta && git push --quiet",
+    "publish-beta": "yarn build && npm version prerelease --preid=beta && npm publish --tag=beta && git push --quiet",
     "publish-patch": "yarn build && npm version patch && yarn publish-push",
     "publish-minor": "yarn build && npm version minor && yarn publish-push",
     "publish-major": "yarn build && npm version major && yarn publish-push",
