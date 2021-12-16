@@ -207,6 +207,9 @@ export const SelectField: FC<SelectFieldProps> = ({
       backgroundColor: 'transparent',
       border: 0,
       boxShadow: 'transparent',
+    }),
+    menu: styles => ({
+      ...styles,
       color: theme?.color || 'gray',
     }),
     input: styles => ({
