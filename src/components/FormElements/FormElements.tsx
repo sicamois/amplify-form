@@ -203,7 +203,10 @@ export const SelectField: FC<SelectFieldProps> = ({
   const fieldname = rest.name;
   const adaptiveFieldSize = fieldSize || multiple ? '2xl' : 'md';
 
-  const color = chroma(optionColorMap.get(theme?.color)!);
+  const color =
+    theme?.branding == 'full'
+      ? chroma(optionColorMap.get(theme?.color)!)
+      : chroma('#9ca3af');
   const customStyles: StylesConfig<Option, true> = {
     control: styles => ({
       ...styles,
