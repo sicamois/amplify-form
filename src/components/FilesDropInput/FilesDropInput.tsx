@@ -144,17 +144,17 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   });
 
   const imageThumbs = (
-    <aside className="flex flex-row flex-wrap mt-4 gap-4">
+    <aside className='flex flex-row flex-wrap mt-4 gap-4'>
       {files.map((file, index) => (
-        <div className="flex min-w-0 overflow-hidden" key={index}>
+        <div className='flex min-w-0 overflow-hidden' key={index}>
           <img
             id={index.toString()}
             src={file.preview!}
-            alt="Preview image of property"
+            alt='Preview image of property'
             width={thumbnailSize?.width ?? 120}
             height={thumbnailSize?.height ?? 80}
-            className="block object-cover rounded aspect-square"
-            draggable="true"
+            className='block object-cover rounded aspect-square'
+            draggable='true'
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onDragOver={onDragOver}
@@ -168,7 +168,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   );
 
   const fileList = (
-    <aside className="flex flex-col flex-wrap mt-4 gap-4">
+    <aside className='flex flex-col flex-wrap mt-4 gap-4'>
       {files.map((file, index) => (
         <ul
           className={`${
@@ -176,7 +176,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
           } text-sm`}
           key={index}>
           <li>
-            File: <span className="font-light">{file.name}</span>
+            File: <span className='font-light'>{file.name}</span>
           </li>
         </ul>
       ))}
@@ -184,7 +184,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
   );
 
   return (
-    <section className="container">
+    <section className='container'>
       <div
         {...getRootProps({
           className: `${

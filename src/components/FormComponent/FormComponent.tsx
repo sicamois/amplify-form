@@ -329,21 +329,21 @@ const FormComponent: FC<FormComponentProps> = ({
           {({ isSubmitting, isValid }) => {
             return (
               <Form noValidate>
-                <div className="flex flex-col gap-4">
+                <div className='flex flex-col gap-4'>
                   {getFormElement('', formSchema, '', (theme = safeTheme))}
-                  <div className="flex flex-row gap-4 items-center">
+                  <div className='flex flex-row gap-4 items-center'>
                     <SubmitButton
                       title={submitAction}
                       theme={theme}
                       disabled={isSubmitting && !isValid}
                     />
                     {!isValid ? (
-                      <p className="pt-1 text-red-500 font-semibold">
+                      <p className='pt-1 text-red-500 font-semibold'>
                         {invalidError}
                       </p>
                     ) : null}
                     {isSubmitting && isValid ? (
-                      <p className="pt-1">{creating}</p>
+                      <p className='pt-1'>{creating}</p>
                     ) : null}
                   </div>
                 </div>

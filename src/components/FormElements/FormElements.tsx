@@ -46,8 +46,8 @@ const FieldWithError: FC<FieldProps> = ({
 }) => {
   return (
     <Fragment>
-      <div className="py-2">
-        <div className="relative">
+      <div className='py-2'>
+        <div className='relative'>
           {children}
           {label && (
             <label
@@ -101,7 +101,7 @@ export const TextField: FC<FieldProps> = ({
         className={`${fieldStyle} ${focusBorderColorMap.get(
           theme?.color
         )} ${fieldSizeMap.get(fieldSize)}`}
-        type="text"
+        type='text'
         id={name}
         name={name}
         placeholder={placeholder}
@@ -121,7 +121,7 @@ export const TextAreaField: FC<FieldProps> = ({
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
-        as="textarea"
+        as='textarea'
         className={`${fieldStyle} ${focusBorderColorMap.get(
           theme?.color
         )} ${fieldSizeMap.get(fieldSize)} focus:h-32`}
@@ -148,7 +148,7 @@ export const NumberField: FC<FieldProps> = ({
         className={`${fieldStyle} ${focusBorderColorMap.get(
           theme?.color
         )} ${fieldSizeMap.get(fieldSize)}`}
-        type="number"
+        type='number'
         id={name}
         name={name}
         placeholder={placeholder}
@@ -179,7 +179,7 @@ export const CheckboxField: FC<FieldProps> = ({
         )}`}>
         <Field
           className={`${accentColorMap.get(theme?.color)} ${checkboxStyle}`}
-          type="checkbox"
+          type='checkbox'
           id={name}
           name={name}
           {...rest}
@@ -239,7 +239,7 @@ export const SelectField: FC<SelectFieldProps> = ({
           adaptiveFieldSize
         )}`}>
         <ReactSelect
-          className="peer"
+          className='peer'
           styles={customStyles}
           options={options}
           isMulti={multiple || undefined}
@@ -280,7 +280,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
         <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>
           {label}
         </legend>
-        <div className="px-2">
+        <div className='px-2'>
           <FieldWithError
             name={name}
             fieldSize={fieldSize}
@@ -311,7 +311,7 @@ export const SubmitButton: FC<SubmitButtonProps> = ({
   return (
     <Fragment>
       <button
-        type="submit"
+        type='submit'
         className={`disabled:opacity-70 ${
           theme?.branding == 'full'
             ? bgLightColorMap.get(theme?.color)
