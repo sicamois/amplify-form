@@ -2,6 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { ErrorMessage, Field, useField } from 'formik';
 import ReactSelect, { MultiValue, StylesConfig } from 'react-select';
 import FilesDropInput from '../FilesDropInput';
+import chroma from 'chroma-js';
 import {
   FieldProps,
   SelectFieldProps,
@@ -201,6 +202,7 @@ export const SelectField: FC<SelectFieldProps> = ({
   const fieldname = rest.name;
   const adaptiveFieldSize = fieldSize || multiple ? '2xl' : 'md';
 
+  const color = chroma(theme?.color || 'gray');
   const customStyles: StylesConfig<Option, true> = {
     control: styles => ({
       ...styles,
@@ -208,9 +210,13 @@ export const SelectField: FC<SelectFieldProps> = ({
       border: 0,
       boxShadow: 'transparent',
     }),
-    menu: styles => ({
+    option: (styles, { isFocused, isSelected }) => ({
       ...styles,
-      color: theme?.color || 'gray',
+      backgroundColor: isSelected
+        ? color.css()
+        : isFocused
+        ? color.alpha(0.1).css()
+        : undefined,
     }),
     input: styles => ({
       ...styles,
