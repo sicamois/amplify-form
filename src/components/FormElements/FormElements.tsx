@@ -213,11 +213,15 @@ export const SelectField: FC<SelectFieldProps> = ({
     }),
     option: (styles, { isFocused, isSelected }) => ({
       ...styles,
-      backgroundColor: isSelected
+      'backgroundColor': isSelected
         ? color.css()
         : isFocused
         ? color.alpha(0.1).css()
         : undefined,
+      ':active': {
+        ...styles[':active'],
+        backgroundColor: isSelected ? color.css() : color.alpha(0.3).css(),
+      },
     }),
     input: styles => ({
       ...styles,
