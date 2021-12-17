@@ -74,7 +74,9 @@ export const formSchemaFor = (
     );
     if (!baseField)
       throw Error(
-        `Unable to find '${entity}' in the schema (looking for '${fullEntity}')`
+        `Unable to find '${lodashCapitalize(
+          entity
+        )}' in the schema (looking for '${fullEntity}')`
       );
 
     const fields =
