@@ -14,3 +14,4 @@ next-env.d.ts
 README.md
 *.html
 .**
+__test__/__snapshots__
