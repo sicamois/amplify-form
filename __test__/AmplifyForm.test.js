@@ -1,35 +1,55 @@
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
 import AmplifyForm from '../src/components/AmplifyForm';
 import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
-import { container } from 'aws-amplify';
 
 describe('AmplifyForm', () => {
-  it('renders a form for a simple schema', () => {
+  it('renders correctly for a simple schema', () => {
+    const props = {
+      graphQLJSONSchema: SimpleSchema,
+      entity: 'todo',
+      onSubmit: () => {},
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly for a complex schema', () => {
+    const props = {
+      graphQLJSONSchema: ComplexSchema,
+      entity: 'propertyAd',
+      onSubmit: () => {},
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('is not case sensitive for entity prop', () => {
     render(
       <AmplifyForm
         graphQLJSONSchema={SimpleSchema}
-        entity='todo'
+        entity='TODO'
         onSubmit={() => {}}
       />
     );
-
     const formElement = screen.getByRole('form');
     expect(formElement).toBeInTheDocument();
   });
 
-  it('renders a form for a complex schema', () => {
-    render(
-      <AmplifyForm
-        graphQLJSONSchema={ComplexSchema}
-        entity='propertyAd'
-        onSubmit={() => {}}
-      />
-    );
-
-    const formElement = screen.getByRole('form');
-    expect(formElement).toBeInTheDocument();
+  it('throws an error when entity does not exist', () => {
+    const absentEntity = 'xxx';
+    console.error = jest.fn();
+    expect(() =>
+      render(
+        <AmplifyForm
+          graphQLJSONSchema={SimpleSchema}
+          entity={absentEntity}
+          onSubmit={() => {}}
+        />
+      )
+    ).toThrow(`Unable to find field create${absentEntity}Input`);
   });
 
   it('labels the legend of the fieldset correctly when label prop is set', () => {
@@ -56,10 +76,34 @@ describe('AmplifyForm', () => {
         textAreas={['description']}
       />
     );
+  });
 
-    const textareaElement = screen.getByRole('textbox', {
-      name: 'Description',
-    });
-    expect(textareaElement).toBeInTheDocument();
+  it('does not render a textarea when TextAreas prop is incorrectly set', () => {
+    render(
+      <AmplifyForm
+        graphQLJSONSchema={SimpleSchema}
+        entity='todo'
+        onSubmit={() => {}}
+        textAreas={['xxx']}
+      />
+    );
+
+    const textareaElement = screen.getAllByRole('textbox');
+    expect(textareaElement).not.toBeInstanceOf(HTMLTextAreaElement);
+  });
+
+  it('displays custom labels correctly', () => {
+    const testLabelMap = new Map([['name', 'nom']]);
+    render(
+      <AmplifyForm
+        graphQLJSONSchema={SimpleSchema}
+        entity='todo'
+        onSubmit={() => {}}
+        labelMap={testLabelMap}
+      />
+    );
+
+    const textareaElement = screen.getByText('Nom');
+    expect(textareaElement).toBeInstanceOf(HTMLLabelElement);
   });
 });
