@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import AmplifyForm from '../src/components/AmplifyForm';
 import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
+import SchemaWithImages from './data/schema-with-images.json';
 import capitalize from 'lodash/capitalize';
 
 describe('AmplifyForm', () => {
@@ -51,7 +52,9 @@ describe('AmplifyForm', () => {
         />
       )
     ).toThrow(
-      `Unable to find '${absentEntity}' in the schema (looking for 'create${absentEntity}Input')`
+      `Unable to find '${capitalize(
+        absentEntity
+      )}' in the schema (looking for 'create${absentEntity}Input')`
     );
   });
 
@@ -181,6 +184,33 @@ describe('AmplifyForm', () => {
       entity: 'todo',
       onSubmit: () => {},
       fieldsProps: fieldsProps,
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly a basic image dropzone', () => {
+    const props = {
+      graphQLJSONSchema: SchemaWithImages,
+      entity: 'post',
+      onSubmit: () => {},
+      imageFields: ['gallery'],
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly an customized image dropzone', () => {
+    const props = {
+      graphQLJSONSchema: SchemaWithImages,
+      entity: 'post',
+      onSubmit: () => {},
+      imageFields: {
+        gallery: {
+          text: 'Custom drag n drop text',
+          fileType: 'image/*',
+        },
+      },
     };
     const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
