@@ -32,6 +32,7 @@ import {
 import { textColorMap } from '../../utils/theme-maps';
 
 const FormComponent: FC<FormComponentProps> = ({
+  name,
   label,
   formSchema,
   onSubmit,
@@ -328,7 +329,7 @@ const FormComponent: FC<FormComponentProps> = ({
           onSubmit={submitHandler}>
           {({ isSubmitting, isValid }) => {
             return (
-              <Form noValidate>
+              <Form noValidate name={name}>
                 <div className='flex flex-col gap-4'>
                   {getFormElement('', formSchema, '', (theme = safeTheme))}
                   <div className='flex flex-row gap-4 items-center'>

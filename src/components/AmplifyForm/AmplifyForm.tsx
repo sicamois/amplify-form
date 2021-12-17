@@ -217,6 +217,7 @@ const AmplifyForm: FC<AmplifyFormProps> = ({
 
   return (
     <FormComponent
+      name={entity}
       formSchema={formSchema}
       onSubmit={submitAndUpload}
       label={label}

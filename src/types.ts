@@ -110,6 +110,7 @@ export interface FilesDropInputProps
 }
 
 export interface FormComponentProps {
+  name: string;
   label: string;
   formSchema: FormSchema;
   onSubmit?: (
