@@ -215,4 +215,17 @@ describe('AmplifyForm', () => {
     const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('sets correctly required images', () => {
+    render(
+      <AmplifyForm
+        graphQLJSONSchema={SchemaWithImages}
+        entity='post'
+        onSubmit={() => {}}
+        imageFields={['gallery']}
+      />
+    );
+    const inputFileElement = screen.getByTitle('gallery');
+    expect(inputFileElement).toBeRequired();
+  });
 });

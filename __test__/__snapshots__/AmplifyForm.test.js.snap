@@ -106,14 +106,17 @@ exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
                     accept="image/*"
                     autoComplete="off"
                     multiple={true}
+                    name="gallery"
                     onChange={[Function]}
                     onClick={[Function]}
+                    required={true}
                     style={
                       Object {
                         "display": "none",
                       }
                     }
                     tabIndex={-1}
+                    title="gallery"
                     type="file"
                   />
                   <p>
