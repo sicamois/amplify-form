@@ -72,7 +72,10 @@ export const formSchemaFor = (
     const baseField = types.find(
       type => type.name.toLowerCase() == fullEntity.toLowerCase()
     );
-    if (!baseField) throw Error(`Unable to find field ${fullEntity}`);
+    if (!baseField)
+      throw Error(
+        `Unable to find '${entity}' in the schema (looking for '${fullEntity}')`
+      );
 
     const fields =
       baseField.kind == 'INPUT_OBJECT'
