@@ -189,7 +189,13 @@ const FormComponent: FC<FormComponentProps> = ({
 
     if (kind == 'string' || kind == 'email' || kind == 'url')
       return (
-        <TextField name={explicitName} label={label} theme={theme} {...props} />
+        <TextField
+          name={explicitName}
+          label={label}
+          theme={theme}
+          required={required}
+          {...props}
+        />
       );
 
     if (kind == 'textarea')
@@ -198,6 +204,7 @@ const FormComponent: FC<FormComponentProps> = ({
           name={explicitName}
           label={label}
           theme={theme}
+          required={required}
           {...props}
         />
       );
@@ -208,6 +215,7 @@ const FormComponent: FC<FormComponentProps> = ({
           name={explicitName}
           label={label}
           theme={theme}
+          required={required}
           {...props}
         />
       );
@@ -218,6 +226,7 @@ const FormComponent: FC<FormComponentProps> = ({
           name={explicitName}
           label={label}
           theme={theme}
+          required={required}
           {...props}
           step={0.01}
         />
@@ -229,6 +238,7 @@ const FormComponent: FC<FormComponentProps> = ({
           name={explicitName}
           label={label}
           theme={theme}
+          required={required}
           {...props}
         />
       );
@@ -242,6 +252,7 @@ const FormComponent: FC<FormComponentProps> = ({
           options={of?.options || options!}
           selectLabel={select}
           theme={theme}
+          required={required}
           {...props}
         />
       );
@@ -257,6 +268,7 @@ const FormComponent: FC<FormComponentProps> = ({
             options={options!}
             selectLabel={select}
             theme={theme}
+            required={required}
             {...props}
           />
         </FieldSet>
@@ -269,6 +281,7 @@ const FormComponent: FC<FormComponentProps> = ({
           name={explicitName}
           label={label}
           theme={theme}
+          required={required}
           {...props}></FilesDropField>
       );
 
