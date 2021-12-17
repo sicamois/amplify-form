@@ -2111,4 +2111,92 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
 
 exports[`AmplifyForm renders correctly for a simple schema 1`] = `null`;
 
+exports[`AmplifyForm renders correctly when a field default value is set 1`] = `null`;
+
+exports[`AmplifyForm renders correctly when a field is set to read-only 1`] = `
+<form
+  action="#"
+  name="todo"
+  noValidate={true}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="flex flex-col gap-4"
+  >
+    <fieldset
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+    >
+      <legend
+        className="text-red-900 font-black text-lg px-2"
+      >
+        todo
+      </legend>
+      <div
+        className="py-2"
+      >
+        <div
+          className="relative"
+        >
+          <input
+            className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-full"
+            id="name"
+            label="Name"
+            name="name"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder=" "
+            type="text"
+            value=""
+          />
+          <label
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
+            htmlFor="name"
+          >
+            Name
+          </label>
+        </div>
+      </div>
+      <div
+        className="py-2"
+      >
+        <div
+          className="relative"
+        >
+          <input
+            className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-full"
+            id="description"
+            label="Description"
+            name="description"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder=" "
+            readOnly={true}
+            type="text"
+            value=""
+          />
+          <label
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
+            htmlFor="description"
+          >
+            Description
+          </label>
+        </div>
+      </div>
+    </fieldset>
+    <div
+      className="flex flex-row gap-4 items-center"
+    >
+      <button
+        className="disabled:opacity-70 bg-red-900 text-white hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold rounded shadow-xl"
+        disabled={false}
+        type="submit"
+      >
+        Create
+      </button>
+    </div>
+  </div>
+</form>
+`;
+
 exports[`AmplifyForm renders correctly when fieldSize prop is set 1`] = `null`;

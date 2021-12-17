@@ -123,4 +123,36 @@ describe('AmplifyForm', () => {
     const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('renders correctly when a field is set to read-only', () => {
+    const fieldsProps = {
+      description: {
+        readOnly: true,
+      },
+    };
+    const props = {
+      graphQLJSONSchema: SimpleSchema,
+      entity: 'todo',
+      onSubmit: () => {},
+      fieldsProps: fieldsProps,
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly when a field default value is set', () => {
+    const fieldsProps = {
+      description: {
+        defaultValue: 'This is a description',
+      },
+    };
+    const props = {
+      graphQLJSONSchema: SimpleSchema,
+      entity: 'todo',
+      onSubmit: () => {},
+      fieldsProps: fieldsProps,
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
