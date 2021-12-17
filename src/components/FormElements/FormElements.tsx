@@ -310,6 +310,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
               multiple={multiple}
               value={value}
               theme={theme}
+              required={required}
               setValue={processValue}
               {...rest}
             />

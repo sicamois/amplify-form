@@ -18,10 +18,12 @@ const instructionsStyle =
 
 const FilesDropInput: FC<FilesDropInputProps> = ({
   text = "Drag 'n' drop some files here, or click to select files",
+  name = '',
   theme,
   fileType,
   thumbnailSize,
   multiple,
+  required,
   setValue,
   value,
 }) => {
@@ -199,7 +201,7 @@ const FilesDropInput: FC<FilesDropInputProps> = ({
             theme?.branding == 'full' ? textColorMap.get(theme?.color) : ''
           } ${instructionsStyle}`,
         })}>
-        <input {...getInputProps()} />
+        <input {...getInputProps({ name, title: name, required })} />
         <p>{text}</p>
       </div>
       {files.length
