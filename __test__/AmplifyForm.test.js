@@ -49,7 +49,9 @@ describe('AmplifyForm', () => {
           onSubmit={() => {}}
         />
       )
-    ).toThrow(`Unable to find field create${absentEntity}Input`);
+    ).toThrow(
+      `Unable to find '${absentEntity}' in the schema (looking for 'create${absentEntity}Input')`
+    );
   });
 
   it('labels the legend of the fieldset correctly when label prop is set', () => {
@@ -105,5 +107,20 @@ describe('AmplifyForm', () => {
 
     const textareaElement = screen.getByText('Nom');
     expect(textareaElement).toBeInstanceOf(HTMLLabelElement);
+  });
+
+  it('renders correctly when fieldSize prop is set', () => {
+    const fieldsSize = {
+      name: 'sm',
+      description: '4xl',
+    };
+    const props = {
+      graphQLJSONSchema: SimpleSchema,
+      entity: 'todo',
+      onSubmit: () => {},
+      fieldsSize: fieldsSize,
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

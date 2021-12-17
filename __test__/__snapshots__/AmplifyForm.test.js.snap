@@ -2110,3 +2110,5 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
 `;
 
 exports[`AmplifyForm renders correctly for a simple schema 1`] = `null`;
+
+exports[`AmplifyForm renders correctly when fieldSize prop is set 1`] = `null`;
