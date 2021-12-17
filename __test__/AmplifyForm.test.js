@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import AmplifyForm from '../src/components/AmplifyForm';
 import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
+import capitalize from 'lodash/capitalize';
 
 describe('AmplifyForm', () => {
   it('renders correctly for a simple schema', () => {
@@ -54,6 +55,34 @@ describe('AmplifyForm', () => {
     );
   });
 
+  it('sets correctly a required field', () => {
+    render(
+      <AmplifyForm
+        graphQLJSONSchema={SimpleSchema}
+        entity='Todo'
+        onSubmit={() => {}}
+      />
+    );
+    const inputTextElement = screen.getByRole('textbox', {
+      name: capitalize('name'),
+    });
+    expect(inputTextElement).toBeRequired();
+  });
+
+  it('sets correctly a not required field', () => {
+    render(
+      <AmplifyForm
+        graphQLJSONSchema={SimpleSchema}
+        entity='Todo'
+        onSubmit={() => {}}
+      />
+    );
+    const inputTextElement = screen.getByRole('textbox', {
+      name: capitalize('description'),
+    });
+    expect(inputTextElement).not.toBeRequired();
+  });
+
   it('labels the legend of the fieldset correctly when label prop is set', () => {
     const label = 'Create a todo';
     render(
@@ -95,7 +124,8 @@ describe('AmplifyForm', () => {
   });
 
   it('displays custom labels correctly', () => {
-    const testLabelMap = new Map([['name', 'nom']]);
+    const customLabel = 'nom';
+    const testLabelMap = new Map([['name', `${customLabel}`]]);
     render(
       <AmplifyForm
         graphQLJSONSchema={SimpleSchema}
@@ -105,7 +135,7 @@ describe('AmplifyForm', () => {
       />
     );
 
-    const textareaElement = screen.getByText('Nom');
+    const textareaElement = screen.getByText(capitalize(customLabel));
     expect(textareaElement).toBeInstanceOf(HTMLLabelElement);
   });
 
