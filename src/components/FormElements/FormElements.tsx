@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { VFC, Fragment } from 'react';
 import { ErrorMessage, Field, useField } from 'formik';
 import ReactSelect, { MultiValue, StylesConfig } from 'react-select';
 import FilesDropInput from '../FilesDropInput';
@@ -38,7 +38,7 @@ const errorStyle = 'text-red-700 text-xs';
 const submitButtonStyle =
   'hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold rounded shadow-xl';
 
-const FieldWithError: FC<FieldProps> = ({
+const FieldWithError: VFC<FieldProps> = ({
   name,
   label,
   labelCentered,
@@ -76,7 +76,7 @@ const FieldWithError: FC<FieldProps> = ({
   );
 };
 
-export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
+export const FieldSet: VFC<FieldProps> = ({ label, theme, children }) => {
   return (
     <fieldset
       className={`${
@@ -90,7 +90,7 @@ export const FieldSet: FC<FieldProps> = ({ label, theme, children }) => {
   );
 };
 
-export const TextField: FC<FieldProps> = ({
+export const TextField: VFC<FieldProps> = ({
   name,
   fieldSize = 'full',
   theme,
@@ -113,7 +113,7 @@ export const TextField: FC<FieldProps> = ({
   );
 };
 
-export const TextAreaField: FC<FieldProps> = ({
+export const TextAreaField: VFC<FieldProps> = ({
   name,
   fieldSize = '2xl',
   theme,
@@ -136,7 +136,7 @@ export const TextAreaField: FC<FieldProps> = ({
   );
 };
 
-export const NumberField: FC<FieldProps> = ({
+export const NumberField: VFC<FieldProps> = ({
   name,
   fieldSize = 'md',
   theme,
@@ -161,7 +161,7 @@ export const NumberField: FC<FieldProps> = ({
   );
 };
 
-export const CheckboxField: FC<FieldProps> = ({
+export const CheckboxField: VFC<FieldProps> = ({
   name,
   fieldSize = 'md',
   theme,
@@ -191,7 +191,7 @@ export const CheckboxField: FC<FieldProps> = ({
   );
 };
 
-export const SelectField: FC<SelectFieldProps> = ({
+export const SelectField: VFC<SelectFieldProps> = ({
   fieldSize,
   theme,
   placeholder = '',
@@ -271,7 +271,7 @@ export const SelectField: FC<SelectFieldProps> = ({
   );
 };
 
-export const FilesDropField: FC<FilesDropFieldProps> = ({
+export const FilesDropField: VFC<FilesDropFieldProps> = ({
   name,
   fieldSize = 'max',
   theme,
@@ -321,7 +321,7 @@ export const FilesDropField: FC<FilesDropFieldProps> = ({
   );
 };
 
-export const SubmitButton: FC<SubmitButtonProps> = ({
+export const SubmitButton: VFC<SubmitButtonProps> = ({
   title,
   theme,
   type,

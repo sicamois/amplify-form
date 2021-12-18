@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { VFC } from 'react';
 import { Storage } from 'aws-amplify';
 import FormComponent from '../FormComponent';
 import { formSchemaFor } from '../../utils/form-schema';
@@ -21,7 +21,7 @@ import {
   FieldsProps,
 } from '../../types';
 
-const AmplifyForm: FC<AmplifyFormProps> = ({
+const AmplifyForm: VFC<AmplifyFormProps> = ({
   graphQLJSONSchema,
   entity,
   onSubmit,

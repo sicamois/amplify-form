@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import React, { VFC, Fragment, useEffect, useState } from 'react';
 import {
   FieldSet,
   TextField,
@@ -31,7 +31,7 @@ import {
 } from '../../types';
 import { textColorMap } from '../../utils/theme-maps';
 
-const FormComponent: FC<FormComponentProps> = ({
+const FormComponent: VFC<FormComponentProps> = ({
   name,
   label,
   formSchema,

@@ -2,7 +2,7 @@ import React, {
   useState,
   useCallback,
   useEffect,
-  FC,
+  VFC,
   DragEventHandler,
 } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -16,7 +16,7 @@ import {
 const instructionsStyle =
   'border-2 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';
 
-const FilesDropInput: FC<FilesDropInputProps> = ({
+const FilesDropInput: VFC<FilesDropInputProps> = ({
   text = "Drag 'n' drop some files here, or click to select files",
   name = '',
   theme,
