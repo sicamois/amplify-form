@@ -142,10 +142,10 @@ describe('AmplifyForm', () => {
     expect(textareaElement).toBeInstanceOf(HTMLLabelElement);
   });
 
-  it('renders correctly when fieldSize prop is set', () => {
+  it('sets the right classes when FieldsSize prop is set', () => {
     const fieldsSize = {
       name: 'sm',
-      description: '4xl',
+      description: 'xl',
     };
     const props = {
       graphQLJSONSchema: SimpleSchema,
@@ -153,8 +153,15 @@ describe('AmplifyForm', () => {
       onSubmit: () => {},
       fieldsSize: fieldsSize,
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
-    expect(tree).toMatchSnapshot();
+    render(<AmplifyForm {...props} />);
+    const inputNameTextElement = screen.getByRole('textbox', {
+      name: capitalize('name'),
+    });
+    const inputDescriptionTextElement = screen.getByRole('textbox', {
+      name: capitalize('description'),
+    });
+    expect(inputNameTextElement.classList.contains('w-20')).toBeTruthy();
+    expect(inputDescriptionTextElement.classList.contains('w-96')).toBeTruthy();
   });
 
   it('renders correctly when a field is set to read-only', () => {

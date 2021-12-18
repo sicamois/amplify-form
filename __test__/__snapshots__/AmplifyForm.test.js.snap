@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
+exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `null`;
+
+exports[`AmplifyForm renders correctly an customized image dropzone 1`] = `
 <form
   action="#"
   name="post"
@@ -120,7 +122,7 @@ exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
                     type="file"
                   />
                   <p>
-                    Drag 'n' drop some files here, or click to select files
+                    Custom drag n drop text
                   </p>
                 </div>
               </section>
@@ -143,8 +145,6 @@ exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
   </div>
 </form>
 `;
-
-exports[`AmplifyForm renders correctly an customized image dropzone 1`] = `null`;
 
 exports[`AmplifyForm renders correctly for a complex schema 1`] = `
 <form
@@ -2264,9 +2264,7 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
 
 exports[`AmplifyForm renders correctly for a simple schema 1`] = `null`;
 
-exports[`AmplifyForm renders correctly when a field default value is set 1`] = `null`;
-
-exports[`AmplifyForm renders correctly when a field is set to read-only 1`] = `
+exports[`AmplifyForm renders correctly when a field default value is set 1`] = `
 <form
   action="#"
   name="todo"
@@ -2325,9 +2323,8 @@ exports[`AmplifyForm renders correctly when a field is set to read-only 1`] = `
             onBlur={[Function]}
             onChange={[Function]}
             placeholder=" "
-            readOnly={true}
             type="text"
-            value=""
+            value="This is a description"
           />
           <label
             className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
@@ -2353,4 +2350,4 @@ exports[`AmplifyForm renders correctly when a field is set to read-only 1`] = `
 </form>
 `;
 
-exports[`AmplifyForm renders correctly when fieldSize prop is set 1`] = `null`;
+exports[`AmplifyForm renders correctly when a field is set to read-only 1`] = `null`;
