@@ -74,6 +74,7 @@
     "@types/react": "^17.0.37",
     "autoprefixer": "^10.4.0",
     "aws-amplify": "^4.3.11",
+    "coveralls": "^3.1.1",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "latest",
