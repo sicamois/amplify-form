@@ -17,8 +17,8 @@ jobs:
         node-version: '12'
 
     - name: npm install, make test-coverage
-      run: |
-        npm install --production=false
+      run:
+        npm install
         make test-coverage
 
     - name: Coveralls
