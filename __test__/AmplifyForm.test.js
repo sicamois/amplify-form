@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
-import AmplifyForm from '../src/components/AmplifyForm';
+import AmplifyForm from '../dist';
 import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
 import SchemaWithImages from './data/schema-with-images.json';
