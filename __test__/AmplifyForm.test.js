@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
 import AmplifyForm from '../dist';
+// import AmplifyForm from '../src/components/AmplifyForm';
 import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
 import SchemaWithImages from './data/schema-with-images.json';
@@ -230,6 +231,46 @@ describe('AmplifyForm', () => {
         entity='post'
         onSubmit={() => {}}
         imageFields={['gallery']}
+      />
+    );
+    const inputFileElement = screen.getByTitle('gallery');
+    expect(inputFileElement).toBeRequired();
+  });
+
+  it('renders correctly a basic file dropzone', () => {
+    const props = {
+      graphQLJSONSchema: SchemaWithImages,
+      entity: 'post',
+      onSubmit: () => {},
+      fileFields: ['gallery'],
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly an customized pdf file dropzone', () => {
+    const props = {
+      graphQLJSONSchema: SchemaWithImages,
+      entity: 'post',
+      onSubmit: () => {},
+      fileFields: {
+        gallery: {
+          text: 'Custom drag n drop text',
+          fileType: 'application/pdf',
+        },
+      },
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('sets correctly required files', () => {
+    render(
+      <AmplifyForm
+        graphQLJSONSchema={SchemaWithImages}
+        entity='post'
+        onSubmit={() => {}}
+        fileFields={['gallery']}
       />
     );
     const inputFileElement = screen.getByTitle('gallery');
