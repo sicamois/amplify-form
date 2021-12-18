@@ -26,7 +26,7 @@
   ],
   "sideEffects": true,
   "engines": {
-    "node": ">=12"
+    "node": ">=15"
   },
   "repository": {
     "type": "git",
