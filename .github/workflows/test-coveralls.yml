@@ -23,7 +23,10 @@ jobs:
       run: npm install react react-native aws-amplify
 
     - name: npm build
-      run: npm build
+      run: npm run-script build
+
+    - name: npm coveralls
+      run: npm coveralls
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
