@@ -28,11 +28,6 @@ This React component automatically reads the GraphQL schema of your Amplify API 
 - Add **field props** (readOnly, defaultValue,...) ([here](#add-field-props))
 - **Typescript** friendly
 
-<!-- - Add files or images, they are automaticcaly uploaded to your [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/)
-- Add relationship between items
-- Customize form apperance
-- Customize field apperance -->
-
 > Note: **This plugin requires [AWS Amplify](https://github.com/aws-amplify/amplify-js) with a GraphQL API configured**
 
 ## Installation
