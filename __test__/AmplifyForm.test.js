@@ -1,8 +1,7 @@
-import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
-import AmplifyForm from '../dist';
-// import AmplifyForm from '../src/components/AmplifyForm';
+// import AmplifyForm from '../dist';
+import AmplifyForm from '../src/components/AmplifyForm';
 import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
 import SchemaWithImages from './data/schema-with-images.json';
@@ -27,6 +26,19 @@ describe('AmplifyForm', () => {
     };
     const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('throws error when empty/invalid schema', () => {
+    console.error = jest.fn();
+    const props = {
+      graphQLJSONSchema: {},
+      entity: 'test',
+      onSubmit: () => {},
+    };
+    // Invalid GraphQL JSON Schema
+    expect(() => render(<AmplifyForm {...props} />)).toThrow(
+      'Invalid GraphQL JSON Schema'
+    );
   });
 
   it('is not case sensitive for entity prop', () => {
