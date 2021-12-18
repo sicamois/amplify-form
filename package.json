@@ -59,7 +59,7 @@
   "dependencies": {
     "chroma-js": "^2.1.2",
     "formik": "^2.2.9",
-    "loadash": "^1.0.0",
+    "lodash": "^1.0.0",
     "react-dropzone": "^11.4.2",
     "react-select": "^5.2.1",
     "yup": "^0.32.11"
