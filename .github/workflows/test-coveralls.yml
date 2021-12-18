@@ -17,13 +17,15 @@ jobs:
         node-version: '16'
 
     - name: Install dependencies
-      run: npm install && npm install react react-native aws-amplify
+      run: npm install react react-native aws-amplify && npm ci
 
     - name: Build package
       run: npm run build
 
     - name: Run tests
       run: npm run test-cov
+      with:
+        github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
