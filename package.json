@@ -45,6 +45,7 @@
     "tags": "git fetch --tags -f",
     "format": "prettier --write .",
     "test": "jest",
+    "test-build": "yarn build && yarn test",
     "build": "rm -r -f dist && yarn build:tsdx",
     "build:tsdx": "tsdx build --format cjs,esm --tsconfig tsconfig.tsdx.json",
     "publish-push": "yarn test && npm publish && git push --quiet",
