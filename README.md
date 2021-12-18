@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/amplify-form.svg?style=flat-square)](https://www.npmjs.com/package/amplify-form)
 [![npm](https://img.shields.io/npm/dt/amplify-form.svg?style=flat-square)](https://www.npmjs.com/package/amplify-form)
 [![GitHub last commit](https://img.shields.io/github/last-commit/sicamois/amplify-form.svg?style=flat-square)](https://github.com/sicamois/amplify-form)
-[![Coverage Status](https://coveralls.io/repos/github/sicamois/amplify-form/badge.svg?branch=master)](https://coveralls.io/github/sicamois/amplify-form?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/sicamois/amplify-form/badge.svg)](https://coveralls.io/github/sicamois/amplify-form?branch=master)
 ![gzip size](https://img.badgesize.io/https:/unpkg.com/amplify-form@1.0.4/dist/amplify-form.cjs.production.min.js?compression=gzip)
 [![license](https://badgen.now.sh/badge/license/MIT)](./LICENSE)
 
@@ -963,6 +963,7 @@ export default CreateTodo = ({ nextRef: number}) => {
 
 - ⇄ Pull requests and ★ Stars are always welcome.
 - For bugs and feature requests, please create an issue.
+- Pull requests must be accompanied by passing automated tests.
 
 ## Acknowledgement
 
