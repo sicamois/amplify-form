@@ -54,7 +54,8 @@
     "publish-minor": "yarn test-build && npm version minor && yarn publish-push",
     "publish-major": "yarn test-build && npm version major && yarn publish-push",
     "login-npm": "npm adduser",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "coveralls": "jest --coverage && coveralls < coverage/lcov.info"
   },
   "dependencies": {
     "chroma-js": "^2.1.2",
