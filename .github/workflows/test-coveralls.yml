@@ -16,11 +16,14 @@ jobs:
       with:
         node-version: '12'
 
-    - name: npm install + build
-      run: 
-        npm install
-        npm install react react-native aws-amplify
-        npm build
+    - name: npm install
+      run: npm install
+
+    - name: npm install peerDependencies
+      run: npm install react react-native aws-amplify
+
+    - name: npm build
+      run: npm build
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
