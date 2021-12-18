@@ -17,11 +17,10 @@ jobs:
         node-version: '12'
 
     - name: npm install + build
-      run:
+      run: 
         npm install
         npm install react react-native aws-amplify
         npm build
-        npm coveralls
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
