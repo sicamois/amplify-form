@@ -2497,3 +2497,5 @@ exports[`AmplifyForm renders correctly when a field default value is set 1`] = `
 `;
 
 exports[`AmplifyForm renders correctly when a field is set to read-only 1`] = `null`;
+
+exports[`AmplifyForm renders correctly with all options 1`] = `null`;

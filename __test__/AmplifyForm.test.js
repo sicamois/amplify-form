@@ -288,4 +288,54 @@ describe('AmplifyForm', () => {
     const inputFileElement = screen.getByTitle('gallery');
     expect(inputFileElement).toBeRequired();
   });
+
+  it('renders correctly with all options', () => {
+    const fieldsSize = {
+      reference: 'xs',
+      address: '2xl',
+    };
+
+    const fieldsProps = {
+      reference: {
+        readOnly: true,
+        defaultValue: 10,
+      },
+    };
+
+    const imageFields = {
+      photos: {
+        text: 'Faites glisser des photos ou cliquez pour choisir des photos',
+        fileType: 'image/*',
+      },
+    };
+
+    const fileFields = {
+      floor_plan: {
+        kind: 'file',
+        text: 'Faites glisser un pdf ou cliquez pour choisir un pdf',
+        fileType: 'application/pdf',
+      },
+    };
+
+    const locationRelationship = {
+      entity: 'Location',
+      label: 'Emplacement',
+      items: [{ id: 'id1', name: 'city1' }],
+      labelField: 'name',
+    };
+
+    const props = {
+      graphQLJSONSchema: ComplexSchema,
+      entity: 'propertyAd',
+      onSubmit: () => {},
+      fieldsSize,
+      fieldsProps,
+      imageFields,
+      fileFields,
+      relationships: [locationRelationship],
+      theme: { color: 'teal', branding: 'full' },
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
