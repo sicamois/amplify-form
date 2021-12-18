@@ -36,9 +36,12 @@ interface GraphQLJSONSchema {
 }
 
 const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
-  const types: Field[] | undefined = graphqlJSONSchema?.data.__schema?.types;
-  if (!types) throw Error(`Invalid GraphQL JSON Schema`);
-  return types;
+  try {
+    const types: Field[] | undefined = graphqlJSONSchema?.data.__schema?.types;
+    return types;
+  } catch (error) {
+    throw Error(`Invalid GraphQL JSON Schema`);
+  }
 };
 
 const getLabel = (name: string, labelMap?: Map<string, string>) =>
