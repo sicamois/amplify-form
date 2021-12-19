@@ -6,8 +6,8 @@ import { parseObject } from '../../utils/parse-object';
 import { FormikHelpers } from 'formik';
 import lodashSet from 'lodash/set';
 import lodashGet from 'lodash/get';
-import lodashCamel from 'lodash/camelCase';
-import lodashCapitalize from 'lodash/capitalize';
+import camelCase from 'lodash/camelCase';
+import capitalize from 'lodash/capitalize';
 import {
   AmplifyFormProps,
   FormSchema,
@@ -86,9 +86,9 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
   // Add relationships
   if (relationships) {
     relationships.forEach(relationship => {
-      const relationEntity = lodashCapitalize(relationship.entity);
+      const relationEntity = capitalize(relationship.entity);
       const path =
-        relationship.path || lodashCamel(`${entity}${relationEntity}Id`);
+        relationship.path || camelCase(`${entity}${relationEntity}Id`);
       if (lodashGet(formSchema, `${path}.kind`) !== 'relationship')
         throw new Error(
           `Error in relationship definition : Relationship with ${relationship.entity} doesn't exist in ${entity} (looking for field '${path}')`
@@ -96,7 +96,16 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
 
       const options = relationship.items.map(item => {
         const label = lodashGet(item, relationship.labelField);
-        if (typeof label == 'string') {
+        if (!label) {
+          console.log(`${relationship.entity} items:`, relationship.items);
+          throw new Error(
+            `Error in relationship definition : ${
+              relationship.labelField
+            } does not exist in ${capitalize(
+              relationship.entity
+            )} items (see console logs)`
+          );
+        } else if (typeof label == 'string') {
           return {
             label: label,
             value: item.id,
