@@ -1,4 +1,4 @@
-import renderer from 'react-test-renderer';
+import { create } from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
 // import AmplifyForm from '../dist';
 import AmplifyForm from '../src/components/AmplifyForm';
@@ -6,6 +6,7 @@ import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
 import TestSchema from './data/test-schema.json';
 import capitalize from 'lodash/capitalize';
+import lowerFirst from 'lodash/lowerFirst';
 
 describe('AmplifyForm', () => {
   it('renders correctly for a typical schema', () => {
@@ -14,7 +15,7 @@ describe('AmplifyForm', () => {
       entity: 'post',
       onSubmit: () => {},
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    const tree = create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -24,7 +25,7 @@ describe('AmplifyForm', () => {
       entity: 'todo',
       onSubmit: () => {},
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    const tree = create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -34,7 +35,7 @@ describe('AmplifyForm', () => {
       entity: 'propertyAd',
       onSubmit: () => {},
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    const tree = create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -232,7 +233,7 @@ describe('AmplifyForm', () => {
       onSubmit: () => {},
       imageFields: ['gallery'],
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    const tree = create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -248,7 +249,7 @@ describe('AmplifyForm', () => {
         },
       },
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    const tree = create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -271,7 +272,7 @@ describe('AmplifyForm', () => {
       onSubmit: () => {},
       fileFields: ['gallery'],
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    const tree = create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -287,7 +288,7 @@ describe('AmplifyForm', () => {
         },
       },
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    const tree = create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -307,6 +308,120 @@ describe('AmplifyForm', () => {
     const inputFileElement = screen.getByTitle('gallery');
     expect(inputFileElement).toBeRequired();
   });
+
+  it('renders correctly a relationship', () => {
+    const entity = 'post';
+    const relationEntity = 'author';
+    const authorRelationship = {
+      entity: relationEntity,
+      label: capitalize(relationEntity),
+      items: [{ id: 'id1', name: 'user1' }],
+      labelField: 'name',
+    };
+
+    const props = {
+      graphQLJSONSchema: TestSchema,
+      entity,
+      onSubmit: () => {},
+      relationships: [authorRelationship],
+    };
+
+    const tree = create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('throw an error if the entity in the relationship does not exist', () => {
+    const entity = 'post';
+    const relationEntity = 'xxx';
+    const capitalizedRelationEntity = capitalize(relationEntity);
+    const labelField = 'toto';
+
+    const authorRelationship = {
+      entity: relationEntity,
+      label: capitalizedRelationEntity,
+      items: [{ id: 'id1', name: 'user1' }],
+      labelField,
+    };
+
+    const props = {
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
+      onSubmit: () => {},
+      relationships: [authorRelationship],
+    };
+    expect(() => render(<AmplifyForm {...props} />)).toThrow(
+      `Error in relationship definition : Relationship with ${relationEntity} doesn't exist in ${entity} (looking for field '${lowerFirst(
+        entity
+      )}${capitalizedRelationEntity}Id')`
+    );
+  });
+
+  it('throw an error if the labelField is not a string or number', () => {
+    const label = 'Author';
+    const labelField = 'isActive';
+
+    const authorRelationship = {
+      entity: 'author',
+      label,
+      items: [{ id: 'id1', name: 'user1', isActive: true }],
+      labelField,
+    };
+
+    const props = {
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
+      onSubmit: () => {},
+      relationships: [authorRelationship],
+    };
+    expect(() => render(<AmplifyForm {...props} />)).toThrow(
+      `Error in relationship definition : ${labelField} in 'items' must be a string or a number (${labelField} is of type 'boolean')`
+    );
+  });
+
+  it('throw an error if the labelField in the relationship does not exist', () => {
+    const entity = 'author';
+    const labelField = 'toto';
+
+    const authorRelationship = {
+      entity,
+      label: capitalize(entity),
+      items: [{ id: 'id1', name: 'user1' }],
+      labelField,
+    };
+
+    const props = {
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
+      onSubmit: () => {},
+      relationships: [authorRelationship],
+    };
+    expect(() => render(<AmplifyForm {...props} />)).toThrow(
+      `Error in relationship definition : ${labelField} does not exist in ${capitalize(
+        entity
+      )} items (see console logs)`
+    );
+  });
+
+  // it('throw an error with an empty required relationship', () => {
+  //   const label = 'Author';
+
+  //   const authorRelationship = {
+  //     entity: 'author',
+  //     label,
+  //     items: [],
+  //     labelField: 'name',
+  //   };
+
+  //   const props = {
+  //     graphQLJSONSchema: TestSchema,
+  //     entity: 'post',
+  //     onSubmit: () => {},
+  //     relationships: [authorRelationship],
+  //   };
+  //   expect(() => render(<AmplifyForm {...props} />)).toThrow(
+  //     `${label} is required, but it has no value to select (items is empty)`
+  //   );
+  // });
 
   it('renders correctly with all options', () => {
     const fieldsSize = {
@@ -354,7 +469,7 @@ describe('AmplifyForm', () => {
       relationships: [authorRelationship],
       theme: { color: 'teal', branding: 'full' },
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    const tree = create(<AmplifyForm {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
