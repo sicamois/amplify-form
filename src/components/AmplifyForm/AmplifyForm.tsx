@@ -143,13 +143,14 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
         contentType: file.type,
       });
       return putResult.key;
-    } catch (value) {
-      if ((value as any)?.errors) {
-        const readbleErrors = value as unknown as { message: string }[];
-        throw new Error(readbleErrors.map(error => error.message).join(','));
-      } else {
-        const error = value as Error;
+    } catch (response) {
+      if (response instanceof Error) {
+        const error = response as Error;
         throw error;
+      } else {
+        const { errors } = response as any as { errors: { message: string }[] };
+        console.error(...errors);
+        throw new Error(errors.map(error => error.message).join(','));
       }
     }
   };
