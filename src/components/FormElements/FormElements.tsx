@@ -257,6 +257,7 @@ export const SelectField: VFC<SelectFieldProps> = ({
           adaptiveFieldSize
         )}`}>
         <ReactSelect
+          name={`${rest.name}-select`}
           className='peer'
           styles={customStyles}
           options={options}
