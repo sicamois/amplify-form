@@ -117,10 +117,12 @@ const FormComponent: VFC<FormComponentProps> = ({
         if (kind == 'boolean') return yupBoolean();
         if ((kind == 'select' || kind == 'relationship') && options) {
           const shape: { [k: string]: AnySchema } = {};
-          Object.keys(options![0]).forEach(
-            field => (shape[field] = yupString())
-          );
-          return yupObject().shape(shape);
+          if (options!.length > 0) {
+            Object.keys(options![0]).forEach(
+              field => (shape[field] = yupString())
+            );
+            return yupObject().shape(shape);
+          }
         }
         if (kind == 'list') {
           let ofObject = yupObject();
