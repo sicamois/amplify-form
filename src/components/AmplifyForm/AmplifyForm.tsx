@@ -34,6 +34,7 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
   fileFields,
   relationships,
   storageConfig,
+  theme,
   ...rest
 }) => {
   const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {};
@@ -222,6 +223,7 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
       onSubmit={submitAndUpload}
       label={label}
       messages={messages}
+      theme={theme}
       {...rest}
     />
   );
