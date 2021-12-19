@@ -46,7 +46,7 @@
     "format": "prettier --write .",
     "test": "jest",
     "test-cov": "jest --coverage && coveralls < coverage/lcov.info",
-    "test-build": "yarn build && yarn test",
+    "test-build": "yarn test-cov && yarn build",
     "build": "rm -r -f dist && yarn build:tsdx",
     "build:tsdx": "tsdx build --format cjs,esm --tsconfig tsconfig.tsdx.json",
     "publish-push": "npm publish && git push --quiet",
