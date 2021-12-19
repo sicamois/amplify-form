@@ -47,7 +47,7 @@ describe('AmplifyForm', () => {
       onSubmit: () => {},
     };
     // Invalid GraphQL JSON Schema
-    expect(() => render(<AmplifyForm {...props} />)).toThrow(
+    expect(() => render(<AmplifyForm {...props} />)).toThrowError(
       'Invalid GraphQL JSON Schema'
     );
   });
@@ -75,7 +75,7 @@ describe('AmplifyForm', () => {
           onSubmit={() => {}}
         />
       )
-    ).toThrow(
+    ).toThrowError(
       `Unable to find '${capitalize(
         absentEntity
       )}' in the schema (looking for 'create${absentEntity}Input')`
@@ -349,7 +349,7 @@ describe('AmplifyForm', () => {
       onSubmit: () => {},
       relationships: [authorRelationship],
     };
-    expect(() => render(<AmplifyForm {...props} />)).toThrow(
+    expect(() => render(<AmplifyForm {...props} />)).toThrowError(
       `Error in relationship definition : Relationship with ${relationEntity} doesn't exist in ${entity} (looking for field '${lowerFirst(
         entity
       )}${capitalizedRelationEntity}Id')`
@@ -373,7 +373,7 @@ describe('AmplifyForm', () => {
       onSubmit: () => {},
       relationships: [authorRelationship],
     };
-    expect(() => render(<AmplifyForm {...props} />)).toThrow(
+    expect(() => render(<AmplifyForm {...props} />)).toThrowError(
       `Error in relationship definition : ${labelField} in 'items' must be a string or a number (${labelField} is of type 'boolean')`
     );
   });
@@ -395,33 +395,33 @@ describe('AmplifyForm', () => {
       onSubmit: () => {},
       relationships: [authorRelationship],
     };
-    expect(() => render(<AmplifyForm {...props} />)).toThrow(
+    expect(() => render(<AmplifyForm {...props} />)).toThrowError(
       `Error in relationship definition : ${labelField} does not exist in ${capitalize(
         entity
       )} items (see console logs)`
     );
   });
 
-  // it('throw an error with an empty required relationship', () => {
-  //   const label = 'Author';
+  it('renders correctly when relationship items are empty', () => {
+    const entity = 'author';
+    const labelField = 'name';
 
-  //   const authorRelationship = {
-  //     entity: 'author',
-  //     label,
-  //     items: [],
-  //     labelField: 'name',
-  //   };
+    const authorRelationship = {
+      entity,
+      label: capitalize(entity),
+      items: [],
+      labelField,
+    };
 
-  //   const props = {
-  //     graphQLJSONSchema: TestSchema,
-  //     entity: 'post',
-  //     onSubmit: () => {},
-  //     relationships: [authorRelationship],
-  //   };
-  //   expect(() => render(<AmplifyForm {...props} />)).toThrow(
-  //     `${label} is required, but it has no value to select (items is empty)`
-  //   );
-  // });
+    const props = {
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
+      onSubmit: () => {},
+      relationships: [authorRelationship],
+    };
+    const tree = create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
   it('renders correctly with all options', () => {
     const fieldsSize = {
