@@ -76,9 +76,10 @@ const FieldWithError: VFC<FieldProps> = ({
   );
 };
 
-export const FieldSet: VFC<FieldProps> = ({ label, theme, children }) => {
+export const FieldSet: VFC<FieldProps> = ({ name, label, theme, children }) => {
   return (
     <fieldset
+      name={name}
       className={`${
         theme?.branding == 'full' ? borderColorMap.get(theme.color) : ''
       } ${fieldSetStyle}`}>
@@ -257,7 +258,6 @@ export const SelectField: VFC<SelectFieldProps> = ({
           adaptiveFieldSize
         )}`}>
         <ReactSelect
-          name={`${rest.name}-select`}
           className='peer'
           styles={customStyles}
           options={options}

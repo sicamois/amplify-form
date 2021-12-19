@@ -173,7 +173,10 @@ const FormComponent: VFC<FormComponentProps> = ({
 
     if (!kind)
       return (
-        <FieldSet name={name} label={label || defaultLabel} theme={theme}>
+        <FieldSet
+          name={explicitName}
+          label={label || defaultLabel}
+          theme={theme}>
           {Object.keys(props!).map(fieldName => (
             <Fragment key={fieldName}>
               {getFormElement(
@@ -261,7 +264,7 @@ const FormComponent: VFC<FormComponentProps> = ({
     if (kind == 'relationship') {
       listFields.add(explicitName);
       return (
-        <FieldSet name={name} label={label} theme={theme}>
+        <FieldSet name={explicitName} label={label} theme={theme}>
           <SelectField
             name={explicitName}
             label={''}
