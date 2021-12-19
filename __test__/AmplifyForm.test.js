@@ -4,10 +4,20 @@ import { render, screen } from '@testing-library/react';
 import AmplifyForm from '../src/components/AmplifyForm';
 import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
-import SchemaWithImages from './data/schema-with-images.json';
+import TestSchema from './data/test-schema.json';
 import capitalize from 'lodash/capitalize';
 
 describe('AmplifyForm', () => {
+  it('renders correctly for a typical schema', () => {
+    const props = {
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
+      onSubmit: () => {},
+    };
+    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
   it('renders correctly for a simple schema', () => {
     const props = {
       graphQLJSONSchema: SimpleSchema,
@@ -44,8 +54,8 @@ describe('AmplifyForm', () => {
   it('is not case sensitive for entity prop', () => {
     render(
       <AmplifyForm
-        graphQLJSONSchema={SimpleSchema}
-        entity='TODO'
+        graphQLJSONSchema={TestSchema}
+        entity='PoSt'
         onSubmit={() => {}}
       />
     );
@@ -59,7 +69,7 @@ describe('AmplifyForm', () => {
     expect(() =>
       render(
         <AmplifyForm
-          graphQLJSONSchema={SimpleSchema}
+          graphQLJSONSchema={TestSchema}
           entity={absentEntity}
           onSubmit={() => {}}
         />
@@ -74,13 +84,13 @@ describe('AmplifyForm', () => {
   it('sets correctly a required field', () => {
     render(
       <AmplifyForm
-        graphQLJSONSchema={SimpleSchema}
-        entity='Todo'
+        graphQLJSONSchema={TestSchema}
+        entity='Post'
         onSubmit={() => {}}
       />
     );
     const inputTextElement = screen.getByRole('textbox', {
-      name: capitalize('name'),
+      name: capitalize('title'),
     });
     expect(inputTextElement).toBeRequired();
   });
@@ -88,23 +98,23 @@ describe('AmplifyForm', () => {
   it('sets correctly a not required field', () => {
     render(
       <AmplifyForm
-        graphQLJSONSchema={SimpleSchema}
-        entity='Todo'
+        graphQLJSONSchema={TestSchema}
+        entity='Post'
         onSubmit={() => {}}
       />
     );
     const inputTextElement = screen.getByRole('textbox', {
-      name: capitalize('description'),
+      name: capitalize('content'),
     });
     expect(inputTextElement).not.toBeRequired();
   });
 
   it('labels the legend of the fieldset correctly when label prop is set', () => {
-    const label = 'Create a todo';
+    const label = 'Create a post';
     render(
       <AmplifyForm
-        graphQLJSONSchema={SimpleSchema}
-        entity='todo'
+        graphQLJSONSchema={TestSchema}
+        entity='post'
         onSubmit={() => {}}
         label={label}
       />
@@ -117,10 +127,10 @@ describe('AmplifyForm', () => {
   it('renders a textarea when TextAreas prop is set', () => {
     render(
       <AmplifyForm
-        graphQLJSONSchema={SimpleSchema}
-        entity='todo'
+        graphQLJSONSchema={TestSchema}
+        entity='post'
         onSubmit={() => {}}
-        textAreas={['description']}
+        textAreas={['content']}
       />
     );
   });
@@ -128,8 +138,8 @@ describe('AmplifyForm', () => {
   it('does not render a textarea when TextAreas prop is incorrectly set', () => {
     render(
       <AmplifyForm
-        graphQLJSONSchema={SimpleSchema}
-        entity='todo'
+        graphQLJSONSchema={TestSchema}
+        entity='post'
         onSubmit={() => {}}
         textAreas={['xxx']}
       />
@@ -140,12 +150,12 @@ describe('AmplifyForm', () => {
   });
 
   it('displays custom labels correctly', () => {
-    const customLabel = 'nom';
-    const testLabelMap = new Map([['name', `${customLabel}`]]);
+    const customLabel = 'titre';
+    const testLabelMap = new Map([['title', `${customLabel}`]]);
     render(
       <AmplifyForm
-        graphQLJSONSchema={SimpleSchema}
-        entity='todo'
+        graphQLJSONSchema={TestSchema}
+        entity='post'
         onSubmit={() => {}}
         labelMap={testLabelMap}
       />
@@ -157,61 +167,67 @@ describe('AmplifyForm', () => {
 
   it('sets the right classes when FieldsSize prop is set', () => {
     const fieldsSize = {
-      name: 'sm',
-      description: 'xl',
+      title: 'sm',
+      content: 'xl',
     };
     const props = {
-      graphQLJSONSchema: SimpleSchema,
-      entity: 'todo',
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
       onSubmit: () => {},
       fieldsSize: fieldsSize,
     };
     render(<AmplifyForm {...props} />);
-    const inputNameTextElement = screen.getByRole('textbox', {
-      name: capitalize('name'),
+    const inputTitleTextElement = screen.getByRole('textbox', {
+      name: capitalize('title'),
     });
-    const inputDescriptionTextElement = screen.getByRole('textbox', {
-      name: capitalize('description'),
+    const inputContentTextElement = screen.getByRole('textbox', {
+      name: capitalize('content'),
     });
-    expect(inputNameTextElement.classList.contains('w-20')).toBeTruthy();
-    expect(inputDescriptionTextElement.classList.contains('w-96')).toBeTruthy();
+    expect(inputTitleTextElement.classList.contains('w-20')).toBeTruthy();
+    expect(inputContentTextElement.classList.contains('w-96')).toBeTruthy();
   });
 
   it('renders correctly when a field is set to read-only', () => {
     const fieldsProps = {
-      description: {
+      reference: {
         readOnly: true,
       },
     };
     const props = {
-      graphQLJSONSchema: SimpleSchema,
-      entity: 'todo',
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
       onSubmit: () => {},
       fieldsProps: fieldsProps,
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
-    expect(tree).toMatchSnapshot();
+    render(<AmplifyForm {...props} />);
+    const inputRefElement = screen.getByRole('spinbutton', {
+      name: capitalize('reference'),
+    });
+    expect(inputRefElement.readOnly).toBeTruthy();
   });
 
   it('renders correctly when a field default value is set', () => {
     const fieldsProps = {
-      description: {
-        defaultValue: 'This is a description',
+      reference: {
+        defaultValue: 10,
       },
     };
     const props = {
-      graphQLJSONSchema: SimpleSchema,
-      entity: 'todo',
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
       onSubmit: () => {},
       fieldsProps: fieldsProps,
     };
-    const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
-    expect(tree).toMatchSnapshot();
+    render(<AmplifyForm {...props} />);
+    const inputRefElement = screen.getByRole('spinbutton', {
+      name: capitalize('reference'),
+    });
+    expect(inputRefElement).toHaveValue(10);
   });
 
   it('renders correctly a basic image dropzone', () => {
     const props = {
-      graphQLJSONSchema: SchemaWithImages,
+      graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
       imageFields: ['gallery'],
@@ -222,7 +238,7 @@ describe('AmplifyForm', () => {
 
   it('renders correctly an customized image dropzone', () => {
     const props = {
-      graphQLJSONSchema: SchemaWithImages,
+      graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
       imageFields: {
@@ -237,21 +253,20 @@ describe('AmplifyForm', () => {
   });
 
   it('sets correctly required images', () => {
-    render(
-      <AmplifyForm
-        graphQLJSONSchema={SchemaWithImages}
-        entity='post'
-        onSubmit={() => {}}
-        imageFields={['gallery']}
-      />
-    );
+    const props = {
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
+      onSubmit: () => {},
+      imageFields: ['gallery'],
+    };
+    render(<AmplifyForm {...props} />);
     const inputFileElement = screen.getByTitle('gallery');
     expect(inputFileElement).toBeRequired();
   });
 
   it('renders correctly a basic file dropzone', () => {
     const props = {
-      graphQLJSONSchema: SchemaWithImages,
+      graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
       fileFields: ['gallery'],
@@ -262,11 +277,11 @@ describe('AmplifyForm', () => {
 
   it('renders correctly an customized pdf file dropzone', () => {
     const props = {
-      graphQLJSONSchema: SchemaWithImages,
+      graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
       fileFields: {
-        gallery: {
+        attachment: {
           text: 'Custom drag n drop text',
           fileType: 'application/pdf',
         },
@@ -277,14 +292,18 @@ describe('AmplifyForm', () => {
   });
 
   it('sets correctly required files', () => {
-    render(
-      <AmplifyForm
-        graphQLJSONSchema={SchemaWithImages}
-        entity='post'
-        onSubmit={() => {}}
-        fileFields={['gallery']}
-      />
-    );
+    const props = {
+      graphQLJSONSchema: TestSchema,
+      entity: 'post',
+      onSubmit: () => {},
+      fileFields: {
+        gallery: {
+          text: 'Custom drag n drop text',
+          fileType: 'application/pdf',
+        },
+      },
+    };
+    render(<AmplifyForm {...props} />);
     const inputFileElement = screen.getByTitle('gallery');
     expect(inputFileElement).toBeRequired();
   });
@@ -292,7 +311,7 @@ describe('AmplifyForm', () => {
   it('renders correctly with all options', () => {
     const fieldsSize = {
       reference: 'xs',
-      address: '2xl',
+      platform: '2xl',
     };
 
     const fieldsProps = {
@@ -303,36 +322,36 @@ describe('AmplifyForm', () => {
     };
 
     const imageFields = {
-      photos: {
-        text: 'Faites glisser des photos ou cliquez pour choisir des photos',
+      gallery: {
+        text: 'Add images by drag n drop or clik to add',
         fileType: 'image/*',
       },
     };
 
     const fileFields = {
-      floor_plan: {
+      attachment: {
         kind: 'file',
-        text: 'Faites glisser un pdf ou cliquez pour choisir un pdf',
+        text: 'Add a pdf by drag n drop or clik to add',
         fileType: 'application/pdf',
       },
     };
 
-    const locationRelationship = {
-      entity: 'Location',
-      label: 'Emplacement',
-      items: [{ id: 'id1', name: 'city1' }],
+    const authorRelationship = {
+      entity: 'author',
+      label: 'Author',
+      items: [{ id: 'id1', name: 'user1' }],
       labelField: 'name',
     };
 
     const props = {
-      graphQLJSONSchema: ComplexSchema,
-      entity: 'propertyAd',
+      graphQLJSONSchema: TestSchema,
+      entity: 'Post',
       onSubmit: () => {},
       fieldsSize,
       fieldsProps,
       imageFields,
       fileFields,
-      relationships: [locationRelationship],
+      relationships: [authorRelationship],
       theme: { color: 'teal', branding: 'full' },
     };
     const tree = renderer.create(<AmplifyForm {...props} />).toJSON();
