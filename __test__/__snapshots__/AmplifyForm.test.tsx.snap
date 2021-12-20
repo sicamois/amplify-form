@@ -1666,16 +1666,10 @@ exports[`AmplifyForm renders correctly a relationship 1`] = `
 </form>
 `;
 
-exports[`AmplifyForm renders correctly an customized image dropzone 1`] = `null`;
-
-exports[`AmplifyForm renders correctly an customized pdf file dropzone 1`] = `null`;
-
-exports[`AmplifyForm renders correctly for a complex schema 1`] = `null`;
-
-exports[`AmplifyForm renders correctly for a simple schema 1`] = `
+exports[`AmplifyForm renders correctly for a typical schema 1`] = `
 <form
   action="#"
-  name="todo"
+  name="post"
   noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
@@ -1690,7 +1684,7 @@ exports[`AmplifyForm renders correctly for a simple schema 1`] = `
       <legend
         className="text-red-900 font-black text-lg px-2"
       >
-        todo
+        post
       </legend>
       <div
         className="py-2"
@@ -1699,10 +1693,37 @@ exports[`AmplifyForm renders correctly for a simple schema 1`] = `
           className="relative"
         >
           <input
+            className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-36"
+            id="reference"
+            label="Reference"
+            name="reference"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder=" "
+            required={true}
+            step={1}
+            type="number"
+            value=""
+          />
+          <label
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-36"
+            htmlFor="reference"
+          >
+            Reference
+          </label>
+        </div>
+      </div>
+      <div
+        className="py-2"
+      >
+        <div
+          className="relative"
+        >
+          <input
             className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-full"
-            id="name"
-            label="Name"
-            name="name"
+            id="title"
+            label="Title"
+            name="title"
             onBlur={[Function]}
             onChange={[Function]}
             placeholder=" "
@@ -1712,9 +1733,9 @@ exports[`AmplifyForm renders correctly for a simple schema 1`] = `
           />
           <label
             className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
-            htmlFor="name"
+            htmlFor="title"
           >
-            Name
+            Title
           </label>
         </div>
       </div>
@@ -1726,9 +1747,9 @@ exports[`AmplifyForm renders correctly for a simple schema 1`] = `
         >
           <input
             className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-full"
-            id="description"
-            label="Description"
-            name="description"
+            id="content"
+            label="Content"
+            name="content"
             onBlur={[Function]}
             onChange={[Function]}
             placeholder=" "
@@ -1737,12 +1758,415 @@ exports[`AmplifyForm renders correctly for a simple schema 1`] = `
           />
           <label
             className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
-            htmlFor="description"
+            htmlFor="content"
           >
-            Description
+            Content
           </label>
         </div>
       </div>
+      <div
+        className="py-2"
+      >
+        <div
+          className="relative"
+        >
+          <div
+            className="border-gray-300 border-0 border-b-2 relative w-100"
+          >
+            <div
+              className="peer css-b62m3t-container"
+              onKeyDown={[Function]}
+            >
+              <span
+                className="css-1f43avz-a11yText-A11yText"
+                id="react-select-2-live-region"
+              />
+              <span
+                aria-atomic="false"
+                aria-live="polite"
+                aria-relevant="additions text"
+                className="css-1f43avz-a11yText-A11yText"
+              />
+              <div
+                className=" css-uuwi1j-control"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+              >
+                <div
+                  className=" css-319lph-ValueContainer"
+                >
+                  <div
+                    className=" css-49e8sj-placeholder"
+                    id="react-select-2-placeholder"
+                  >
+                    Select
+                  </div>
+                  <input
+                    aria-autocomplete="list"
+                    aria-controls="react-select-2-listbox"
+                    aria-describedby="react-select-2-placeholder"
+                    aria-expanded={false}
+                    aria-haspopup={true}
+                    aria-owns="react-select-2-listbox"
+                    aria-readonly={true}
+                    className="css-mohuvp-dummyInput-DummyInput"
+                    disabled={false}
+                    id="react-select-2-input"
+                    inputMode="none"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    role="combobox"
+                    tabIndex={0}
+                    value=""
+                  />
+                </div>
+                <div
+                  className=" css-1hb7zxy-IndicatorsContainer"
+                >
+                  <span
+                    className=" css-1okebmr-indicatorSeparator"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className=" css-tlfecz-indicatorContainer"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="css-tj5bde-Svg"
+                      focusable="false"
+                      height={20}
+                      viewBox="0 0 20 20"
+                      width={20}
+                    >
+                      <path
+                        d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
+            htmlFor="topics"
+          >
+            Topics
+          </label>
+        </div>
+      </div>
+      <div
+        className="py-2"
+      >
+        <div
+          className="relative"
+        >
+          <input
+            className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-36"
+            id="note"
+            label="Note"
+            name="note"
+            onBlur={[Function]}
+            onChange={[Function]}
+            placeholder=" "
+            step={0.01}
+            type="number"
+            value=""
+          />
+          <label
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-36"
+            htmlFor="note"
+          >
+            Note
+          </label>
+        </div>
+      </div>
+      <div
+        className="py-2"
+      >
+        <div
+          className="relative"
+        >
+          <div
+            className="relative p-3 flex justify-center w-36"
+          >
+            <input
+              checked={false}
+              className="accent-red-900 bg-transparent border-gray-300 rounded border-2 w-5 h-5 focus:ring-0"
+              id="public"
+              label="Public"
+              name="public"
+              onBlur={[Function]}
+              onChange={[Function]}
+              type="checkbox"
+              value=""
+            />
+          </div>
+          <label
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900 text-center w-36"
+            htmlFor="public"
+          >
+            Public
+          </label>
+        </div>
+      </div>
+      <fieldset
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        name="attachment"
+      >
+        <legend
+          className="text-red-900 font-black text-lg px-2"
+        >
+          Attachment
+        </legend>
+        <div
+          className="py-2"
+        >
+          <div
+            className="relative"
+          >
+            <input
+              className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-full"
+              id="attachment.s3_key"
+              label="S3 key"
+              name="attachment.s3_key"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder=" "
+              required={true}
+              type="text"
+              value=""
+            />
+            <label
+              className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
+              htmlFor="attachment.s3_key"
+            >
+              S3 key
+            </label>
+          </div>
+        </div>
+        <div
+          className="py-2"
+        >
+          <div
+            className="relative"
+          >
+            <input
+              className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-full"
+              id="attachment.mime_type"
+              label="Mime type"
+              name="attachment.mime_type"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder=" "
+              type="text"
+              value=""
+            />
+            <label
+              className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
+              htmlFor="attachment.mime_type"
+            >
+              Mime type
+            </label>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        className="py-2"
+      >
+        <div
+          className="relative"
+        >
+          <div
+            className="border-gray-300 border-0 border-b-2 relative w-36"
+          >
+            <div
+              className="peer css-b62m3t-container"
+              onKeyDown={[Function]}
+            >
+              <span
+                className="css-1f43avz-a11yText-A11yText"
+                id="react-select-3-live-region"
+              />
+              <span
+                aria-atomic="false"
+                aria-live="polite"
+                aria-relevant="additions text"
+                className="css-1f43avz-a11yText-A11yText"
+              />
+              <div
+                className=" css-uuwi1j-control"
+                onMouseDown={[Function]}
+                onTouchEnd={[Function]}
+              >
+                <div
+                  className=" css-319lph-ValueContainer"
+                >
+                  <div
+                    className=" css-49e8sj-placeholder"
+                    id="react-select-3-placeholder"
+                  >
+                    Select
+                  </div>
+                  <input
+                    aria-autocomplete="list"
+                    aria-controls="react-select-3-listbox"
+                    aria-describedby="react-select-3-placeholder"
+                    aria-expanded={false}
+                    aria-haspopup={true}
+                    aria-owns="react-select-3-listbox"
+                    aria-readonly={true}
+                    className="css-mohuvp-dummyInput-DummyInput"
+                    disabled={false}
+                    id="react-select-3-input"
+                    inputMode="none"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    role="combobox"
+                    tabIndex={0}
+                    value=""
+                  />
+                </div>
+                <div
+                  className=" css-1hb7zxy-IndicatorsContainer"
+                >
+                  <span
+                    className=" css-1okebmr-indicatorSeparator"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className=" css-tlfecz-indicatorContainer"
+                    onMouseDown={[Function]}
+                    onTouchEnd={[Function]}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="css-tj5bde-Svg"
+                      focusable="false"
+                      height={20}
+                      viewBox="0 0 20 20"
+                      width={20}
+                    >
+                      <path
+                        d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-red-900  w-full"
+            htmlFor="platform"
+          >
+            Platform
+          </label>
+        </div>
+      </div>
+      <fieldset
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        name="postAuthorId"
+      >
+        <legend
+          className="text-red-900 font-black text-lg px-2"
+        >
+          Postauthorid
+        </legend>
+        <div
+          className="py-2"
+        >
+          <div
+            className="relative"
+          >
+            <div
+              className="border-gray-300 border-0 border-b-2 relative w-36"
+            >
+              <div
+                className="peer css-b62m3t-container"
+                onKeyDown={[Function]}
+              >
+                <span
+                  className="css-1f43avz-a11yText-A11yText"
+                  id="react-select-4-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  className="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  className=" css-uuwi1j-control"
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                >
+                  <div
+                    className=" css-319lph-ValueContainer"
+                  >
+                    <div
+                      className=" css-49e8sj-placeholder"
+                      id="react-select-4-placeholder"
+                    >
+                      Select
+                    </div>
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="react-select-4-listbox"
+                      aria-describedby="react-select-4-placeholder"
+                      aria-expanded={false}
+                      aria-haspopup={true}
+                      aria-owns="react-select-4-listbox"
+                      aria-readonly={true}
+                      className="css-mohuvp-dummyInput-DummyInput"
+                      disabled={false}
+                      id="react-select-4-input"
+                      inputMode="none"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      role="combobox"
+                      tabIndex={0}
+                      value=""
+                    />
+                  </div>
+                  <div
+                    className=" css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      className=" css-1okebmr-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      className=" css-tlfecz-indicatorContainer"
+                      onMouseDown={[Function]}
+                      onTouchEnd={[Function]}
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="css-tj5bde-Svg"
+                        focusable="false"
+                        height={20}
+                        viewBox="0 0 20 20"
+                        width={20}
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </fieldset>
     </fieldset>
     <div
       className="flex flex-row gap-4 items-center"
@@ -1758,10 +2182,6 @@ exports[`AmplifyForm renders correctly for a simple schema 1`] = `
   </div>
 </form>
 `;
-
-exports[`AmplifyForm renders correctly for a typical schema 1`] = `null`;
-
-exports[`AmplifyForm renders correctly when relationship items are empty 1`] = `null`;
 
 exports[`AmplifyForm renders correctly with all options 1`] = `
 <form
@@ -1843,19 +2263,18 @@ exports[`AmplifyForm renders correctly with all options 1`] = `
         <div
           className="relative"
         >
-          <input
-            className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-teal-600 w-full"
+          <textarea
+            className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-teal-600 w-screen focus:h-32"
             id="content"
             label="Content"
             name="content"
             onBlur={[Function]}
             onChange={[Function]}
             placeholder=" "
-            type="text"
             value=""
           />
           <label
-            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-teal-600  w-full"
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-teal-600  w-screen"
             htmlFor="content"
           >
             Content
@@ -2212,7 +2631,7 @@ exports[`AmplifyForm renders correctly with all options 1`] = `
             </div>
           </div>
           <label
-            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-teal-600  w-100"
+            className="text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-teal-600  w-64"
             htmlFor="platform"
           >
             Platform
