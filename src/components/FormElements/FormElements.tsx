@@ -1,4 +1,4 @@
-import React, { VFC, Fragment } from 'react';
+import React, { FC, VFC, Fragment } from 'react';
 import { ErrorMessage, Field, useField } from 'formik';
 import ReactSelect, { MultiValue, StylesConfig } from 'react-select';
 import FilesDropInput from '../FilesDropInput';
@@ -38,7 +38,7 @@ const errorStyle = 'text-red-700 text-xs';
 const submitButtonStyle =
   'hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold rounded shadow-xl';
 
-const FieldWithError: VFC<FieldProps> = ({
+const FieldWithError: FC<FieldProps> = ({
   name,
   label,
   labelCentered,
@@ -77,7 +77,7 @@ const FieldWithError: VFC<FieldProps> = ({
   );
 };
 
-export const FieldSet: VFC<FieldProps> = ({ name, label, theme, children }) => {
+export const FieldSet: FC<FieldProps> = ({ name, label, theme, children }) => {
   console.log('renders FieldSet');
   return (
     <fieldset
