@@ -19,6 +19,13 @@ import {
 } from '../src/types';
 
 describe('AmplifyForm', () => {
+  let spy: jest.SpyInstance;
+  beforeAll(() => {
+    spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+  afterAll(() => {
+    spy.mockRestore();
+  });
   // it('renders correctly for a simple schema', () => {
   //   const props: AmplifyFormProps = {
   //     graphQLJSONSchema: SimpleSchema,
