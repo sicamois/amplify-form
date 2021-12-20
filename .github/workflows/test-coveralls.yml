@@ -17,7 +17,7 @@ jobs:
         node-version: '16'
 
     - name: Install dependencies
-      run: npm install react react-native aws-amplify && npm ci
+      run: npm ci
 
     - name: Build package
       run: npm run build
