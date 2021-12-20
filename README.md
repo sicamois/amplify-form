@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/dt/amplify-form.svg?style=flat-square)](https://www.npmjs.com/package/amplify-form)
 [![GitHub last commit](https://img.shields.io/github/last-commit/sicamois/amplify-form.svg?style=flat-square)](https://github.com/sicamois/amplify-form)
 [![Test](https://github.com/sicamois/amplify-form/actions/workflows/test-coveralls.yml/badge.svg)](https://github.com/sicamois/amplify-form/actions/workflows/test-coveralls.yml)
-[![Coverage Status](https://coveralls.io/repos/github/sicamois/amplify-form/badge.svg?branch=master)](https://coveralls.io/github/sicamois/amplify-form?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/sicamois/amplify-form/badge.png?branch=master)](https://coveralls.io/github/sicamois/amplify-form?branch=master)
 ![gzip size](https://img.badgesize.io/https:/unpkg.com/amplify-form@1.0.4/dist/amplify-form.cjs.production.min.js?compression=gzip)
 [![license](https://badgen.now.sh/badge/license/MIT)](./LICENSE)
 
