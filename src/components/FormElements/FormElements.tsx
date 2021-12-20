@@ -23,6 +23,7 @@ import {
   peerFocusTextColorMap,
   textColorMap,
 } from '../../utils/theme-maps';
+import capitalize from 'lodash/capitalize';
 
 const fieldSetStyle =
   'flex flex-wrap flex-row justify-start border-2 p-4 gap-3';
@@ -79,6 +80,7 @@ const FieldWithError: FC<FieldProps> = ({
 
 export const FieldSet: FC<FieldProps> = ({ name, label, theme, children }) => {
   console.log('renders FieldSet');
+  const defaultLabel = label || capitalize(name).replaceAll('_', ' ');
   return (
     <fieldset
       name={name}
@@ -86,7 +88,7 @@ export const FieldSet: FC<FieldProps> = ({ name, label, theme, children }) => {
         theme?.branding == 'full' ? borderColorMap.get(theme.color) : ''
       } ${fieldSetStyle}`}>
       <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>
-        {label}
+        {defaultLabel}
       </legend>
       {children}
     </fieldset>
