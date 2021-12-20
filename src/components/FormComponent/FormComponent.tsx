@@ -39,6 +39,7 @@ const FormComponent: VFC<FormComponentProps> = ({
   theme = {},
   messages = {},
 }) => {
+  console.log('renders FormComponent');
   const defaultLabel = label;
 
   const safeTheme: FormTheme = {

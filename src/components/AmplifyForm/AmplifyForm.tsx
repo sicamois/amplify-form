@@ -37,6 +37,7 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
   theme,
   ...rest
 }) => {
+  console.log('renders AmplifyForm');
   const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {};
 
   const updateFormSchema: (

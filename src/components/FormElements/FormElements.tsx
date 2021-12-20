@@ -46,6 +46,7 @@ const FieldWithError: VFC<FieldProps> = ({
   theme,
   children,
 }) => {
+  console.log('renders FieldWithError');
   return (
     <Fragment>
       <div className='py-2'>
@@ -77,6 +78,7 @@ const FieldWithError: VFC<FieldProps> = ({
 };
 
 export const FieldSet: VFC<FieldProps> = ({ name, label, theme, children }) => {
+  console.log('renders FieldSet');
   return (
     <fieldset
       name={name}
@@ -98,6 +100,7 @@ export const TextField: VFC<FieldProps> = ({
   placeholder = ' ',
   ...rest
 }) => {
+  console.log('renders TextField');
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
@@ -121,6 +124,7 @@ export const TextAreaField: VFC<FieldProps> = ({
   placeholder = ' ',
   ...rest
 }) => {
+  console.log('renders TextAreaField');
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
@@ -145,6 +149,7 @@ export const NumberField: VFC<FieldProps> = ({
   step = 1,
   ...rest
 }) => {
+  console.log('renders NumberField');
   return (
     <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
       <Field
@@ -169,6 +174,7 @@ export const CheckboxField: VFC<FieldProps> = ({
   step = 1,
   ...rest
 }) => {
+  console.log('renders CheckboxField');
   return (
     <FieldWithError
       name={name}
@@ -201,6 +207,7 @@ export const SelectField: VFC<SelectFieldProps> = ({
   multiple,
   ...rest
 }) => {
+  console.log('renders SelectField');
   const fieldname = rest.name;
   const adaptiveFieldSize = fieldSize || multiple ? '2xl' : 'md';
 
@@ -282,6 +289,7 @@ export const FilesDropField: VFC<FilesDropFieldProps> = ({
   defaultValue,
   ...rest
 }) => {
+  console.log('renders FilesDropField');
   const [field, , helpers] = useField({ name, multiple });
 
   const { setValue } = helpers;
@@ -328,6 +336,7 @@ export const SubmitButton: VFC<SubmitButtonProps> = ({
   type,
   ...rest
 }) => {
+  console.log('renders SubmitButton');
   return (
     <Fragment>
       <button

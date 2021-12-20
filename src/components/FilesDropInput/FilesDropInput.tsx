@@ -27,6 +27,7 @@ const FilesDropInput: VFC<FilesDropInputProps> = ({
   setValue,
   value,
 }) => {
+  console.log('renders FilesDropInput');
   const [files, setFiles] = useState<FileWithSize[]>([]);
   const [dragId, setDragId] = useState<number | undefined>();
 
