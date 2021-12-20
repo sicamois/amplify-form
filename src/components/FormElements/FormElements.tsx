@@ -270,7 +270,11 @@ export const SelectField: VFC<SelectFieldProps> = ({
 }) => {
   console.log('renders SelectField');
   const fieldname = rest.name;
-  const adaptiveFieldSize = fieldSize || multiple ? '2xl' : 'md';
+  const adaptiveFieldSize =
+    (fieldSize && fieldSizeMap.get(fieldSize) ? fieldSize : undefined) ||
+    multiple
+      ? '2xl'
+      : 'md';
 
   const color =
     theme?.branding == 'full'
