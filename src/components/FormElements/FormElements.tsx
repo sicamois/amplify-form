@@ -39,7 +39,7 @@ const errorStyle = 'text-red-700 text-xs';
 const submitButtonStyle =
   'hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold rounded shadow-xl';
 
-const FieldWithError: FC<FieldProps> = ({
+export const FieldWithError: FC<FieldProps> = ({
   name,
   label,
   labelCentered,
@@ -48,6 +48,15 @@ const FieldWithError: FC<FieldProps> = ({
   children,
 }) => {
   console.log('renders FieldWithError');
+  const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : 'full';
+  if (!fieldSizeMap.get(fieldSize)) {
+    const fieldSizeValues = Array.from(fieldSizeMap.keys());
+    console.warn(
+      `Problem in FieldWithError: fieldSize '${fieldSize}' is unknown, fieldSize is set to default : '${safeFieldSize}' (Possible fieldSize are : '${fieldSizeValues.join(
+        `', '`
+      )}')`
+    );
+  }
   return (
     <Fragment>
       <div className='py-2'>
@@ -58,7 +67,7 @@ const FieldWithError: FC<FieldProps> = ({
               className={`${labelStyle} ${peerFocusTextColorMap.get(
                 theme?.color
               )} ${labelCentered ? 'text-center' : ''} ${fieldSizeMap.get(
-                fieldSize
+                safeFieldSize
               )}`}
               htmlFor={name}>
               {label}
@@ -68,7 +77,7 @@ const FieldWithError: FC<FieldProps> = ({
         <ErrorMessage
           name={name}
           render={msg => (
-            <div className={`${errorStyle} ${fieldSizeMap.get(fieldSize)}`}>
+            <div className={`${errorStyle} ${fieldSizeMap.get(safeFieldSize)}`}>
               {msg}
             </div>
           )}
@@ -80,15 +89,17 @@ const FieldWithError: FC<FieldProps> = ({
 
 export const FieldSet: FC<FieldProps> = ({ name, label, theme, children }) => {
   console.log('renders FieldSet');
-  const defaultLabel = label || capitalize(name).replaceAll('_', ' ');
+  const safeLabel = label || capitalize(name).replaceAll('_', ' ');
   return (
     <fieldset
       name={name}
       className={`${
         theme?.branding == 'full' ? borderColorMap.get(theme.color) : ''
       } ${fieldSetStyle}`}>
-      <legend className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>
-        {defaultLabel}
+      <legend
+        data-testid={`${name}-legend`}
+        className={`${textColorMap.get(theme?.color)} ${legendStyle}`}>
+        {safeLabel}
       </legend>
       {children}
     </fieldset>
@@ -218,7 +229,7 @@ export const CheckboxField: VFC<FieldProps> = ({
   if (!fieldSizeMap.get(fieldSize)) {
     const fieldSizeValues = Array.from(fieldSizeMap.keys());
     console.warn(
-      `Problem in NumberField: fieldSize '${fieldSize}' is unknown, fieldSize is set to default : '${safeFieldSize}' (Possible fieldSize are : '${fieldSizeValues.join(
+      `Problem in CheckboxField: fieldSize '${fieldSize}' is unknown, fieldSize is set to default : '${safeFieldSize}' (Possible fieldSize are : '${fieldSizeValues.join(
         `', '`
       )}')`
     );
