@@ -101,12 +101,25 @@ export const TextField: VFC<FieldProps> = ({
   ...rest
 }) => {
   console.log('renders TextField');
+  const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : 'full';
+  if (!fieldSizeMap.get(fieldSize)) {
+    const fieldSizeValues = Array.from(fieldSizeMap.keys());
+    console.warn(
+      `Problem in TextField: fieldSize '${fieldSize}' is unknown, fieldSize is set to default : '${safeFieldSize}' (Possible fieldSize are : '${fieldSizeValues.join(
+        `', '`
+      )}')`
+    );
+  }
   return (
-    <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
+    <FieldWithError
+      name={name}
+      fieldSize={safeFieldSize}
+      theme={theme}
+      {...rest}>
       <Field
         className={`${fieldStyle} ${focusBorderColorMap.get(
           theme?.color
-        )} ${fieldSizeMap.get(fieldSize)}`}
+        )} ${fieldSizeMap.get(safeFieldSize)}`}
         type='text'
         id={name}
         name={name}
@@ -125,13 +138,26 @@ export const TextAreaField: VFC<FieldProps> = ({
   ...rest
 }) => {
   console.log('renders TextAreaField');
+  const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : '2xl';
+  if (!fieldSizeMap.get(fieldSize)) {
+    const fieldSizeValues = Array.from(fieldSizeMap.keys());
+    console.warn(
+      `Problem in TextAreaField: fieldSize '${fieldSize}' is unknown, fieldSize is set to default : '${safeFieldSize}' (Possible fieldSize are : '${fieldSizeValues.join(
+        `', '`
+      )}')`
+    );
+  }
   return (
-    <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
+    <FieldWithError
+      name={name}
+      fieldSize={safeFieldSize}
+      theme={theme}
+      {...rest}>
       <Field
         as='textarea'
         className={`${fieldStyle} ${focusBorderColorMap.get(
           theme?.color
-        )} ${fieldSizeMap.get(fieldSize)} focus:h-32`}
+        )} ${fieldSizeMap.get(safeFieldSize)} focus:h-32`}
         id={name}
         name={name}
         placeholder={placeholder}
@@ -150,12 +176,25 @@ export const NumberField: VFC<FieldProps> = ({
   ...rest
 }) => {
   console.log('renders NumberField');
+  const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : 'md';
+  if (!fieldSizeMap.get(fieldSize)) {
+    const fieldSizeValues = Array.from(fieldSizeMap.keys());
+    console.warn(
+      `Problem in NumberField: fieldSize '${fieldSize}' is unknown, fieldSize is set to default : '${safeFieldSize}' (Possible fieldSize are : '${fieldSizeValues.join(
+        `', '`
+      )}')`
+    );
+  }
   return (
-    <FieldWithError name={name} fieldSize={fieldSize} theme={theme} {...rest}>
+    <FieldWithError
+      name={name}
+      fieldSize={safeFieldSize}
+      theme={theme}
+      {...rest}>
       <Field
         className={`${fieldStyle} ${focusBorderColorMap.get(
           theme?.color
-        )} ${fieldSizeMap.get(fieldSize)}`}
+        )} ${fieldSizeMap.get(safeFieldSize)}`}
         type='number'
         id={name}
         name={name}
@@ -171,20 +210,29 @@ export const CheckboxField: VFC<FieldProps> = ({
   name,
   fieldSize = 'md',
   theme,
-  step = 1,
   ...rest
 }) => {
+  const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : 'md';
+  if (!fieldSizeMap.get(fieldSize)) {
+    const fieldSizeValues = Array.from(fieldSizeMap.keys());
+    console.warn(
+      `Problem in NumberField: fieldSize '${fieldSize}' is unknown, fieldSize is set to default : '${safeFieldSize}' (Possible fieldSize are : '${fieldSizeValues.join(
+        `', '`
+      )}')`
+    );
+  }
   console.log('renders CheckboxField');
   return (
     <FieldWithError
       name={name}
-      fieldSize={fieldSize}
+      fieldSize={safeFieldSize}
       theme={theme}
       labelCentered={true}
       {...rest}>
       <div
+        data-testid={`${name}-div`}
         className={`relative p-3 flex justify-center ${fieldSizeMap.get(
-          fieldSize
+          safeFieldSize
         )}`}>
         <Field
           className={`${accentColorMap.get(theme?.color)} ${checkboxStyle}`}
