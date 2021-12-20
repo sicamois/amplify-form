@@ -20,12 +20,19 @@ import {
 
 describe('AmplifyForm', () => {
   let spy: jest.SpyInstance;
+  let spyError: jest.SpyInstance;
+  let spyWarn: jest.SpyInstance;
   beforeAll(() => {
     spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    spyError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    spyWarn = jest.spyOn(console, 'warn').mockImplementation(() => {});
   });
   afterAll(() => {
     spy.mockRestore();
+    spyError.mockRestore();
+    spyWarn.mockRestore();
   });
+
   // it('renders correctly for a simple schema', () => {
   //   const props: AmplifyFormProps = {
   //     graphQLJSONSchema: SimpleSchema,

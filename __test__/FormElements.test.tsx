@@ -9,9 +9,12 @@ import {
   TextAreaField,
   TextField,
 } from '../src/components/FormElements';
-import { FieldProps, FormTheme } from '../src/types';
+import { FieldProps, FormTheme, SelectFieldProps, Option } from '../src/types';
 import { capitalize } from 'lodash';
-import { FieldWithError } from '../src/components/FormElements/FormElements';
+import {
+  FieldWithError,
+  SelectField,
+} from '../src/components/FormElements/FormElements';
 
 const TestForm: FC<{ initialValues: Record<string, any> }> = ({
   initialValues,
@@ -154,6 +157,27 @@ describe('FieldWithError', () => {
     );
     const labelCenteredElement = screen.getByText(label);
     expect(labelCenteredElement.classList).toContain('text-center');
+  });
+
+  it('display a child when passed', () => {
+    const name = 'set';
+    const label = 'Infos';
+    const props: FieldProps = {
+      name,
+      label,
+    };
+    const renderResult = render(
+      <TestForm initialValues={{}}>
+        <FieldWithError {...props}>
+          <input type='text' id='tequila' />
+          <label htmlFor='tequila'>Chamukos tequila</label>
+        </FieldWithError>
+      </TestForm>
+    );
+    const inputElement = screen.getByRole('textbox', {
+      name: 'Chamukos tequila',
+    });
+    expect(inputElement).toBeInTheDocument();
   });
 });
 
@@ -571,5 +595,62 @@ describe('FieldSet', () => {
     expect(fieldsetElement.classList).toContain('border-lime-600');
     expect(legendElement.classList).toContain('text-lime-600');
     expect(legendElement.classList).not.toContain('text-red-900');
+  });
+});
+
+describe('SelectField', () => {
+  let spy: jest.SpyInstance;
+  let spyError: jest.SpyInstance;
+  let spyWarn: jest.SpyInstance;
+  beforeAll(() => {
+    spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    spyError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    spyWarn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+  afterAll(() => {
+    spy.mockRestore();
+    spyError.mockRestore();
+    spyWarn.mockRestore();
+  });
+
+  it('renders correctly', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const props: SelectFieldProps = {
+      name: 'public',
+      options: options,
+    };
+    const tree = create(
+      <TestForm initialValues={{ public: '' }}>
+        <SelectField {...props} />
+      </TestForm>
+    ).toJSON();
+    expect(tree).not.toBeNull();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly with multiple=true', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const props: SelectFieldProps = {
+      name: 'public',
+      options: options,
+      multiple: true,
+    };
+    const tree = create(
+      <TestForm initialValues={{ public: '' }}>
+        <SelectField {...props} />
+      </TestForm>
+    ).toJSON();
+    expect(tree).not.toBeNull();
+    expect(tree).toMatchSnapshot();
   });
 });
