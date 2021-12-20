@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckboxField renders correctly 1`] = `
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="py-2"
+  >
+    <div
+      className="relative"
+    >
+      <div
+        className="relative p-3 flex justify-center w-36"
+        data-testid="public-div"
+      >
+        <input
+          checked={false}
+          className="accent-red-900 bg-transparent border-gray-300 rounded border-2 w-5 h-5 focus:ring-0"
+          id="public"
+          name="public"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="checkbox"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</form>
+`;
+
+exports[`NumberField renders correctly 1`] = `
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="py-2"
+  >
+    <div
+      className="relative"
+    >
+      <input
+        className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-36"
+        id="ref"
+        name="ref"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder=" "
+        step={1}
+        type="number"
+        value=""
+      />
+    </div>
+  </div>
+</form>
+`;
+
+exports[`TextAreaField renders correctly 1`] = `
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="py-2"
+  >
+    <div
+      className="relative"
+    >
+      <textarea
+        className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-100 focus:h-32"
+        id="title"
+        name="title"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder=" "
+        value=""
+      />
+    </div>
+  </div>
+</form>
+`;
+
+exports[`TextField renders correctly 1`] = `
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="py-2"
+  >
+    <div
+      className="relative"
+    >
+      <input
+        className="bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0 focus:border-red-900 w-full"
+        id="title"
+        name="title"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder=" "
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</form>
+`;
