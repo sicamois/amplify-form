@@ -20,8 +20,6 @@ const customJestConfig: Config.InitialOptions = {
   collectCoverageFrom: [
     'src/components/**/*.{js,jsx,ts,tsx}',
     'src/utils/*.{js,jsx,ts,tsx}',
-    'dist/index.js',
-    '!<rootDir>/node_modules/',
   ],
 };
 
