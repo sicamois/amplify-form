@@ -42,7 +42,7 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
-    "tags": "git fetch --tags -f",
+    "fix-tags": "git fetch --tags -f",
     "format": "prettier --write .",
     "preci": "rm -fr node_modules",
     "ci": "yarn install --immutable --immutable-cache --check-cache",
