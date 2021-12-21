@@ -413,9 +413,9 @@ export const SubmitButton: VFC<SubmitButtonProps> = ({
       <button
         type='submit'
         className={`disabled:opacity-70 ${
-          theme?.branding == 'full'
+          (theme?.branding == 'full'
             ? bgLightColorMap.get(theme?.color)
-            : bgColorMap.get(theme?.color) || 'bg-gray-200'
+            : bgColorMap.get(theme?.color)) || 'bg-red-900'
         } ${
           theme?.branding == 'full'
             ? textColorMap.get(theme?.color)
