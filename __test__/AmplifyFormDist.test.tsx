@@ -32,48 +32,6 @@ describe('AmplifyForm (dist)', () => {
     spyWarn.mockRestore();
   });
 
-  it('renders correctly for a simple schema', () => {
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: SimpleSchema,
-      entity: 'todo',
-      onSubmit: undefined,
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
-  });
-
-  it('renders correctly for a typical schema', () => {
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: TestSchema,
-      entity: 'post',
-      onSubmit: undefined,
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
-  });
-
-  it('renders correctly for a complex schema', () => {
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: ComplexSchema,
-      entity: 'propertyAd',
-      onSubmit: undefined,
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
-  });
-
   it('throws error when empty/invalid schema', () => {
     console.error = jest.fn();
     const props: AmplifyFormProps = {
@@ -262,41 +220,6 @@ describe('AmplifyForm (dist)', () => {
     expect(inputRefElement.readOnly).toBeTruthy();
   });
 
-  it('renders correctly a basic image dropzone', () => {
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: TestSchema,
-      entity: 'post',
-      onSubmit: undefined,
-      imageFields: ['gallery'],
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
-  });
-
-  it('renders correctly an customized image dropzone', () => {
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: TestSchema,
-      entity: 'post',
-      onSubmit: undefined,
-      imageFields: {
-        gallery: {
-          text: 'Custom drag n drop text',
-          fileType: 'image/*',
-        },
-      },
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
-  });
-
   it('sets correctly required images', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
@@ -307,41 +230,6 @@ describe('AmplifyForm (dist)', () => {
     render(<AmplifyForm {...props} />);
     const inputFileElement = screen.getByTitle('gallery');
     expect(inputFileElement).toBeRequired();
-  });
-
-  it('renders correctly a basic file dropzone', () => {
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: TestSchema,
-      entity: 'post',
-      onSubmit: undefined,
-      fileFields: ['gallery'],
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
-  });
-
-  it('renders correctly an customized pdf file dropzone', () => {
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: TestSchema,
-      entity: 'post',
-      onSubmit: undefined,
-      fileFields: {
-        attachment: {
-          text: 'Custom drag n drop text',
-          fileType: 'application/pdf',
-        },
-      },
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
   });
 
   it('sets correctly required files', () => {
@@ -359,29 +247,6 @@ describe('AmplifyForm (dist)', () => {
     render(<AmplifyForm {...props} />);
     const inputFileElement = screen.getByTitle('gallery');
     expect(inputFileElement).toBeRequired();
-  });
-
-  it('renders correctly a relationship', () => {
-    const entity = 'post';
-    const relationEntity = 'author';
-    const authorRelationship: Relationship = {
-      entity: relationEntity,
-      label: capitalize(relationEntity),
-      items: [{ id: 'id1', name: 'user1' }],
-      labelField: 'name',
-    };
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: TestSchema,
-      entity,
-      onSubmit: undefined,
-      relationships: [authorRelationship],
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
   });
 
   it('throw an error if the entity in the relationship does not exist', () => {
@@ -448,79 +313,5 @@ describe('AmplifyForm (dist)', () => {
         entity
       )} items (see console logs)`
     );
-  });
-
-  it('renders correctly when relationship items are empty', () => {
-    const entity = 'author';
-    const labelField = 'name';
-    const authorRelationship: Relationship = {
-      entity,
-      label: capitalize(entity),
-      items: [],
-      labelField,
-    };
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: TestSchema,
-      entity: 'post',
-      onSubmit: undefined,
-      relationships: [authorRelationship],
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
-  });
-
-  it('renders correctly with all options', () => {
-    const fieldsSize: FieldsSize = {
-      reference: 'xs',
-      platform: 'lg',
-      content: 'screen',
-    };
-    const fieldsProps: FieldsProps = {
-      reference: {
-        readOnly: true,
-        defaultValue: 10,
-      },
-    };
-    const imageFields: FileFields = {
-      gallery: {
-        text: 'Add images by drag n drop or clik to add',
-        fileType: 'image/*',
-      },
-    };
-    const fileFields: FileFields = {
-      attachment: {
-        text: 'Add a pdf by drag n drop or clik to add',
-        fileType: 'application/pdf',
-      },
-    };
-    const authorRelationship: Relationship = {
-      entity: 'author',
-      label: 'Author',
-      items: [{ id: 'id1', name: 'user1' }],
-      labelField: 'name',
-    };
-    const theme: FormTheme = { color: 'teal', branding: 'full' };
-    const props: AmplifyFormProps = {
-      graphQLJSONSchema: TestSchema,
-      entity: 'Post',
-      onSubmit: undefined,
-      textAreas: ['content'],
-      fieldsSize,
-      fieldsProps,
-      imageFields,
-      fileFields,
-      relationships: [authorRelationship],
-      theme,
-    };
-    let root;
-    act(() => {
-      root = create(<AmplifyForm {...props} />);
-    });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
   });
 });
