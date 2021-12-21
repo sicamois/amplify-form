@@ -7,7 +7,7 @@ export const parseObject = (
     key: string,
     keyWithPrefix: string,
     value: any
-  ) => any,
+  ) => void,
   prefix?: string,
   initialObject?: ObjectWithKey
 ) => {
@@ -16,7 +16,7 @@ export const parseObject = (
     const value = object[key];
     const keyWithPrefix = (prefix ? `${prefix}.` : '') + key;
     if (value && typeof value === 'object' && !Array.isArray(value))
-      parseObject(value as ObjectWithKey, action, key, passedObject);
+      parseObject(value as ObjectWithKey, action, keyWithPrefix, passedObject);
     else action(passedObject, key, keyWithPrefix, value);
   });
 };
