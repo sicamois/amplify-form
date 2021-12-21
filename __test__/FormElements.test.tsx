@@ -9,10 +9,17 @@ import {
   TextAreaField,
   TextField,
 } from '../src/components/FormElements';
-import { FieldProps, FormTheme, SelectFieldProps, Option } from '../src/types';
+import {
+  FieldProps,
+  FormTheme,
+  SelectFieldProps,
+  Option,
+  FilesDropFieldProps,
+} from '../src/types';
 import { capitalize } from 'lodash';
 import {
   FieldWithError,
+  FilesDropField,
   SelectField,
 } from '../src/components/FormElements/FormElements';
 
@@ -551,6 +558,7 @@ describe('FieldSet', () => {
       `${name}-legend`
     ) as HTMLLegendElement;
     expect(legendElement.textContent).toBe(
+      // @ts-ignore
       capitalize(name).replaceAll('_', ' ')
     );
   });
@@ -648,6 +656,107 @@ describe('SelectField', () => {
     const tree = create(
       <TestForm initialValues={{ public: '' }}>
         <SelectField {...props} />
+      </TestForm>
+    ).toJSON();
+    expect(tree).not.toBeNull();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('sets field size correctly when prop is passed', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const name = 'public';
+    const props: SelectFieldProps = {
+      name,
+      options: options,
+      fieldSize: 'sm',
+    };
+    render(
+      <TestForm initialValues={{ public: '' }}>
+        <SelectField {...props} />
+      </TestForm>
+    );
+    const divElement = screen.getByTestId(`${name}-sizing-div`);
+    expect(divElement.classList).toContain('w-20');
+    expect(divElement.classList).not.toContain('w-36');
+  });
+
+  it('set field size to default when prop is set incorrectly', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const name = 'public';
+    const props: SelectFieldProps = {
+      name,
+      options: options,
+      fieldSize: 'xxx',
+    };
+    render(
+      <TestForm initialValues={{ public: '' }}>
+        <SelectField {...props} />
+      </TestForm>
+    );
+    const divElement = screen.getByTestId(`${name}-sizing-div`);
+    expect(divElement.classList).toContain('w-36');
+  });
+
+  it('set label correctly when prop is passed', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const name = 'public';
+    const selectLabel = 'a select label';
+    const props: SelectFieldProps = {
+      name,
+      options: options,
+      selectLabel,
+    };
+    render(
+      <TestForm initialValues={{ public: '' }}>
+        <SelectField {...props} />
+      </TestForm>
+    );
+    const divElement = screen.getByText(selectLabel);
+    expect(divElement).toBeInTheDocument();
+  });
+
+  it.todo('sets basic theme correctly when prop is passed');
+
+  it.todo('sets full theme correctly when prop is passed');
+});
+
+describe('FilesDropField', () => {
+  let spy: jest.SpyInstance;
+  let spyError: jest.SpyInstance;
+  let spyWarn: jest.SpyInstance;
+  beforeAll(() => {
+    spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    spyError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    spyWarn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+  afterAll(() => {
+    spy.mockRestore();
+    spyError.mockRestore();
+    spyWarn.mockRestore();
+  });
+
+  it('renders correctly', () => {
+    const props: FilesDropFieldProps = {
+      name: 'gallery',
+    };
+    const tree = create(
+      <TestForm initialValues={{ public: '' }}>
+        <FilesDropField {...props} />
       </TestForm>
     ).toJSON();
     expect(tree).not.toBeNull();
