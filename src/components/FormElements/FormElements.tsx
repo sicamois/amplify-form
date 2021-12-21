@@ -47,7 +47,6 @@ export const FieldWithError: FC<FieldProps> = ({
   theme,
   children,
 }) => {
-  console.log('renders FieldWithError');
   const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : 'full';
   if (!fieldSizeMap.get(fieldSize)) {
     const fieldSizeValues = Array.from(fieldSizeMap.keys());
@@ -88,7 +87,6 @@ export const FieldWithError: FC<FieldProps> = ({
 };
 
 export const FieldSet: FC<FieldProps> = ({ name, label, theme, children }) => {
-  console.log('renders FieldSet');
   const safeLabel = label || capitalize(name).replaceAll('_', ' ');
   return (
     <fieldset
@@ -113,7 +111,6 @@ export const TextField: VFC<FieldProps> = ({
   placeholder = ' ',
   ...rest
 }) => {
-  console.log('renders TextField');
   const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : 'full';
   if (!fieldSizeMap.get(fieldSize)) {
     const fieldSizeValues = Array.from(fieldSizeMap.keys());
@@ -150,7 +147,6 @@ export const TextAreaField: VFC<FieldProps> = ({
   placeholder = ' ',
   ...rest
 }) => {
-  console.log('renders TextAreaField');
   const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : '2xl';
   if (!fieldSizeMap.get(fieldSize)) {
     const fieldSizeValues = Array.from(fieldSizeMap.keys());
@@ -188,7 +184,6 @@ export const NumberField: VFC<FieldProps> = ({
   step = 1,
   ...rest
 }) => {
-  console.log('renders NumberField');
   const safeFieldSize = fieldSizeMap.get(fieldSize) ? fieldSize : 'md';
   if (!fieldSizeMap.get(fieldSize)) {
     const fieldSizeValues = Array.from(fieldSizeMap.keys());
@@ -234,7 +229,6 @@ export const CheckboxField: VFC<FieldProps> = ({
       )}')`
     );
   }
-  console.log('renders CheckboxField');
   return (
     <FieldWithError
       name={name}
@@ -268,7 +262,6 @@ export const SelectField: VFC<SelectFieldProps> = ({
   multiple,
   ...rest
 }) => {
-  console.log('renders SelectField');
   const fieldname = rest.name;
   const safeSize = fieldSize
     ? fieldSizeMap.get(fieldSize)
@@ -357,7 +350,6 @@ export const FilesDropField: VFC<FilesDropFieldProps> = ({
   thumbnailSize,
   ...rest
 }) => {
-  console.log('renders FilesDropField');
   const [field, , helpers] = useField({ name, multiple });
 
   const { setValue } = helpers;
@@ -407,7 +399,6 @@ export const SubmitButton: VFC<SubmitButtonProps> = ({
   type,
   ...rest
 }) => {
-  console.log('renders SubmitButton');
   return (
     <Fragment>
       <button

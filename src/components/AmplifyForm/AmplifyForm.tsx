@@ -37,7 +37,6 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
   theme,
   ...rest
 }) => {
-  console.log('renders AmplifyForm');
   const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {};
 
   const updateFormSchema: (
@@ -98,7 +97,10 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
       const options = relationship.items.map(item => {
         const label = lodashGet(item, relationship.labelField);
         if (!label) {
-          console.log(`${relationship.entity} items:`, relationship.items);
+          console.error(
+            `Error in relationship definition : ${relationship.entity} items:`,
+            relationship.items
+          );
           throw new Error(
             `Error in relationship definition : ${
               relationship.labelField
