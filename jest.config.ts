@@ -15,7 +15,7 @@ const customJestConfig = {
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   coverageProvider: 'v8',
-  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  setupFilesAfterEnv: ['./jestSetup.ts'],
   testEnvironment: 'jsdom',
 };
 
