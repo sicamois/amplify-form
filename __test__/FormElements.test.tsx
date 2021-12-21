@@ -15,12 +15,14 @@ import {
   SelectFieldProps,
   Option,
   FilesDropFieldProps,
+  SubmitButtonProps,
 } from '../src/types';
 import { capitalize } from 'lodash';
 import {
   FieldWithError,
   FilesDropField,
   SelectField,
+  SubmitButton,
 } from '../src/components/FormElements/FormElements';
 
 const TestForm: FC<{ initialValues: Record<string, any> }> = ({
@@ -761,5 +763,73 @@ describe('FilesDropField', () => {
     ).toJSON();
     expect(tree).not.toBeNull();
     expect(tree).toMatchSnapshot();
+  });
+});
+
+describe('SubmitButton', () => {
+  let spy: jest.SpyInstance;
+  let spyError: jest.SpyInstance;
+  let spyWarn: jest.SpyInstance;
+  beforeAll(() => {
+    spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    spyError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    spyWarn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+  afterAll(() => {
+    spy.mockRestore();
+    spyError.mockRestore();
+    spyWarn.mockRestore();
+  });
+
+  it('renders correctly', () => {
+    const title = 'create new record';
+    const theme: FormTheme = { color: 'lime', branding: 'full' };
+    const props: SubmitButtonProps = {
+      title,
+      theme,
+    };
+    const tree = create(
+      <TestForm initialValues={{}}>
+        <SubmitButton {...props} />
+      </TestForm>
+    ).toJSON();
+    expect(tree).not.toBeNull();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('sets basic theme correctly when prop is passed', () => {
+    const title = 'create new record';
+    const theme: FormTheme = { color: 'lime' };
+    const props: SubmitButtonProps = {
+      title,
+      theme,
+    };
+    render(
+      <TestForm initialValues={{}}>
+        <SubmitButton {...props} />
+      </TestForm>
+    );
+    const buttonElement = screen.getByRole('button');
+    expect(buttonElement.classList).toContain('text-white');
+    expect(buttonElement.classList).toContain('bg-lime-600');
+    expect(buttonElement.classList).not.toContain('bg-red-900');
+  });
+
+  it('sets full theme correctly when prop is passed', () => {
+    const title = 'create new record';
+    const theme: FormTheme = { color: 'lime', branding: 'full' };
+    const props: SubmitButtonProps = {
+      title,
+      theme,
+    };
+    render(
+      <TestForm initialValues={{}}>
+        <SubmitButton {...props} />
+      </TestForm>
+    );
+    const buttonElement = screen.getByRole('button');
+    expect(buttonElement.classList).toContain('text-lime-600');
+    expect(buttonElement.classList).toContain('bg-lime-200');
+    expect(buttonElement.classList).not.toContain('bg-red-900');
   });
 });

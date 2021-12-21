@@ -381,6 +381,21 @@ exports[`SelectField renders correctly with multiple=true 1`] = `
 </form>
 `;
 
+exports[`SubmitButton renders correctly 1`] = `
+<form
+  action="#"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <button
+    className="disabled:opacity-70 bg-lime-200 text-lime-600 hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold rounded shadow-xl"
+    type="submit"
+  >
+    create new record
+  </button>
+</form>
+`;
+
 exports[`TextAreaField renders correctly 1`] = `
 <form
   action="#"
