@@ -34,7 +34,7 @@ const fieldStyle =
   'bg-transparent border-gray-300 text-gray-600 peer h-10 border-0 border-b-2 placeholder-transparent focus:outline-none focus:ring-0';
 const checkboxStyle =
   'bg-transparent border-gray-300 rounded border-2 w-5 h-5 focus:ring-0';
-const multiSelectStyle = 'border-gray-300 border-0 border-b-2 relative';
+const selectStyle = 'border-gray-300 border-0 border-b-2 relative';
 const errorStyle = 'text-red-700 text-xs';
 const submitButtonStyle =
   'hover:opacity-90 w-min my-4 px-14 py-2 text-center text-xl font-bold rounded shadow-xl';
@@ -270,11 +270,12 @@ export const SelectField: VFC<SelectFieldProps> = ({
 }) => {
   console.log('renders SelectField');
   const fieldname = rest.name;
-  const adaptiveFieldSize =
-    (fieldSize && fieldSizeMap.get(fieldSize) ? fieldSize : undefined) ||
-    multiple
-      ? '2xl'
-      : 'md';
+  const safeSize = fieldSize
+    ? fieldSizeMap.get(fieldSize)
+      ? fieldSize
+      : undefined
+    : undefined;
+  const adaptiveFieldSize = safeSize || (multiple ? '2xl' : 'md');
 
   const color =
     theme?.branding == 'full'
@@ -324,11 +325,10 @@ export const SelectField: VFC<SelectFieldProps> = ({
   });
 
   return (
-    <FieldWithError fieldSize={fieldSize} theme={theme} {...rest}>
+    <FieldWithError fieldSize={adaptiveFieldSize} theme={theme} {...rest}>
       <div
-        className={`${multiSelectStyle} ${fieldSizeMap.get(
-          adaptiveFieldSize
-        )}`}>
+        data-testid={`${fieldname}-sizing-div`}
+        className={`${selectStyle} ${fieldSizeMap.get(adaptiveFieldSize)}`}>
         <ReactSelect
           className='peer'
           styles={customStyles}
@@ -352,6 +352,9 @@ export const FilesDropField: VFC<FilesDropFieldProps> = ({
   required,
   multiple,
   defaultValue,
+  text,
+  fileType,
+  thumbnailSize,
   ...rest
 }) => {
   console.log('renders FilesDropField');
@@ -381,10 +384,13 @@ export const FilesDropField: VFC<FilesDropFieldProps> = ({
             <FilesDropInput
               name={name}
               id={name}
+              text={text}
               multiple={multiple}
               value={value}
               theme={theme}
               required={required}
+              fileType={fileType}
+              thumbnailSize={thumbnailSize}
               setValue={processValue}
               {...rest}
             />
