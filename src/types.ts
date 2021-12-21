@@ -195,7 +195,7 @@ export interface FilesDropFieldProps
 }
 
 export interface SubmitButtonProps extends HTMLProps<HTMLButtonElement> {
-  title: string;
+  title?: string;
   theme?: FormTheme;
 }
 

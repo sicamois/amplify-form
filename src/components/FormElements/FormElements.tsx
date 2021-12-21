@@ -394,7 +394,7 @@ export const FilesDropField: VFC<FilesDropFieldProps> = ({
 };
 
 export const SubmitButton: VFC<SubmitButtonProps> = ({
-  title,
+  title = 'Submit',
   theme,
   type,
   ...rest
