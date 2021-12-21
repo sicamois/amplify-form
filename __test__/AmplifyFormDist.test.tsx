@@ -1,8 +1,8 @@
 /* eslint-env jest */
 
-import { create, act } from 'react-test-renderer';
+import { act, create } from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
-import AmplifyForm from '../src/components/AmplifyForm';
+import AmplifyForm from '../dist';
 import ComplexSchema from './data/complex-schema.json';
 import SimpleSchema from './data/simple-schema.json';
 import TestSchema from './data/test-schema.json';
@@ -17,7 +17,7 @@ import {
   Relationship,
 } from '../src/types';
 
-describe('AmplifyForm', () => {
+describe('AmplifyForm (dist)', () => {
   let spy: jest.SpyInstance;
   let spyError: jest.SpyInstance;
   let spyWarn: jest.SpyInstance;
