@@ -1,5 +1,5 @@
 import { FormSchema, Option } from '../types';
-import lodashCapitalize from 'lodash/capitalize';
+import capitalize from 'lodash/capitalize';
 
 interface Type {
   kind: string;
@@ -45,7 +45,7 @@ const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
 };
 
 const getLabel = (name: string, labelMap?: Map<string, string>) =>
-  lodashCapitalize(labelMap?.get(name) || name).replaceAll('_', ' ');
+  capitalize(labelMap?.get(name) || name).replaceAll('_', ' ');
 
 const getEnumValues = (
   name: string,
@@ -77,7 +77,7 @@ export const formSchemaFor = (
     );
     if (!baseField)
       throw Error(
-        `Unable to find '${lodashCapitalize(
+        `Unable to find '${capitalize(
           entity
         )}' in the schema (looking for '${fullEntity}')`
       );
