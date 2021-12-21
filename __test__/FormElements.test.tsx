@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
 import { FC } from 'react';
-import { create } from 'react-test-renderer';
+import { act, create } from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
 import {
   CheckboxField,
@@ -655,13 +655,16 @@ describe('SelectField', () => {
       options: options,
       multiple: true,
     };
-    const tree = create(
-      <TestForm initialValues={{ public: '' }}>
-        <SelectField {...props} />
-      </TestForm>
-    ).toJSON();
-    expect(tree).not.toBeNull();
-    expect(tree).toMatchSnapshot();
+    let root;
+    act(() => {
+      root = create(
+        <TestForm initialValues={{ public: '' }}>
+          <SelectField {...props} />
+        </TestForm>
+      );
+    });
+    expect(root.toJSON()).not.toBeNull();
+    expect(root.toJSON()).toMatchSnapshot();
   });
 
   it('sets field size correctly when prop is passed', () => {
@@ -732,9 +735,107 @@ describe('SelectField', () => {
     expect(divElement).toBeInTheDocument();
   });
 
-  it.todo('sets basic theme correctly when prop is passed');
+  it('sets basic theme correctly when prop is passed', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const theme: FormTheme = { color: 'lime' };
+    const props: SelectFieldProps = {
+      name: 'public',
+      options: options,
+      theme,
+    };
+    let root;
+    act(() => {
+      root = create(
+        <TestForm initialValues={{ public: '' }}>
+          <SelectField {...props} />
+        </TestForm>
+      );
+    });
+    expect(root.toJSON()).not.toBeNull();
+    expect(root.toJSON()).toMatchSnapshot();
+  });
 
-  it.todo('sets full theme correctly when prop is passed');
+  it('sets full theme correctly when prop is passed', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const theme: FormTheme = { color: 'lime', branding: 'full' };
+    const props: SelectFieldProps = {
+      name: 'public',
+      options: options,
+      theme,
+    };
+    let root;
+    act(() => {
+      root = create(
+        <TestForm initialValues={{ public: '' }}>
+          <SelectField {...props} />
+        </TestForm>
+      );
+    });
+    expect(root.toJSON()).not.toBeNull();
+    expect(root.toJSON()).toMatchSnapshot();
+  });
+
+  it('sets basic theme correctly when prop is passed for a multi-select', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const theme: FormTheme = { color: 'lime' };
+    const props: SelectFieldProps = {
+      name: 'public',
+      options: options,
+      multiple: true,
+      theme,
+    };
+    let root;
+    act(() => {
+      root = create(
+        <TestForm initialValues={{ public: '' }}>
+          <SelectField {...props} />
+        </TestForm>
+      );
+    });
+    expect(root.toJSON()).not.toBeNull();
+    expect(root.toJSON()).toMatchSnapshot();
+  });
+
+  it('sets full theme correctly when prop is passed for a multi-select', () => {
+    const options: Option[] = [
+      { value: 'id1', label: 'option 1' },
+      { value: 'id2', label: 'option 2' },
+      { value: 'id3', label: 'option 3' },
+      { value: 'id4', label: 'option 4' },
+    ];
+    const theme: FormTheme = { color: 'lime', branding: 'full' };
+    const props: SelectFieldProps = {
+      name: 'public',
+      options: options,
+      multiple: true,
+      theme,
+    };
+    let root;
+    act(() => {
+      root = create(
+        <TestForm initialValues={{ public: '' }}>
+          <SelectField {...props} />
+        </TestForm>
+      );
+    });
+    expect(root.toJSON()).not.toBeNull();
+    expect(root.toJSON()).toMatchSnapshot();
+  });
 });
 
 describe('FilesDropField', () => {
@@ -756,13 +857,16 @@ describe('FilesDropField', () => {
     const props: FilesDropFieldProps = {
       name: 'gallery',
     };
-    const tree = create(
-      <TestForm initialValues={{ public: '' }}>
-        <FilesDropField {...props} />
-      </TestForm>
-    ).toJSON();
-    expect(tree).not.toBeNull();
-    expect(tree).toMatchSnapshot();
+    let root;
+    act(() => {
+      root = create(
+        <TestForm initialValues={{}}>
+          <FilesDropField {...props} />
+        </TestForm>
+      );
+    });
+    expect(root.toJSON()).not.toBeNull();
+    expect(root.toJSON()).toMatchSnapshot();
   });
 });
 
