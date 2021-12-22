@@ -152,6 +152,13 @@ export interface Type {
   ofType?: Type;
 }
 
+export interface EnumValue {
+  name: string;
+  description?: string;
+  isDeprecated?: boolean;
+  deprecationReason?: string;
+}
+
 export interface Field {
   kind: string;
   name: string;
@@ -161,7 +168,7 @@ export interface Field {
   fields?: Field[];
   inputFields?: Field[];
   interfaces?: any;
-  enumValues?: Field[];
+  enumValues?: EnumValue[];
   isDeprecated?: boolean;
   deprecationReason?: string;
   defaultValue?: any;

@@ -1,39 +1,5 @@
-import { FormSchema, Option } from '../types';
+import { FormSchema, Option, Type, Field, GraphQLJSONSchema } from '../types';
 import capitalize from 'lodash/capitalize';
-
-interface Type {
-  kind: string;
-  name?: string;
-  ofType?: Type;
-}
-
-interface Field {
-  kind: string;
-  name: string;
-  description?: string;
-  args?: any[];
-  type?: Type;
-  fields?: Field[];
-  inputFields?: Field[];
-  interfaces?: any;
-  enumValues?: Field[];
-  isDeprecated?: boolean;
-  deprecationReason?: string;
-  defaultValue?: any;
-  possibleTypes?: any;
-}
-
-interface GraphQLJSONSchema {
-  data: {
-    __schema: {
-      queryType: any;
-      mutationType: any;
-      subscriptionType: any;
-      types: Field[];
-      directives: any[];
-    };
-  };
-}
 
 const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
   try {
@@ -47,7 +13,7 @@ const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
 const getLabel = (name: string, labelMap?: Map<string, string>) =>
   capitalize(labelMap?.get(name) || name).replaceAll('_', ' ');
 
-const getEnumValues = (
+export const getEnumValues = (
   name: string,
   types: Field[],
   labelMap?: Map<string, string>
