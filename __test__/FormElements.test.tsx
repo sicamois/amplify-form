@@ -1,14 +1,19 @@
 import { Form, Formik } from 'formik';
 import { FC } from 'react';
 import { act, create } from 'react-test-renderer';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {
   CheckboxField,
   FieldSet,
   NumberField,
   TextAreaField,
   TextField,
-} from '../src/components/FormElements';
+  SubmitButton,
+  FieldWithError,
+  FilesDropField,
+  SelectField,
+} from '../src/components/FormElements/FormElements';
 import {
   FieldProps,
   FormTheme,
@@ -18,23 +23,23 @@ import {
   SubmitButtonProps,
 } from '../src/types';
 import { capitalize } from 'lodash';
-import {
-  FieldWithError,
-  FilesDropField,
-  SelectField,
-  SubmitButton,
-} from '../src/components/FormElements/FormElements';
+import { string as yupString, object as yupObject, AnySchema } from 'yup';
 
-const TestForm: FC<{ initialValues: Record<string, any> }> = ({
-  initialValues,
-  children,
-}) => {
+const TestForm: FC<{
+  initialValues: Record<string, any>;
+  validationSchema?: AnySchema;
+}> = ({ initialValues, validationSchema, children }) => {
   return (
     <Formik
       enableReinitialize
       initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={() => {}}>
-      {() => <Form>{children}</Form>}
+      {() => (
+        <Form noValidate name='test-schema'>
+          {children}
+        </Form>
+      )}
     </Formik>
   );
 };
@@ -174,13 +179,15 @@ describe('FieldWithError', () => {
     const props: FieldProps = {
       name,
       label,
+      required: true,
     };
     const renderResult = render(
       <TestForm initialValues={{}}>
         <FieldWithError {...props}>
-          <input type='text' id='tequila' />
+          <input type='text' id='tequila' required={true} />
           <label htmlFor='tequila'>Chamukos tequila</label>
         </FieldWithError>
+        <SubmitButton />
       </TestForm>
     );
     const inputElement = screen.getByRole('textbox', {
@@ -265,6 +272,30 @@ describe('TextField', () => {
     expect(inputElement.classList).toContain('focus:border-lime-600');
     expect(inputElement.classList).not.toContain('focus:border-red-900');
   });
+
+  it.todo('displays error message when field required and empty');
+  // , () => {
+  //   const name = 'title';
+  //   const props: FieldProps = {
+  //     name,
+  //     required: true,
+  //   };
+  //   const validationSchema = yupObject().shape({
+  //     title: yupString().required(),
+  //   });
+  //   render(
+  //     <TestForm
+  //       initialValues={{ title: '' }}
+  //       validationSchema={validationSchema}>
+  //       <TextField {...props} />
+  //     </TestForm>
+  //   );
+  //   const formElement = screen.getByRole('form');
+  //   fireEvent.submit(formElement);
+  //   const errorElement = screen.getByText(`${capitalize(name)} required`);
+  //   expect(errorElement).toBeInTheDocument();
+  //   expect(errorElement.classList).toBe('text-red-700 text-xs w-36');
+  // });
 });
 
 describe('TextAreaField', () => {

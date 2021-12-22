@@ -3,6 +3,8 @@
 exports[`CheckboxField renders correctly 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -35,6 +37,8 @@ exports[`CheckboxField renders correctly 1`] = `
 exports[`FieldSet renders correctly 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -56,6 +60,8 @@ exports[`FieldSet renders correctly 1`] = `
 exports[`FieldWithError renders correctly with label 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -80,6 +86,8 @@ exports[`FieldWithError renders correctly with label 1`] = `
 exports[`FieldWithError renders correctly without label 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -98,6 +106,8 @@ exports[`FieldWithError renders correctly without label 1`] = `
 exports[`FilesDropField renders correctly 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -160,6 +170,8 @@ exports[`FilesDropField renders correctly 1`] = `
 exports[`NumberField renders correctly 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -188,6 +200,8 @@ exports[`NumberField renders correctly 1`] = `
 exports[`SelectField renders correctly 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -286,6 +300,8 @@ exports[`SelectField renders correctly 1`] = `
 exports[`SelectField renders correctly with multiple=true 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -384,6 +400,8 @@ exports[`SelectField renders correctly with multiple=true 1`] = `
 exports[`SelectField sets basic theme correctly when prop is passed 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -482,6 +500,8 @@ exports[`SelectField sets basic theme correctly when prop is passed 1`] = `
 exports[`SelectField sets basic theme correctly when prop is passed for a multi-select 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -580,6 +600,8 @@ exports[`SelectField sets basic theme correctly when prop is passed for a multi-
 exports[`SelectField sets full theme correctly when prop is passed 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -678,6 +700,8 @@ exports[`SelectField sets full theme correctly when prop is passed 1`] = `
 exports[`SelectField sets full theme correctly when prop is passed for a multi-select 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -776,6 +800,8 @@ exports[`SelectField sets full theme correctly when prop is passed for a multi-s
 exports[`SubmitButton renders correctly 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -791,6 +817,8 @@ exports[`SubmitButton renders correctly 1`] = `
 exports[`TextAreaField renders correctly 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -817,6 +845,8 @@ exports[`TextAreaField renders correctly 1`] = `
 exports[`TextField renders correctly 1`] = `
 <form
   action="#"
+  name="test-schema"
+  noValidate={true}
   onReset={[Function]}
   onSubmit={[Function]}
 >

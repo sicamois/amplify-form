@@ -1,5 +1,3 @@
-/* eslint-env jest */
-
 import { create, act } from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
 import AmplifyForm from '../src/components/AmplifyForm';
