@@ -39,6 +39,20 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
 }) => {
   const { storagePrefix = '', storageLevel = 'public' } = storageConfig || {};
 
+  const errorMessageFor = (
+    fieldname: string,
+    kind?: string,
+    images?: boolean
+  ) => {
+    if (kind) {
+      if (images) {
+        return `Unable to set '${fieldname}' as image field: '${fieldname}' does not exist in the schema`;
+      }
+      return `Unable to set '${fieldname}' as ${kind} field: '${fieldname}' does not exist in the schema`;
+    }
+    return `Unable to update '${fieldname}' props': '${fieldname}' does not exist in the schema`;
+  };
+
   const updateFormSchema: (
     fields: TextAreas | FileFields | FieldsProps,
     kind?: string,
@@ -46,6 +60,8 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
   ) => void = (fields, kind, images = false) => {
     if (Array.isArray(fields)) {
       fields.forEach(fieldname => {
+        if (!lodashGet(formSchema, fieldname))
+          throw new Error(errorMessageFor(fieldname, kind, images));
         if (typeof fieldname == 'string') {
           kind ? lodashSet(formSchema, `${fieldname}.kind`, kind) : null;
           if (images) lodashSet(formSchema, `${fieldname}.fileType`, 'image/*');
@@ -53,6 +69,8 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
       });
     } else {
       Object.keys(fields).forEach(fieldname => {
+        if (!lodashGet(formSchema, fieldname))
+          throw new Error(errorMessageFor(fieldname, kind, images));
         kind ? lodashSet(formSchema, `${fieldname}.kind`, kind) : null;
         const fieldProps = fields[fieldname];
         Object.keys(fieldProps).forEach(prop => {
@@ -78,9 +96,13 @@ const AmplifyForm: VFC<AmplifyFormProps> = ({
 
   // Add fields size
   if (fieldsSize) {
-    Object.keys(fieldsSize).forEach(fieldname =>
-      lodashSet(formSchema, `${fieldname}.fieldSize`, fieldsSize[fieldname])
-    );
+    Object.keys(fieldsSize).forEach(fieldname => {
+      if (!lodashGet(formSchema, fieldname))
+        console.warn(
+          `Unable to set field size for fiels '${fieldname}': '${fieldname}' does not exist in the schema`
+        );
+      lodashSet(formSchema, `${fieldname}.fieldSize`, fieldsSize[fieldname]);
+    });
   }
 
   // Add relationships
