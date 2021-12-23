@@ -1,8 +1,5 @@
-import { act, create } from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
 import AmplifyForm from '../dist';
-import ComplexSchema from './data/complex-schema.json';
-import SimpleSchema from './data/simple-schema.json';
 import TestSchema from './data/test-schema.json';
 import capitalize from 'lodash/capitalize';
 import lowerFirst from 'lodash/lowerFirst';
@@ -10,8 +7,6 @@ import {
   AmplifyFormProps,
   FieldsProps,
   FieldsSize,
-  FileFields,
-  FormTheme,
   Relationship,
 } from '../src/types';
 
@@ -51,7 +46,7 @@ describe('AmplifyForm (dist)', () => {
       />
     );
     const formElement = screen.getByRole('form');
-    expect(formElement).toBeInTheDocument();
+    expect(formElement).toBeVisible();
   });
 
   it('throws an error when entity does not exist', () => {
@@ -176,8 +171,8 @@ describe('AmplifyForm (dist)', () => {
     const inputContentTextElement = screen.getByRole('textbox', {
       name: capitalize('content'),
     });
-    expect(inputTitleTextElement.classList.contains('w-20')).toBeTruthy();
-    expect(inputContentTextElement.classList.contains('w-96')).toBeTruthy();
+    expect(inputTitleTextElement).toHaveClass('w-20');
+    expect(inputContentTextElement).toHaveClass('w-96');
   });
 
   it('renders correctly when a field default value is set', () => {

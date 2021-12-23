@@ -93,7 +93,7 @@ describe('AmplifyForm', () => {
       />
     );
     const formElement = screen.getByRole('form');
-    expect(formElement).toBeInTheDocument();
+    expect(formElement).toBeVisible();
   });
 
   it('throws an error when entity does not exist', () => {

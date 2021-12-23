@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
 import { FC } from 'react';
 import { act, create } from 'react-test-renderer';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
   CheckboxField,
@@ -25,6 +25,8 @@ import {
 import { capitalize } from 'lodash';
 import { string as yupString, object as yupObject, AnySchema } from 'yup';
 
+const handleSubmit = jest.fn();
+
 const TestForm: FC<{
   initialValues: Record<string, any>;
   validationSchema?: AnySchema;
@@ -34,7 +36,7 @@ const TestForm: FC<{
       enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={() => {}}>
+      onSubmit={handleSubmit}>
       {() => (
         <Form noValidate name='test-schema'>
           {children}
@@ -107,8 +109,8 @@ describe('FieldWithError', () => {
       </TestForm>
     );
     const labelElement = screen.getByText(label);
-    expect(labelElement.classList).toContain('w-36');
-    expect(labelElement.classList).not.toContain('w-full');
+    expect(labelElement).toHaveClass('w-36');
+    expect(labelElement).not.toHaveClass('w-full');
   });
 
   it('set field size to default when prop is set incorrectly', () => {
@@ -125,7 +127,7 @@ describe('FieldWithError', () => {
       </TestForm>
     );
     const labelElement = screen.getByText(label);
-    expect(labelElement.classList).toContain('w-full');
+    expect(labelElement).toHaveClass('w-full');
   });
 
   it('sets theme correctly when prop is passed', () => {
@@ -143,8 +145,8 @@ describe('FieldWithError', () => {
       </TestForm>
     );
     const labelElement = screen.getByText(label);
-    expect(labelElement.classList).toContain('peer-focus:text-lime-600');
-    expect(labelElement.classList).not.toContain('peer-focus:text-red-900');
+    expect(labelElement).toHaveClass('peer-focus:text-lime-600');
+    expect(labelElement).not.toHaveClass('peer-focus:text-red-900');
   });
 
   it('sets labelCentered correctly when prop is passed', () => {
@@ -160,7 +162,7 @@ describe('FieldWithError', () => {
       </TestForm>
     );
     const labelElement = screen.getByText(label);
-    expect(labelElement.classList).not.toContain('text-center');
+    expect(labelElement).not.toHaveClass('text-center');
 
     renderResult.unmount();
     props.labelCentered = true;
@@ -170,7 +172,7 @@ describe('FieldWithError', () => {
       </TestForm>
     );
     const labelCenteredElement = screen.getByText(label);
-    expect(labelCenteredElement.classList).toContain('text-center');
+    expect(labelCenteredElement).toHaveClass('text-center');
   });
 
   it('display a child when passed', () => {
@@ -193,7 +195,8 @@ describe('FieldWithError', () => {
     const inputElement = screen.getByRole('textbox', {
       name: 'Chamukos tequila',
     });
-    expect(inputElement).toBeInTheDocument();
+    expect(inputElement).toBeVisible();
+    expect(inputElement).toBeVisible();
   });
 });
 
@@ -237,8 +240,8 @@ describe('TextField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('textbox');
-    expect(inputElement.classList).toContain('w-36');
-    expect(inputElement.classList).not.toContain('w-full');
+    expect(inputElement).toHaveClass('w-36');
+    expect(inputElement).not.toHaveClass('w-full');
   });
 
   it('set field size to default when prop is set incorrectly', () => {
@@ -253,7 +256,7 @@ describe('TextField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('textbox');
-    expect(inputElement.classList).toContain('w-full');
+    expect(inputElement).toHaveClass('w-full');
   });
 
   it('sets basic theme correctly when prop is passed', () => {
@@ -269,33 +272,37 @@ describe('TextField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('textbox');
-    expect(inputElement.classList).toContain('focus:border-lime-600');
-    expect(inputElement.classList).not.toContain('focus:border-red-900');
+    expect(inputElement).toHaveClass('focus:border-lime-600');
+    expect(inputElement).not.toHaveClass('focus:border-red-900');
   });
 
-  it.todo('displays error message when field required and empty');
-  // , () => {
-  //   const name = 'title';
-  //   const props: FieldProps = {
-  //     name,
-  //     required: true,
-  //   };
-  //   const validationSchema = yupObject().shape({
-  //     title: yupString().required(),
-  //   });
-  //   render(
-  //     <TestForm
-  //       initialValues={{ title: '' }}
-  //       validationSchema={validationSchema}>
-  //       <TextField {...props} />
-  //     </TestForm>
-  //   );
-  //   const formElement = screen.getByRole('form');
-  //   fireEvent.submit(formElement);
-  //   const errorElement = screen.getByText(`${capitalize(name)} required`);
-  //   expect(errorElement).toBeInTheDocument();
-  //   expect(errorElement.classList).toBe('text-red-700 text-xs w-36');
-  // });
+  it('displays error message when field required and empty', async () => {
+    const name = 'title';
+    const props: FieldProps = {
+      name,
+      required: true,
+    };
+    const validationSchema = yupObject().shape({
+      title: yupString().required(),
+    });
+    render(
+      <TestForm
+        initialValues={{ title: '' }}
+        validationSchema={validationSchema}>
+        <TextField {...props} />
+        <SubmitButton />
+      </TestForm>
+    );
+    userEvent.click(screen.getByRole('button'));
+    let errorElement;
+    await waitFor(() => {
+      errorElement = screen.getByText(`${name} is a required field`);
+    });
+    expect(errorElement).toBeVisible();
+    expect(errorElement).toHaveClass('text-red-700 text-xs w-full', {
+      exact: true,
+    });
+  });
 });
 
 describe('TextAreaField', () => {
@@ -338,8 +345,8 @@ describe('TextAreaField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('textbox');
-    expect(inputElement.classList).toContain('w-36');
-    expect(inputElement.classList).not.toContain('w-100');
+    expect(inputElement).toHaveClass('w-36');
+    expect(inputElement).not.toHaveClass('w-100');
   });
 
   it('set field size to default when prop is set incorrectly', () => {
@@ -354,7 +361,7 @@ describe('TextAreaField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('textbox');
-    expect(inputElement.classList).toContain('w-100');
+    expect(inputElement).toHaveClass('w-100');
   });
 
   it('sets basic theme correctly when prop is passed', () => {
@@ -370,8 +377,36 @@ describe('TextAreaField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('textbox');
-    expect(inputElement.classList).toContain('focus:border-lime-600');
-    expect(inputElement.classList).not.toContain('focus:border-red-900');
+    expect(inputElement).toHaveClass('focus:border-lime-600');
+    expect(inputElement).not.toHaveClass('focus:border-red-900');
+  });
+
+  it('displays error message when field required and empty', async () => {
+    const name = 'title';
+    const props: FieldProps = {
+      name,
+      required: true,
+    };
+    const validationSchema = yupObject().shape({
+      title: yupString().required(),
+    });
+    render(
+      <TestForm
+        initialValues={{ title: '' }}
+        validationSchema={validationSchema}>
+        <TextAreaField {...props} />
+        <SubmitButton />
+      </TestForm>
+    );
+    userEvent.click(screen.getByRole('button'));
+    let errorElement;
+    await waitFor(() => {
+      errorElement = screen.getByText(`${name} is a required field`);
+    });
+    expect(errorElement).toBeVisible();
+    expect(errorElement).toHaveClass('text-red-700 text-xs w-100', {
+      exact: true,
+    });
   });
 });
 
@@ -415,8 +450,8 @@ describe('NumberField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('spinbutton');
-    expect(inputElement.classList).toContain('w-20');
-    expect(inputElement.classList).not.toContain('w-36');
+    expect(inputElement).toHaveClass('w-20');
+    expect(inputElement).not.toHaveClass('w-36');
   });
 
   it('set field size to default when prop is set incorrectly', () => {
@@ -431,7 +466,7 @@ describe('NumberField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('spinbutton');
-    expect(inputElement.classList).toContain('w-36');
+    expect(inputElement).toHaveClass('w-36');
   });
 
   it('sets basic theme correctly when prop is passed', () => {
@@ -447,8 +482,8 @@ describe('NumberField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('spinbutton');
-    expect(inputElement.classList).toContain('focus:border-lime-600');
-    expect(inputElement.classList).not.toContain('focus:border-red-900');
+    expect(inputElement).toHaveClass('focus:border-lime-600');
+    expect(inputElement).not.toHaveClass('focus:border-red-900');
   });
 
   it('sets step correctly when prop is passed', () => {
@@ -464,6 +499,34 @@ describe('NumberField', () => {
     );
     const inputElement = screen.getByRole('spinbutton') as HTMLInputElement;
     expect(inputElement.step).toBe(props.step.toString());
+  });
+
+  it('displays error message when field required and empty', async () => {
+    const name = 'title';
+    const props: FieldProps = {
+      name,
+      required: true,
+    };
+    const validationSchema = yupObject().shape({
+      title: yupString().required(),
+    });
+    render(
+      <TestForm
+        initialValues={{ title: '' }}
+        validationSchema={validationSchema}>
+        <NumberField {...props} />
+        <SubmitButton />
+      </TestForm>
+    );
+    userEvent.click(screen.getByRole('button'));
+    let errorElement;
+    await waitFor(() => {
+      errorElement = screen.getByText(`${name} is a required field`);
+    });
+    expect(errorElement).toBeVisible();
+    expect(errorElement).toHaveClass('text-red-700 text-xs w-36', {
+      exact: true,
+    });
   });
 });
 
@@ -507,8 +570,8 @@ describe('CheckboxField', () => {
       </TestForm>
     );
     const divElement = screen.getByTestId(`${name}-div`);
-    expect(divElement.classList).toContain('w-20');
-    expect(divElement.classList).not.toContain('w-36');
+    expect(divElement).toHaveClass('w-20');
+    expect(divElement).not.toHaveClass('w-36');
   });
 
   it('set field size to default when prop is set incorrectly', () => {
@@ -523,7 +586,7 @@ describe('CheckboxField', () => {
       </TestForm>
     );
     const divElement = screen.getByTestId(`${name}-div`);
-    expect(divElement.classList).toContain('w-36');
+    expect(divElement).toHaveClass('w-36');
   });
 
   it('sets basic theme correctly when prop is passed', () => {
@@ -539,8 +602,36 @@ describe('CheckboxField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('checkbox');
-    expect(inputElement.classList).toContain('accent-lime-600');
-    expect(inputElement.classList).not.toContain('accent-red-900');
+    expect(inputElement).toHaveClass('accent-lime-600');
+    expect(inputElement).not.toHaveClass('accent-red-900');
+  });
+
+  it('displays error message when field required and empty', async () => {
+    const name = 'title';
+    const props: FieldProps = {
+      name,
+      required: true,
+    };
+    const validationSchema = yupObject().shape({
+      title: yupString().required(),
+    });
+    render(
+      <TestForm
+        initialValues={{ title: '' }}
+        validationSchema={validationSchema}>
+        <CheckboxField {...props} />
+        <SubmitButton />
+      </TestForm>
+    );
+    userEvent.click(screen.getByRole('button'));
+    let errorElement;
+    await waitFor(() => {
+      errorElement = screen.getByText(`${name} is a required field`);
+    });
+    expect(errorElement).toBeVisible();
+    expect(errorElement).toHaveClass('text-red-700 text-xs w-36', {
+      exact: true,
+    });
   });
 });
 
@@ -612,9 +703,9 @@ describe('FieldSet', () => {
     );
     const fieldsetElement = screen.getByRole('group');
     const legendElement = screen.getByTestId(`${name}-legend`);
-    expect(fieldsetElement.classList).not.toContain('border-lime-600');
-    expect(legendElement.classList).toContain('text-lime-600');
-    expect(legendElement.classList).not.toContain('text-red-900');
+    expect(fieldsetElement).not.toHaveClass('border-lime-600');
+    expect(legendElement).toHaveClass('text-lime-600');
+    expect(legendElement).not.toHaveClass('text-red-900');
   });
 
   it('sets full theme correctly when prop is passed', () => {
@@ -633,9 +724,9 @@ describe('FieldSet', () => {
     );
     const fieldsetElement = screen.getByRole('group');
     const legendElement = screen.getByTestId(`${name}-legend`);
-    expect(fieldsetElement.classList).toContain('border-lime-600');
-    expect(legendElement.classList).toContain('text-lime-600');
-    expect(legendElement.classList).not.toContain('text-red-900');
+    expect(fieldsetElement).toHaveClass('border-lime-600');
+    expect(legendElement).toHaveClass('text-lime-600');
+    expect(legendElement).not.toHaveClass('text-red-900');
   });
 });
 
@@ -717,8 +808,8 @@ describe('SelectField', () => {
       </TestForm>
     );
     const divElement = screen.getByTestId(`${name}-sizing-div`);
-    expect(divElement.classList).toContain('w-20');
-    expect(divElement.classList).not.toContain('w-36');
+    expect(divElement).toHaveClass('w-20');
+    expect(divElement).not.toHaveClass('w-36');
   });
 
   it('set field size to default when prop is set incorrectly', () => {
@@ -740,7 +831,7 @@ describe('SelectField', () => {
       </TestForm>
     );
     const divElement = screen.getByTestId(`${name}-sizing-div`);
-    expect(divElement.classList).toContain('w-36');
+    expect(divElement).toHaveClass('w-36');
   });
 
   it('set label correctly when prop is passed', () => {
@@ -763,7 +854,7 @@ describe('SelectField', () => {
       </TestForm>
     );
     const divElement = screen.getByText(selectLabel);
-    expect(divElement).toBeInTheDocument();
+    expect(divElement).toBeVisible();
   });
 
   it('sets basic theme correctly when prop is passed', () => {
@@ -945,9 +1036,9 @@ describe('SubmitButton', () => {
       </TestForm>
     );
     const buttonElement = screen.getByRole('button');
-    expect(buttonElement.classList).toContain('text-white');
-    expect(buttonElement.classList).toContain('bg-lime-600');
-    expect(buttonElement.classList).not.toContain('bg-red-900');
+    expect(buttonElement).toHaveClass('text-white');
+    expect(buttonElement).toHaveClass('bg-lime-600');
+    expect(buttonElement).not.toHaveClass('bg-red-900');
   });
 
   it('sets full theme correctly when prop is passed', () => {
@@ -963,8 +1054,8 @@ describe('SubmitButton', () => {
       </TestForm>
     );
     const buttonElement = screen.getByRole('button');
-    expect(buttonElement.classList).toContain('text-lime-600');
-    expect(buttonElement.classList).toContain('bg-lime-200');
-    expect(buttonElement.classList).not.toContain('bg-red-900');
+    expect(buttonElement).toHaveClass('text-lime-600');
+    expect(buttonElement).toHaveClass('bg-lime-200');
+    expect(buttonElement).not.toHaveClass('bg-red-900');
   });
 });
