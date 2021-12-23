@@ -26,20 +26,33 @@ const FilesDropInput: VFC<FilesDropInputProps> = ({
   required,
   setValue,
   value,
+  defaultValue,
 }) => {
   const [files, setFiles] = useState<FileWithSize[]>([]);
   const [dragId, setDragId] = useState<number | undefined>();
 
-  // Reset Files when Form is reset (initialValue = '')
   useEffect(() => {
+    // Reset Files when Form is reset (initialValue = '')
     if (value == '') {
       setFiles(prevState => {
         revokePreviews(prevState);
         return [];
       });
     }
+
     return revokePreviews(files);
   }, [value]);
+
+  useEffect(() => {
+    // Set files when defaultValue is passed
+    if (
+      defaultValue &&
+      Array.isArray(defaultValue) &&
+      defaultValue?.length > 0
+    ) {
+      onDrop(defaultValue);
+    }
+  }, [defaultValue]);
 
   const revokePreviews = useCallback((files: FileWithSize[]) => {
     files.forEach(file =>
@@ -48,7 +61,8 @@ const FilesDropInput: VFC<FilesDropInputProps> = ({
   }, []);
 
   const onDrop = useCallback(
-    async (acceptedFiles: FileWithSize[]) => {
+    async (acceptedFiles: File[]) => {
+      const filesWithSize = acceptedFiles as FileWithSize[];
       if (fileType && fileType.startsWith('image/')) {
         const readImageAsync = async (imageSrc: string) => {
           return new Promise<HTMLImageElement>((resolve, reject) => {
@@ -58,7 +72,11 @@ const FilesDropInput: VFC<FilesDropInputProps> = ({
               resolve(image);
             };
 
-            image.onerror = reject;
+            const onErrorHandler: OnErrorEventHandler = event => {
+              reject(event.toString());
+            };
+
+            image.onerror = onErrorHandler;
 
             image.src = imageSrc;
           });
@@ -73,27 +91,36 @@ const FilesDropInput: VFC<FilesDropInputProps> = ({
               resolve(image);
             };
 
-            reader.onerror = reject;
+            const onErrorHandler: OnErrorEventHandler = event => {
+              reject(event.toString());
+            };
+
+            reader.onerror = onErrorHandler;
 
             reader.readAsDataURL(file);
           });
         };
 
-        await Promise.all(
-          acceptedFiles.map(async file => {
-            const image = await imageFromFile(file);
-            file.preview = URL.createObjectURL(file);
-            file.width = image.width;
-            file.height = image.height;
-          })
-        );
+        try {
+          await Promise.all(
+            filesWithSize.map(async file => {
+              const image = await imageFromFile(file);
+              file.preview = URL.createObjectURL(file);
+              file.width = image.width;
+              file.height = image.height;
+            })
+          );
+        } catch (error) {
+          const message = error as string;
+          throw new Error(message);
+        }
       }
 
       // Set new files
-      setValue(acceptedFiles);
+      setValue(filesWithSize);
       setFiles(prevState => {
         revokePreviews(prevState);
-        return acceptedFiles;
+        return filesWithSize;
       });
     },
     [fileType]

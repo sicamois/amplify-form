@@ -106,7 +106,7 @@ export interface FilesDropInputProps
     height: number;
   };
   setValue: (files: FileWithSize[]) => void;
-  defaultValue?: FileWithSize[];
+  defaultValue?: File[];
 }
 
 export interface FormComponentProps {
