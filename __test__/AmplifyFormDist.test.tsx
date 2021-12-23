@@ -10,7 +10,7 @@ import {
   Relationship,
 } from '../src/types';
 
-describe('AmplifyForm (dist)', () => {
+describe('AmplifyForm', () => {
   let spy: jest.SpyInstance;
   let spyError: jest.SpyInstance;
   let spyWarn: jest.SpyInstance;
@@ -125,16 +125,19 @@ describe('AmplifyForm (dist)', () => {
   });
 
   it('does not render a textarea when TextAreas prop is incorrectly set', () => {
-    render(
-      <AmplifyForm
-        graphQLJSONSchema={TestSchema}
-        entity='post'
-        onSubmit={() => {}}
-        textAreas={['xxx']}
-      />
+    const incorrectField = 'xxx';
+    expect(() =>
+      render(
+        <AmplifyForm
+          graphQLJSONSchema={TestSchema}
+          entity='post'
+          onSubmit={() => {}}
+          textAreas={[incorrectField]}
+        />
+      )
+    ).toThrowError(
+      `Unable to set '${incorrectField}' as textarea field: '${incorrectField}' does not exist in the schema`
     );
-    const textareaElement = screen.getAllByRole('textbox');
-    expect(textareaElement).not.toBeInstanceOf(HTMLTextAreaElement);
   });
 
   it('displays custom labels correctly', () => {
@@ -171,8 +174,8 @@ describe('AmplifyForm (dist)', () => {
     const inputContentTextElement = screen.getByRole('textbox', {
       name: capitalize('content'),
     });
-    expect(inputTitleTextElement).toHaveClass('w-20');
-    expect(inputContentTextElement).toHaveClass('w-96');
+    expect(inputTitleTextElement.classList.contains('w-20')).toBeTruthy();
+    expect(inputContentTextElement.classList.contains('w-96')).toBeTruthy();
   });
 
   it('renders correctly when a field default value is set', () => {
@@ -240,6 +243,74 @@ describe('AmplifyForm (dist)', () => {
     render(<AmplifyForm {...props} />);
     const inputFileElement = screen.getByTitle('gallery');
     expect(inputFileElement).toBeRequired();
+  });
+
+  it('throws an error when fileFields prop is incorrectly set', () => {
+    const incorrectField = 'xxx';
+    expect(() =>
+      render(
+        <AmplifyForm
+          graphQLJSONSchema={TestSchema}
+          entity='post'
+          onSubmit={() => {}}
+          fileFields={[incorrectField]}
+        />
+      )
+    ).toThrowError(
+      `Unable to set '${incorrectField}' as file field: '${incorrectField}' does not exist in the schema`
+    );
+  });
+
+  it('throws an error when fileFields prop is incorrectly set with FileFieldProps', () => {
+    const incorrectField = 'xxx';
+    expect(() =>
+      render(
+        <AmplifyForm
+          graphQLJSONSchema={TestSchema}
+          entity='post'
+          onSubmit={() => {}}
+          fileFields={{
+            xxx: { fileType: 'application/pdf' },
+          }}
+        />
+      )
+    ).toThrowError(
+      `Unable to set '${incorrectField}' as file field: '${incorrectField}' does not exist in the schema`
+    );
+  });
+
+  it('throws an error when imageFields prop is incorrectly set', () => {
+    const incorrectField = 'xxx';
+    expect(() =>
+      render(
+        <AmplifyForm
+          graphQLJSONSchema={TestSchema}
+          entity='post'
+          onSubmit={() => {}}
+          imageFields={[incorrectField]}
+        />
+      )
+    ).toThrowError(
+      `Unable to set '${incorrectField}' as image field: '${incorrectField}' does not exist in the schema`
+    );
+  });
+
+  it('throws an error when imageFields prop is incorrectly set with FileFieldProps', () => {
+    const incorrectField = 'xxx';
+    expect(() =>
+      render(
+        <AmplifyForm
+          graphQLJSONSchema={TestSchema}
+          entity='post'
+          onSubmit={() => {}}
+          imageFields={{
+            xxx: { fileType: 'application/pdf' },
+          }}
+        />
+      )
+    ).toThrowError(
+      `Unable to set '${incorrectField}' as image field: '${incorrectField}' does not exist in the schema`
+    );
   });
 
   it('throw an error if the entity in the relationship does not exist', () => {
