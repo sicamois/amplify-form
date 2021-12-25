@@ -27,6 +27,8 @@ jobs:
 
     - name: Test
       run: yarn test-cov
+      env: 
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN}}
     
     - name: Bump version
       id: version-bump
