@@ -38,8 +38,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        default: prerelease
-        preid: 'beta'
+        patch-wording:  'patch,fix'
 
     - name: Parsing Package Info
       id: packageInfo
@@ -63,7 +62,7 @@ jobs:
         # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
         draft: false
         # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
-        prerelease: true
+        prerelease: ${{ contains(${{ steps.packageInfo.outputs.package-version }}, 'beta') }}
         
     - name: Make Package
       run: npm pack
