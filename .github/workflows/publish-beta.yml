@@ -59,7 +59,7 @@ jobs:
         # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
         draft: false
         # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
-        prerelease: ${{ contains(steps.packageInfo.outputs.package-version, 'beta') }}
+        prerelease: ${{ (contains(steps.packageInfo.outputs.package-version, 'beta') || contains(steps.packageInfo.outputs.package-version, 'alpha') || contains(steps.packageInfo.outputs.package-version, 'rc')) }}
         
     - name: Make Package
       run: npm pack
@@ -80,8 +80,15 @@ jobs:
         # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
         asset_content_type: application/x-compressed-tar
     
-    - name: NPM Publish
+    - name: NPM Publish beta
+      if: ${{ (contains(steps.packageInfo.outputs.package-version, 'beta') || contains(steps.packageInfo.outputs.package-version, 'alpha') || contains(steps.packageInfo.outputs.package-version, 'rc')) }}
       uses: JS-DevTools/npm-publish@v1
       with:
         tag: 'beta'
+        token: ${{ secrets.NPM_TOKEN }}
+    
+    - name: NPM Publish
+      if: ${{ !(contains(steps.packageInfo.outputs.package-version, 'beta') || contains(steps.packageInfo.outputs.package-version, 'alpha') || contains(steps.packageInfo.outputs.package-version, 'rc')) }}
+      uses: JS-DevTools/npm-publish@v1
+      with:
         token: ${{ secrets.NPM_TOKEN }}
