@@ -1,9 +1,6 @@
 name: Publish Beta
 
-on: 
-  push:
-    branches:
-      - 'beta'
+on: [push]
 
 jobs:
 
