@@ -62,7 +62,7 @@ jobs:
         # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
         draft: false
         # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
-        prerelease: ${{ contains(${{ steps.packageInfo.outputs.package-version }}, 'beta') }}
+        prerelease: ${{ contains(steps.packageInfo.outputs.package-version, 'beta') }}
         
     - name: Make Package
       run: npm pack
