@@ -1,4 +1,4 @@
-name: Publish Beta
+name: Publish
 
 on: [push]
 
@@ -42,7 +42,7 @@ jobs:
       run: |
         echo "::set-output name=package-name::$(jq -r .name package.json)"
         echo "::set-output name=package-version::$(jq -r .version package.json)"
-        echo "::set-output name=commit-msg::$(git log -1 --pretty=%B)"
+        echo "::set-output name=commit-msg::$(git log --pretty=%B)"
       
     - name: Create Release
       id: releaseCreate
