@@ -22,7 +22,7 @@ jobs:
         node-version: '16'
 
     - name: Install Dependencies
-      run: yarn
+      run: yarn ci
 
     - name: Build
       run: yarn build
