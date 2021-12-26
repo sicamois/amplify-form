@@ -7,8 +7,19 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
+
     - name: Checkout
       uses: actions/checkout@v2
+    
+    - name: Install depedencies
+      run: yarn ci
+    
+    - name: Build
+      run: yarn build
+    
+    - name: Test
+      run: yarn test-cov
+
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v2
       with:
