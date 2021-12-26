@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik';
 import { FC } from 'react';
-import { act, create } from 'react-test-renderer';
+import { act, create, ReactTestRenderer } from 'react-test-renderer';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
@@ -183,7 +183,7 @@ describe('FieldWithError', () => {
       label,
       required: true,
     };
-    const renderResult = render(
+    render(
       <TestForm initialValues={{}}>
         <FieldWithError {...props}>
           <input type='text' id='tequila' required={true} />
@@ -498,7 +498,7 @@ describe('NumberField', () => {
       </TestForm>
     );
     const inputElement = screen.getByRole('spinbutton') as HTMLInputElement;
-    expect(inputElement.step).toBe(props.step.toString());
+    expect(inputElement.step).toBe(props.step!.toString());
   });
 
   it('displays error message when field required and empty', async () => {
@@ -777,7 +777,7 @@ describe('SelectField', () => {
       options: options,
       multiple: true,
     };
-    let root;
+    let root: ReactTestRenderer;
     act(() => {
       root = create(
         <TestForm initialValues={{ public: '' }}>
@@ -785,8 +785,8 @@ describe('SelectField', () => {
         </TestForm>
       );
     });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
+    expect(root!.toJSON()).not.toBeNull();
+    expect(root!.toJSON()).toMatchSnapshot();
   });
 
   it('sets field size correctly when prop is passed', () => {
@@ -870,7 +870,7 @@ describe('SelectField', () => {
       options: options,
       theme,
     };
-    let root;
+    let root: ReactTestRenderer;
     act(() => {
       root = create(
         <TestForm initialValues={{ public: '' }}>
@@ -878,8 +878,8 @@ describe('SelectField', () => {
         </TestForm>
       );
     });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
+    expect(root!.toJSON()).not.toBeNull();
+    expect(root!.toJSON()).toMatchSnapshot();
   });
 
   it('sets full theme correctly when prop is passed', () => {
@@ -895,7 +895,7 @@ describe('SelectField', () => {
       options: options,
       theme,
     };
-    let root;
+    let root: ReactTestRenderer;
     act(() => {
       root = create(
         <TestForm initialValues={{ public: '' }}>
@@ -903,8 +903,8 @@ describe('SelectField', () => {
         </TestForm>
       );
     });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
+    expect(root!.toJSON()).not.toBeNull();
+    expect(root!.toJSON()).toMatchSnapshot();
   });
 
   it('sets basic theme correctly when prop is passed for a multi-select', () => {
@@ -921,7 +921,7 @@ describe('SelectField', () => {
       multiple: true,
       theme,
     };
-    let root;
+    let root: ReactTestRenderer;
     act(() => {
       root = create(
         <TestForm initialValues={{ public: '' }}>
@@ -929,8 +929,8 @@ describe('SelectField', () => {
         </TestForm>
       );
     });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
+    expect(root!.toJSON()).not.toBeNull();
+    expect(root!.toJSON()).toMatchSnapshot();
   });
 
   it('sets full theme correctly when prop is passed for a multi-select', () => {
@@ -947,7 +947,7 @@ describe('SelectField', () => {
       multiple: true,
       theme,
     };
-    let root;
+    let root: ReactTestRenderer;
     act(() => {
       root = create(
         <TestForm initialValues={{ public: '' }}>
@@ -955,8 +955,8 @@ describe('SelectField', () => {
         </TestForm>
       );
     });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
+    expect(root!.toJSON()).not.toBeNull();
+    expect(root!.toJSON()).toMatchSnapshot();
   });
 });
 
@@ -979,7 +979,7 @@ describe('FilesDropField', () => {
     const props: FilesDropFieldProps = {
       name: 'gallery',
     };
-    let root;
+    let root: ReactTestRenderer;
     act(() => {
       root = create(
         <TestForm initialValues={{}}>
@@ -987,8 +987,8 @@ describe('FilesDropField', () => {
         </TestForm>
       );
     });
-    expect(root.toJSON()).not.toBeNull();
-    expect(root.toJSON()).toMatchSnapshot();
+    expect(root!.toJSON()).not.toBeNull();
+    expect(root!.toJSON()).toMatchSnapshot();
   });
 });
 
