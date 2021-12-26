@@ -44,7 +44,7 @@ jobs:
       run: |
         echo "::set-output name=package-name::$(jq -r .name package.json)"
         echo "::set-output name=package-version::$(jq -r .version package.json)"
-        echo "::set-output name=commit-msg::$(git log --pretty=%B)"
+        echo "::set-output name=commit-msg::$(process.env.GITHUB_EVENT_PATH.commits.map((commit) => commit.message + '\n' + commit.body) : [])"
       
     - name: Create Release
       id: releaseCreate
