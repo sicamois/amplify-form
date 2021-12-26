@@ -36,6 +36,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         patch-wording:  'patch,fix'
+        default: prerelease
+        preid: 'beta'
 
     - name: Parsing Package Info
       id: packageInfo
