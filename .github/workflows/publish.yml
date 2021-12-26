@@ -6,95 +6,14 @@ jobs:
 
   Build:
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Checkout Commit
+    - name: Checkout
       uses: actions/checkout@v2
+    - name: Semantic Release
+      uses: cycjimmy/semantic-release-action@v2
       with:
-        ref: ${{ github.ref }}
-        
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-
-    - name: Install Dependencies
-      run: yarn ci
-
-    - name: Build
-      run: yarn build
-
-    - name: Test
-      run: yarn test-cov
-      env: 
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN}}
-    
-    - name: Bump version
-      id: version-bump
-      uses: 'phips28/gh-action-bump-version@master'
+        extra_plugins: |
+          @semantic-release/changelog
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        patch-wording:  'patch,fix'
-        default: prerelease
-        preid: 'beta'
-
-    - name: Parsing Package Info
-      id: packageInfo
-      run: |
-        echo "::set-output name=package-name::$(jq -r .name package.json)"
-        echo "::set-output name=package-version::$(jq -r .version package.json)"
-        echo "::set-output name=commit-msg::$(process.env.GITHUB_EVENT_PATH.commits.map((commit) => commit.message + '\n' + commit.body) : [])"
-      
-    - name: Create Release
-      id: releaseCreate
-      continue-on-error: true
-      uses: actions/create-release@v1
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
-        tag_name: v${{ steps.packageInfo.outputs.package-version }}
-        # The name of the release. For example, `Release v1.0.1`
-        release_name: v${{ steps.packageInfo.outputs.package-version }}
-        # Text describing the contents of the tag.
-        body: ${{steps.packageInfo.outputs.commit-msg}}
-        # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
-        draft: false
-        # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
-        prerelease: ${{ (contains(steps.packageInfo.outputs.package-version, 'beta') || contains(steps.packageInfo.outputs.package-version, 'alpha') || contains(steps.packageInfo.outputs.package-version, 'rc')) }}
-        
-    - name: Make Package
-      run: npm pack
-      
-    - name: Rename Pack
-      run: mv *.tgz npmPackage.tgz
-      
-    - name: Git Release
-      continue-on-error: true
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        # The URL for uploading assets to the release
-        upload_url: ${{steps.releaseCreate.outputs.upload_url}}
-        # The path to the asset you want to upload
-        asset_path: npmPackage.tgz
-        asset_name: npmPackage.tgz
-        # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
-        asset_content_type: application/x-compressed-tar
-    
-    - name: NPM Publish beta
-      continue-on-error: true
-      if: ${{ (contains(steps.packageInfo.outputs.package-version, 'beta') || contains(steps.packageInfo.outputs.package-version, 'alpha') || contains(steps.packageInfo.outputs.package-version, 'rc')) }}
-      uses: JS-DevTools/npm-publish@v1
-      with:
-        tag: 'beta'
-        token: ${{ secrets.NPM_TOKEN }}
-    
-    - name: NPM Publish
-      continue-on-error: true
-      if: ${{ !(contains(steps.packageInfo.outputs.package-version, 'beta') || contains(steps.packageInfo.outputs.package-version, 'alpha') || contains(steps.packageInfo.outputs.package-version, 'rc')) }}
-      uses: JS-DevTools/npm-publish@v1
-      with:
-        token: ${{ secrets.NPM_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
