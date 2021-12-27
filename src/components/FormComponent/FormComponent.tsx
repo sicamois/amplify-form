@@ -348,7 +348,7 @@ const FormComponent: VFC<FormComponentProps> = ({
           {({ isSubmitting, isValid }) => {
             return (
               <Form noValidate name={name}>
-                <div className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-4 w-full'>
                   {getFormElement('', formSchema, '', (theme = safeTheme))}
                   <div className='flex flex-row gap-4 items-center'>
                     <SubmitButton

@@ -26,7 +26,7 @@ import {
 import capitalize from 'lodash/capitalize';
 
 const fieldSetStyle =
-  'flex flex-wrap flex-row justify-start border-2 p-4 gap-3';
+  'flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full';
 const legendStyle = 'font-black text-lg px-2';
 const labelStyle =
   'text-gray-400 px-2 absolute left-0 -top-3.5 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm';
