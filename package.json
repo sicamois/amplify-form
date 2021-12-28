@@ -51,7 +51,7 @@
     "build": "rm -r -f dist && NODE_ENV=production yarn build:tsc && yarn build:types && yarn build:tailwind",
     "build:tsdx": "tsdx build --format cjs,esm --tsconfig tsconfig.tsdx.json",
     "build:tsc": "tsc --project tsconfig.build.json && rm dist/tsconfig.build.tsbuildinfo",
-    "build:tailwind": "tailwindcss -i ./src/styles/globals.css -o ./dist/styles/globals.css --minify",
+    "build:tailwind": "tailwindcss -i ./src/styles/tailwind.css -o ./dist/styles/tailwind.css --minify",
     "build:types": "tsc --project tsconfig.types.json && rm dist/tsconfig.types.tsbuildinfo",
     "build:rollup": "rollup --config",
     "publish-push": "npm publish && git push --quiet",
