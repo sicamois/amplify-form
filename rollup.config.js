@@ -16,14 +16,14 @@ const dependencies = {
 export default {
   input: 'src/index.ts',
   output: [
-    // {
-    //   file: packageJson.main,
-    //   format: 'cjs', // commonJS
-    //   sourcemap: process.env.NODE_ENV !== 'production',
-    //   exports: 'named',
-    // },
     {
       file: packageJson.main,
+      format: 'cjs', // commonJS
+      sourcemap: process.env.NODE_ENV !== 'production',
+      exports: 'named',
+    },
+    {
+      file: packageJson.module,
       format: 'esm', // ES Modules
       sourcemap: process.env.NODE_ENV !== 'production',
     },
