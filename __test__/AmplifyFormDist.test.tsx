@@ -30,7 +30,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: {},
       entity: 'test',
-      onSubmit: undefined,
+      onSubmit: () => {},
     };
     expect(() => render(<AmplifyForm {...props} />)).toThrowError(
       'Invalid GraphQL JSON Schema'
@@ -164,7 +164,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
-      onSubmit: undefined,
+      onSubmit: () => {},
       fieldsSize: fieldsSize,
     };
     render(<AmplifyForm {...props} />);
@@ -187,7 +187,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
-      onSubmit: undefined,
+      onSubmit: () => {},
       fieldsProps: fieldsProps,
     };
     render(<AmplifyForm {...props} />);
@@ -206,7 +206,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
-      onSubmit: undefined,
+      onSubmit: () => {},
       fieldsProps: fieldsProps,
     };
     render(<AmplifyForm {...props} />);
@@ -220,7 +220,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
-      onSubmit: undefined,
+      onSubmit: () => {},
       imageFields: ['gallery'],
     };
     render(<AmplifyForm {...props} />);
@@ -232,7 +232,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
-      onSubmit: undefined,
+      onSubmit: () => {},
       fileFields: {
         gallery: {
           text: 'Custom drag n drop text',
@@ -327,7 +327,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
-      onSubmit: undefined,
+      onSubmit: () => {},
       relationships: [authorRelationship],
     };
     expect(() => render(<AmplifyForm {...props} />)).toThrowError(
@@ -349,7 +349,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
-      onSubmit: undefined,
+      onSubmit: () => {},
       relationships: [authorRelationship],
     };
     expect(() => render(<AmplifyForm {...props} />)).toThrowError(
@@ -369,7 +369,7 @@ describe('AmplifyForm', () => {
     const props: AmplifyFormProps = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
-      onSubmit: undefined,
+      onSubmit: () => {},
       relationships: [authorRelationship],
     };
     expect(() => render(<AmplifyForm {...props} />)).toThrowError(

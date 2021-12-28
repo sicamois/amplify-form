@@ -10,9 +10,14 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v2
+
+    - name: Use Node.js 17
+      uses: actions/setup-node@v2
+      with:
+        node-version: '17'
     
     - name: Install depedencies
-      run: yarn ci
+      run: yarn preci && yarn ci
     
     - name: Build
       run: yarn build

@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "lib": ["DOM", "DOM.iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -9,10 +8,11 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "ESNext",
+    "lib": ["dom", "ESNext"],
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "incremental": true,
     "importHelpers": true,
     "downlevelIteration": true,
@@ -24,6 +24,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "jest.config.ts"],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "jest.config.ts", "__test__/**/*.ts", "__test__/**/*.tsx"],
   "exclude": ["node_modules"]
 }
