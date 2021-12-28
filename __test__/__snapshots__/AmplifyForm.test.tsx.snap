@@ -9,10 +9,10 @@ exports[`AmplifyForm renders correctly a basic file dropzone 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -251,7 +251,7 @@ exports[`AmplifyForm renders correctly a basic file dropzone 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       >
         <legend
           className="text-red-900 font-black text-lg px-2"
@@ -308,7 +308,7 @@ exports[`AmplifyForm renders correctly a basic file dropzone 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="attachment"
       >
         <legend
@@ -465,7 +465,7 @@ exports[`AmplifyForm renders correctly a basic file dropzone 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="postAuthorId"
       >
         <legend
@@ -590,10 +590,10 @@ exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -832,7 +832,7 @@ exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       >
         <legend
           className="text-red-900 font-black text-lg px-2"
@@ -890,7 +890,7 @@ exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="attachment"
       >
         <legend
@@ -1047,7 +1047,7 @@ exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="postAuthorId"
       >
         <legend
@@ -1172,10 +1172,10 @@ exports[`AmplifyForm renders correctly a relationship 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -1414,7 +1414,7 @@ exports[`AmplifyForm renders correctly a relationship 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="attachment"
       >
         <legend
@@ -1571,7 +1571,7 @@ exports[`AmplifyForm renders correctly a relationship 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="postAuthorId"
       >
         <legend
@@ -1696,10 +1696,10 @@ exports[`AmplifyForm renders correctly an customized image dropzone 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -1938,7 +1938,7 @@ exports[`AmplifyForm renders correctly an customized image dropzone 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       >
         <legend
           className="text-red-900 font-black text-lg px-2"
@@ -1996,7 +1996,7 @@ exports[`AmplifyForm renders correctly an customized image dropzone 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="attachment"
       >
         <legend
@@ -2153,7 +2153,7 @@ exports[`AmplifyForm renders correctly an customized image dropzone 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="postAuthorId"
       >
         <legend
@@ -2278,10 +2278,10 @@ exports[`AmplifyForm renders correctly an customized pdf file dropzone 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -2520,7 +2520,7 @@ exports[`AmplifyForm renders correctly an customized pdf file dropzone 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       >
         <legend
           className="text-red-900 font-black text-lg px-2"
@@ -2671,7 +2671,7 @@ exports[`AmplifyForm renders correctly an customized pdf file dropzone 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="postAuthorId"
       >
         <legend
@@ -2796,10 +2796,10 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -3458,7 +3458,7 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="price"
       >
         <legend
@@ -3669,7 +3669,7 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="floor_plan"
       >
         <legend
@@ -3732,7 +3732,7 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="diagnosis"
       >
         <legend
@@ -3985,7 +3985,7 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="details"
       >
         <legend
@@ -4552,7 +4552,7 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="exterior"
       >
         <legend
@@ -4649,7 +4649,7 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="building"
       >
         <legend
@@ -4823,7 +4823,7 @@ exports[`AmplifyForm renders correctly for a complex schema 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="propertyAdLocationId"
       >
         <legend
@@ -4948,10 +4948,10 @@ exports[`AmplifyForm renders correctly for a simple schema 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -5036,10 +5036,10 @@ exports[`AmplifyForm renders correctly for a typical schema 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -5278,7 +5278,7 @@ exports[`AmplifyForm renders correctly for a typical schema 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="attachment"
       >
         <legend
@@ -5435,7 +5435,7 @@ exports[`AmplifyForm renders correctly for a typical schema 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="postAuthorId"
       >
         <legend
@@ -5560,10 +5560,10 @@ exports[`AmplifyForm renders correctly when relationship items are empty 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -5802,7 +5802,7 @@ exports[`AmplifyForm renders correctly when relationship items are empty 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="attachment"
       >
         <legend
@@ -5959,7 +5959,7 @@ exports[`AmplifyForm renders correctly when relationship items are empty 1`] = `
         </div>
       </div>
       <fieldset
-        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="postAuthorId"
       >
         <legend
@@ -6084,10 +6084,10 @@ exports[`AmplifyForm renders correctly with all options 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="flex flex-col gap-4"
+    className="flex flex-col gap-4 w-full"
   >
     <fieldset
-      className="border-teal-600 flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+      className="border-teal-600 flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       name=""
     >
       <legend
@@ -6326,7 +6326,7 @@ exports[`AmplifyForm renders correctly with all options 1`] = `
         </div>
       </div>
       <fieldset
-        className="border-teal-600 flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className="border-teal-600 flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       >
         <legend
           className="text-teal-600 font-black text-lg px-2"
@@ -6384,7 +6384,7 @@ exports[`AmplifyForm renders correctly with all options 1`] = `
         </div>
       </fieldset>
       <fieldset
-        className="border-teal-600 flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className="border-teal-600 flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
       >
         <legend
           className="text-teal-600 font-black text-lg px-2"
@@ -6535,7 +6535,7 @@ exports[`AmplifyForm renders correctly with all options 1`] = `
         </div>
       </div>
       <fieldset
-        className="border-teal-600 flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+        className="border-teal-600 flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
         name="postAuthorId"
       >
         <legend

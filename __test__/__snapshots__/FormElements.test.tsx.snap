@@ -43,7 +43,7 @@ exports[`FieldSet renders correctly 1`] = `
   onSubmit={[Function]}
 >
   <fieldset
-    className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+    className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
     name="set"
   >
     <legend
@@ -112,7 +112,7 @@ exports[`FilesDropField renders correctly 1`] = `
   onSubmit={[Function]}
 >
   <fieldset
-    className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3"
+    className=" flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full"
   >
     <legend
       className="text-red-900 font-black text-lg px-2"
