@@ -6,7 +6,6 @@ import {
   borderColorMap,
   textColorMap,
 } from '../../utils/theme-maps';
-import * as _styles from './FilesDropInput.module.css';
 
 const instructionsStyle =
   'border-2 border-dashed h-24 px-4 py-2 text-sm font-light w-[60vw]';

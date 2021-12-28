@@ -30,7 +30,6 @@ import {
   Option,
 } from '../../types';
 import { textColorMap } from '../../utils/theme-maps';
-import * as _styles from './FormComponent.module.css';
 
 const FormComponent: VFC<FormComponentProps> = ({
   name,

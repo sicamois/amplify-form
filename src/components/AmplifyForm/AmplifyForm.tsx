@@ -20,7 +20,6 @@ import {
   Messages,
   FieldsProps,
 } from '../../types';
-import * as _styles from './AmplifyForm.module.css';
 
 const AmplifyForm: VFC<AmplifyFormProps> = ({
   graphQLJSONSchema,
