@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import { VFC } from 'react';
 import { Storage } from 'aws-amplify';
 import FormComponent from '../FormComponent';
 import { formSchemaFor } from '../../utils/form-schema';
