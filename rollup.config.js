@@ -23,7 +23,7 @@ export default {
     //   exports: 'named',
     // },
     {
-      file: packageJson.module,
+      file: packageJson.main,
       format: 'esm', // ES Modules
       sourcemap: process.env.NODE_ENV !== 'production',
     },
