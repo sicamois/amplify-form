@@ -16,7 +16,6 @@
     "importHelpers": true,
     "downlevelIteration": true,
     "declaration": true,
-    "declarationDir": "dist/types",
     "sourceMap": false,
     "outDir": "dist",
     "noUnusedLocals": true,
