@@ -48,7 +48,7 @@
     "test": "jest",
     "test-cov": "jest --coverage && coveralls < coverage/lcov.info",
     "test-build": "yarn build && yarn test-cov",
-    "build": "rm -r -f dist && NODE_ENV=production yarn build:tsc && yarn build:types && yarn build:tailwind",
+    "build": "rm -r -f dist && NODE_ENV=production yarn build:tsc && yarn build:tailwind",
     "build:tsdx": "tsdx build --format cjs,esm --tsconfig tsconfig.tsdx.json",
     "build:tsc": "tsc --project tsconfig.build.json && rm dist/tsconfig.build.tsbuildinfo",
     "build:tailwind": "tailwindcss -i ./src/styles/tailwind.css -o ./dist/styles/tailwind.css --minify",
