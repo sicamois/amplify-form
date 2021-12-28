@@ -24,6 +24,7 @@ import {
   textColorMap,
 } from '../../utils/theme-maps';
 import capitalize from 'lodash/capitalize';
+import _styles from './FormElements.module.css';
 
 const fieldSetStyle =
   'flex flex-wrap flex-row justify-start border-2 p-4 gap-3 w-full';
