@@ -2,8 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     // "declaration": false
-    // "emitDeclarationOnly": true,
-    // "declarationDir": "dist/types",
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist/types"
   },
   "include": ["src/index.ts"]
 }

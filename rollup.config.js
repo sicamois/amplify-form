@@ -5,7 +5,6 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import visualizer from 'rollup-plugin-visualizer';
-import { babel } from '@rollup/plugin-babel';
 
 const devDependencies = {
   ...packageJson.devDependencies,
@@ -44,10 +43,6 @@ export default {
       optimizeDeps: {
         include: Object.keys(dependencies),
       },
-    }),
-    babel({
-      babelHelpers: 'bundled',
-      exclude: 'node_modules/**',
     }),
     visualizer(),
   ],
