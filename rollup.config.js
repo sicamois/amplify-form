@@ -7,9 +7,9 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
 import commonjs from '@rollup/plugin-commonjs';
-import visualizer from 'rollup-plugin-visualizer';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import dts from 'rollup-plugin-dts';
+import visualizer from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
 
 const config = [
@@ -28,12 +28,12 @@ const config = [
     ],
     plugins: [
       peerDepsExternal(),
+      postcss(),
       nodeResolve(),
       commonjs(),
       typescript({ tsconfig: 'tsconfig.build.json' }),
-      postcss(),
       terser(),
-      visualizer({ open: true }),
+      visualizer(),
     ],
     external: [
       ...Object.keys(packageJson.dependencies),
@@ -45,7 +45,12 @@ const config = [
   },
   {
     input: 'src/index.ts',
-    output: [{ file: 'dist/types.d.ts', format: 'esm' }],
+    output: [
+      {
+        file: 'dist/types.d.ts',
+        format: 'esm',
+      },
+    ],
     external: [/\.css$/],
     plugins: [dts()],
   },

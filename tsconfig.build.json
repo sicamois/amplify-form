@@ -3,7 +3,8 @@
   "compilerOptions": {
     "declaration": true,
     "emitDeclarationOnly": true,
-    "declarationDir": "types"
+    "declarationDir": "types",
+    "removeComments": true
   },
   "include": ["src/index.ts"]
 }

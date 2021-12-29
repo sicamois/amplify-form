@@ -24,7 +24,6 @@
     "README.md",
     "dist"
   ],
-  "sideEffects": false,
   "engines": {
     "node": ">=16"
   },
