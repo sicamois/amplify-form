@@ -8,9 +8,9 @@ src/aws-exports.js
 src/API.ts
 .*
 package.json
-tsconfig.json
 next-env.d.ts
 README.md
 *.html
 .**
 __test__/__snapshots__
+coverage
