@@ -1,6 +1,6 @@
 import { HTMLProps } from 'react';
 import { FormikHelpers } from 'formik';
-import { fieldSizeMap, textColorMap } from './utils/theme-maps';
+// import { fieldSizeMap, textColorMap } from './utils/theme-maps';
 
 export type Value =
   | string
