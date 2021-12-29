@@ -4,10 +4,10 @@ import FormComponent from '../FormComponent';
 import { formSchemaFor } from '../../utils/form-schema';
 import { parseObject } from '../../utils/parse-object';
 import { FormikHelpers } from 'formik';
-import lodashSet from 'lodash/set';
-import lodashGet from 'lodash/get';
-import camelCase from 'lodash/camelCase';
-import capitalize from 'lodash/capitalize';
+import lodashSet from 'lodash-es/set';
+import lodashGet from 'lodash-es/get';
+import camelCase from 'lodash-es/camelCase';
+import capitalize from 'lodash-es/capitalize';
 import {
   AmplifyFormProps,
   FormSchema,

@@ -20,8 +20,8 @@ import {
   setLocale as yupSetLocale,
 } from 'yup';
 import { Formik, Form, FormikHelpers } from 'formik';
-import loadashSet from 'lodash/set';
-import loadashGet from 'lodash/get';
+import loadashSet from 'lodash-es/set';
+import loadashGet from 'lodash-es/get';
 import {
   FormComponentProps,
   FormSchema,
