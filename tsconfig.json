@@ -29,7 +29,8 @@
     "src/**/*.tsx",
     "jest.config.ts",
     "__test__/**/*.ts",
-    "__test__/**/*.tsx"
+    "__test__/**/*.tsx",
+    "__test__/**/*.jsx"
   ],
   "exclude": ["node_modules"]
 }

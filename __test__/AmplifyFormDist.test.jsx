@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import AmplifyForm from '../dist';
+import AmplifyForm from '../dist/bundle.esm';
 import TestSchema from './data/test-schema.json';
 import capitalize from 'lodash/capitalize';
 import lowerFirst from 'lodash/lowerFirst';
@@ -11,9 +11,9 @@ import {
 } from '../src/types';
 
 describe('AmplifyForm', () => {
-  let spy: jest.SpyInstance;
-  let spyError: jest.SpyInstance;
-  let spyWarn: jest.SpyInstance;
+  let spy;
+  let spyError;
+  let spyWarn;
   beforeAll(() => {
     spy = jest.spyOn(console, 'log').mockImplementation(() => {});
     spyError = jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -27,7 +27,7 @@ describe('AmplifyForm', () => {
 
   it('throws error when empty/invalid schema', () => {
     console.error = jest.fn();
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: {},
       entity: 'test',
       onSubmit: () => {},
@@ -157,11 +157,11 @@ describe('AmplifyForm', () => {
   });
 
   it('sets the right classes when FieldsSize prop is set', () => {
-    const fieldsSize: FieldsSize = {
+    const fieldsSize = {
       title: 'sm',
       content: 'xl',
     };
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
@@ -179,16 +179,16 @@ describe('AmplifyForm', () => {
   });
 
   it('renders correctly when a field default value is set', () => {
-    const fieldsProps: FieldsProps = {
+    const fieldsProps = {
       reference: {
         defaultValue: 10,
       },
     };
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
-      fieldsProps: fieldsProps,
+      fieldsProps,
     };
     render(<AmplifyForm {...props} />);
     const inputRefElement = screen.getByRole('spinbutton', {
@@ -198,26 +198,26 @@ describe('AmplifyForm', () => {
   });
 
   it('renders correctly when a field is set to read-only', () => {
-    const fieldsProps: FieldsProps = {
+    const fieldsProps = {
       reference: {
         readOnly: true,
       },
     };
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
-      fieldsProps: fieldsProps,
+      fieldsProps,
     };
     render(<AmplifyForm {...props} />);
     const inputRefElement = screen.getByRole('spinbutton', {
       name: capitalize('reference'),
-    }) as HTMLInputElement;
+    });
     expect(inputRefElement.readOnly).toBeTruthy();
   });
 
   it('sets correctly required images', () => {
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
@@ -229,7 +229,7 @@ describe('AmplifyForm', () => {
   });
 
   it('sets correctly required files', () => {
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
@@ -318,13 +318,13 @@ describe('AmplifyForm', () => {
     const relationEntity = 'xxx';
     const capitalizedRelationEntity = capitalize(relationEntity);
     const labelField = 'toto';
-    const authorRelationship: Relationship = {
+    const authorRelationship = {
       entity: relationEntity,
       label: capitalizedRelationEntity,
       items: [{ id: 'id1', name: 'user1' }],
       labelField,
     };
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
@@ -340,13 +340,13 @@ describe('AmplifyForm', () => {
   it('throw an error if the labelField is not a string or number', () => {
     const label = 'Author';
     const labelField = 'isActive';
-    const authorRelationship: Relationship = {
+    const authorRelationship = {
       entity: 'author',
       label,
       items: [{ id: 'id1', name: 'user1', isActive: true }],
       labelField,
     };
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
@@ -360,13 +360,13 @@ describe('AmplifyForm', () => {
   it('throw an error if the labelField in the relationship does not exist', () => {
     const entity = 'author';
     const labelField = 'toto';
-    const authorRelationship: Relationship = {
+    const authorRelationship = {
       entity,
       label: capitalize(entity),
       items: [{ id: 'id1', name: 'user1' }],
       labelField,
     };
-    const props: AmplifyFormProps = {
+    const props = {
       graphQLJSONSchema: TestSchema,
       entity: 'post',
       onSubmit: () => {},
