@@ -8,7 +8,7 @@ module.exports = {
       plugin.name === 'replace'
         ? replace({
             'process.env.NODE_ENV': JSON.stringify(options.env),
-            preventAssignment: true,
+            'preventAssignment': true,
           })
         : plugin
     );

@@ -1,50 +1,47 @@
-import esbuild from 'rollup-plugin-esbuild';
-import postcss from 'rollup-plugin-postcss';
+/**
+ * @type {import('rollup').RollupOptions}
+ */
+
 import packageJson from './package.json';
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
+import postcss from 'rollup-plugin-postcss';
 import visualizer from 'rollup-plugin-visualizer';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import dts from 'rollup-plugin-dts';
+import { terser } from 'rollup-plugin-terser';
 
-const devDependencies = {
-  ...packageJson.devDependencies,
-};
-const dependencies = {
-  ...packageJson.dependencies,
-};
-
-export default {
-  input: 'src/index.ts',
-  output: [
-    {
-      file: packageJson.main,
-      format: 'cjs', // commonJS
-      sourcemap: process.env.NODE_ENV !== 'production',
-      exports: 'named',
-    },
-    {
-      file: packageJson.module,
-      format: 'esm', // ES Modules
-      sourcemap: process.env.NODE_ENV !== 'production',
-    },
-  ],
-  plugins: [
-    peerDepsExternal(),
-    postcss(),
-    nodeResolve(),
-    commonjs({
-      exclude: 'node_modules',
-      ignoreGlobal: true,
-    }),
-    esbuild({
-      tsconfig: 'tsconfig.build.json',
-      minify: process.env.NODE_ENV === 'production',
-      target: 'ESNext',
-      optimizeDeps: {
-        include: Object.keys(dependencies),
+const config = [
+  {
+    input: 'src/index.ts',
+    output: [
+      {
+        file: packageJson.main,
+        format: 'esm',
       },
-    }),
-    visualizer(),
-  ],
-  external: Object.keys(devDependencies),
-};
+    ],
+    plugins: [
+      peerDepsExternal(),
+      nodeResolve(),
+      typescript({ tsconfig: 'tsconfig.build.json' }),
+      postcss(),
+      terser(),
+      visualizer({ open: true }),
+    ],
+    external: [
+      ...Object.keys(packageJson.dependencies),
+      'lodash-es/set',
+      'lodash-es/get',
+      'lodash-es/capitalize',
+      'lodash-es/camelCase',
+    ],
+  },
+  {
+    input: 'src/index.ts',
+    output: [{ file: 'dist/types.d.ts', format: 'esm' }],
+    external: [/\.css$/],
+    plugins: [dts()],
+  },
+];
+
+export default config;
