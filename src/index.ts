@@ -1,3 +1,4 @@
-import './styles/global.css';
-export { default } from './components/AmplifyForm/AmplifyForm';
+import './styles/tailwind.css';
+import AmplifyForm from './components/AmplifyForm';
+export default AmplifyForm;
 export * from './types';

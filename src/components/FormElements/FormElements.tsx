@@ -1,4 +1,4 @@
-import React, { FC, VFC, Fragment } from 'react';
+import { FC, VFC, Fragment } from 'react';
 import { ErrorMessage, Field, useField } from 'formik';
 import ReactSelect, { MultiValue, StylesConfig } from 'react-select';
 import FilesDropInput from '../FilesDropInput';
