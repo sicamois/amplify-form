@@ -15,7 +15,7 @@
     "ui",
     "typescript"
   ],
-  "version": "1.1.0-beta.24",
+  "version": "1.1.0-beta.25",
   "main": "dist/bundle.js",
   "types": "dist/types.d.ts",
   "license": "MIT",
