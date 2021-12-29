@@ -16,13 +16,11 @@ export interface FormTheme {
   branding?: 'basic' | 'full';
 }
 
-const fieldSizeMapKeys = Array.from(fieldSizeMap.keys());
+// TODO : Limit to map values
+export type FieldSize = string;
 
-export type FieldSize = typeof fieldSizeMapKeys[number];
-
-const textColorMapKeys = Array.from(textColorMap.keys());
-
-export type Color = typeof textColorMapKeys[number];
+// TODO : Limit to map values
+export type Color = string;
 
 export interface FormValues {
   [k: string]: Value | FormValues | undefined;
