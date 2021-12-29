@@ -37,10 +37,10 @@ const config = [
     ],
     external: [
       ...Object.keys(packageJson.dependencies),
-      'lodash-es/set',
-      'lodash-es/get',
-      'lodash-es/capitalize',
-      'lodash-es/camelCase',
+      'lodash/set',
+      'lodash/get',
+      'lodash/capitalize',
+      'lodash/camelCase',
     ],
   },
   {

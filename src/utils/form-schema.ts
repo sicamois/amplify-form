@@ -1,5 +1,5 @@
 import { FormSchema, Option, Type, Field, GraphQLJSONSchema } from '../types';
-import capitalize from 'lodash-es/capitalize';
+import capitalize from 'lodash/capitalize';
 
 const getTypesFor = (graphqlJSONSchema: GraphQLJSONSchema) => {
   try {
