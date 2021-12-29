@@ -6,6 +6,7 @@ import packageJson from './package.json';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
+import commonjs from '@rollup/plugin-commonjs';
 import visualizer from 'rollup-plugin-visualizer';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import dts from 'rollup-plugin-dts';
@@ -28,6 +29,7 @@ const config = [
     plugins: [
       peerDepsExternal(),
       nodeResolve(),
+      commonjs(),
       typescript({ tsconfig: 'tsconfig.build.json' }),
       postcss(),
       terser(),
