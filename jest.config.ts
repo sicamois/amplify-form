@@ -12,7 +12,7 @@ const customJestConfig: Config.InitialOptions = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
-  testRegex: ['(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$'],
+  testRegex: ['(/__tests__/.*|(\\.|/)(test|spec))\\.(t|j)sx?$'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   coverageProvider: 'v8',
   setupFilesAfterEnv: ['./jest.setup.ts'],

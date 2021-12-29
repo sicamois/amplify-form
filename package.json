@@ -49,17 +49,7 @@
     "test-cov": "jest --coverage && coveralls < coverage/lcov.info",
     "test-build": "yarn build && yarn test-cov",
     "build": "rm -r -f dist && NODE_ENV=production yarn build:rollup",
-    "build:tsdx": "tsdx build --format cjs,esm --tsconfig tsconfig.tsdx.json",
-    "build:tsc": "tsc --project tsconfig.build.json && rm dist/tsconfig.build.tsbuildinfo",
-    "build:tailwind": "tailwindcss -i ./src/styles/tailwind.css -o ./dist/styles/tailwind.css --minify",
-    "build:types": "tsc --project tsconfig.types.json && rm dist/tsconfig.types.tsbuildinfo",
     "build:rollup": "rollup --config",
-    "publish-push": "npm publish && git push --quiet",
-    "publish-beta": "yarn test-build && npm version prerelease --preid=beta &&  npm publish --tag=beta && git push --quiet",
-    "publish-patch": "yarn test-build && npm version patch && yarn publish-push",
-    "publish-minor": "yarn test-build && npm version minor && yarn publish-push",
-    "publish-major": "yarn test-build && npm version major && yarn publish-push",
-    "login-npm": "npm adduser",
     "prepare": "husky install"
   },
   "dependencies": {
