@@ -17,6 +17,11 @@ const config = [
     output: [
       {
         file: packageJson.main,
+        format: 'cjs',
+        exports: 'default',
+      },
+      {
+        file: packageJson.module,
         format: 'esm',
       },
     ],
