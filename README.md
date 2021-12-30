@@ -5,7 +5,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/sicamois/amplify-form.svg)](https://github.com/sicamois/amplify-form)
 [![Test](https://github.com/sicamois/amplify-form/actions/workflows/test.yml/badge.svg)](https://github.com/sicamois/amplify-form/actions/workflows/test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/sicamois/amplify-form/badge.svg?branch=master)](https://coveralls.io/github/sicamois/amplify-form?branch=master)
-![gzip size](https://img.badgesize.io/https:/unpkg.com/amplify-form@1.0.4/dist/amplify-form.cjs.production.min.js?compression=gzip)
+![gzip size](https://img.badgesize.io/https:/unpkg.com/amplify-form@latest?compression=gzip)
 [![license](https://badgen.now.sh/badge/license/MIT)](./LICENSE)
 
 **Automatically create Form for your GaphQL API in [AWS Amplify](https://github.com/aws-amplify/amplify-js)**
