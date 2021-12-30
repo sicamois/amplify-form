@@ -17,7 +17,7 @@ jobs:
         node-version: '17'
     
     - name: Install depedencies
-      run: yarn ci
+      run: yarn install
     
     - name: Build
       run: yarn build
