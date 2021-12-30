@@ -18,7 +18,7 @@ jobs:
         node-version: '16'
 
     - name: Install dependencies
-      run: yarn preci && yarn ci
+      run: yarn ci
 
     - name: Build package
       run: yarn build

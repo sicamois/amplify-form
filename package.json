@@ -43,15 +43,14 @@
     "lint": "next lint",
     "fix-tags": "git fetch --tags -f",
     "format": "prettier --write .",
-    "preci": "rm -fr node_modules",
-    "ci": "yarn install --immutable --immutable-cache --check-cache",
+    "ci": "rm -fr node_modules && yarn install --immutable --immutable-cache --check-cache",
     "test": "jest",
     "test-cov": "jest --coverage && coveralls < coverage/lcov.info",
     "test-build": "yarn build && yarn test-cov",
     "build": "rm -r -f dist && NODE_ENV=production yarn build:rollup",
-    "build:rollup": "rollup --config",
-    "prepare": "husky install"
+    "build:rollup": "rollup --config"
   },
+  "packageManager": "yarn@3.1.1",
   "dependencies": {
     "chroma-js": "^2.1.2",
     "formik": "^2.2.9",
@@ -62,6 +61,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
+    "@jest/types": "^27.4.2",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.1",
     "@rollup/plugin-typescript": "^8.3.0",
@@ -93,6 +93,7 @@
     "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-native": "^0.66.4",
     "react-test-renderer": "^17.0.2",
     "rollup": "^2.62.0",
     "rollup-plugin-dts": "^4.1.0",
