@@ -43,7 +43,7 @@
     "lint": "next lint",
     "fix-tags": "git fetch --tags -f",
     "format": "prettier --write .",
-    "ci": "rm -fr node_modules && yarn install --immutable --immutable-cache --check-cache",
+    "ci": "yarn install --immutable --immutable-cache --check-cache",
     "test": "jest",
     "test-cov": "jest --coverage && coveralls < coverage/lcov.info",
     "test-build": "yarn build && yarn test-cov",
