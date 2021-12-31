@@ -115,7 +115,7 @@
   },
   "dependenciesMeta": {
     "next": {
-      "unplugged": true
+      "unplugged": false
     }
   }
 }

@@ -15094,14 +15094,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["next", [
         ["npm:12.0.7", {
-          "packageLocation": "./.yarn/unplugged/next-virtual-a45e186fb3/node_modules/next/",
+          "packageLocation": "./.yarn/cache/next-npm-12.0.7-4cffaa57c8-78a0ebd697.zip/node_modules/next/",
           "packageDependencies": [
             ["next", "npm:12.0.7"]
           ],
           "linkType": "SOFT",
         }],
         ["virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:12.0.7", {
-          "packageLocation": "./.yarn/unplugged/next-virtual-a45e186fb3/node_modules/next/",
+          "packageLocation": "./.yarn/__virtual__/next-virtual-a45e186fb3/0/cache/next-npm-12.0.7-4cffaa57c8-78a0ebd697.zip/node_modules/next/",
           "packageDependencies": [
             ["next", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:12.0.7"],
             ["@babel/runtime", "npm:7.15.4"],

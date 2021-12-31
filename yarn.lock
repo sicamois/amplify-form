@@ -5384,7 +5384,7 @@ __metadata:
     react-dom: ">=17"
   dependenciesMeta:
     next:
-      unplugged: true
+      unplugged: false
   languageName: unknown
   linkType: soft
 
