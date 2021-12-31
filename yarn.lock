@@ -22,7 +22,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/api-graphql@npm:2.2.18":
+"@aws-amplify/api-graphql@npm:2.2.18, @aws-amplify/api-graphql@npm:^2.2.18":
   version: 2.2.18
   resolution: "@aws-amplify/api-graphql@npm:2.2.18"
   dependencies:
@@ -58,7 +58,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/auth@npm:4.3.19":
+"@aws-amplify/auth@npm:4.3.19, @aws-amplify/auth@npm:^4.3.19":
   version: 4.3.19
   resolution: "@aws-amplify/auth@npm:4.3.19"
   dependencies:
@@ -70,7 +70,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/cache@npm:4.0.31":
+"@aws-amplify/cache@npm:4.0.31, @aws-amplify/cache@npm:^4.0.31":
   version: 4.0.31
   resolution: "@aws-amplify/cache@npm:4.0.31"
   dependencies:
@@ -79,7 +79,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/core@npm:4.3.11":
+"@aws-amplify/core@npm:4.3.11, @aws-amplify/core@npm:^4.3.11":
   version: 4.3.11
   resolution: "@aws-amplify/core@npm:4.3.11"
   dependencies:
@@ -1739,7 +1739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/protocol-http@npm:3.40.0":
+"@aws-sdk/protocol-http@npm:3.40.0, @aws-sdk/protocol-http@npm:^3.40.0":
   version: 3.40.0
   resolution: "@aws-sdk/protocol-http@npm:3.40.0"
   dependencies:
@@ -1759,7 +1759,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/querystring-builder@npm:3.40.0":
+"@aws-sdk/querystring-builder@npm:3.40.0, @aws-sdk/querystring-builder@npm:^3.40.0":
   version: 3.40.0
   resolution: "@aws-sdk/querystring-builder@npm:3.40.0"
   dependencies:
@@ -5325,6 +5325,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "amplify-form@workspace:."
   dependencies:
+    "@aws-amplify/api-graphql": ^2.2.18
+    "@aws-amplify/auth": ^4.3.19
+    "@aws-amplify/cache": ^4.0.31
+    "@aws-amplify/core": ^4.3.11
+    "@aws-sdk/protocol-http": ^3.40.0
+    "@aws-sdk/querystring-builder": ^3.40.0
     "@babel/core": ^7.16.5
     "@babel/preset-env": ^7.16.5
     "@jest/types": ^27.4.2

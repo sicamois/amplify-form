@@ -35,6 +35,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["@aws-amplify/api-graphql", "npm:2.2.18"],
+            ["@aws-amplify/auth", "npm:4.3.19"],
+            ["@aws-amplify/cache", "npm:4.0.31"],
+            ["@aws-amplify/core", "npm:4.3.11"],
+            ["@aws-sdk/protocol-http", "npm:3.40.0"],
+            ["@aws-sdk/querystring-builder", "npm:3.40.0"],
             ["@babel/core", "npm:7.16.5"],
             ["@babel/preset-env", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:7.16.5"],
             ["@jest/types", "npm:27.4.2"],
@@ -7127,6 +7133,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["amplify-form", "workspace:."],
+            ["@aws-amplify/api-graphql", "npm:2.2.18"],
+            ["@aws-amplify/auth", "npm:4.3.19"],
+            ["@aws-amplify/cache", "npm:4.0.31"],
+            ["@aws-amplify/core", "npm:4.3.11"],
+            ["@aws-sdk/protocol-http", "npm:3.40.0"],
+            ["@aws-sdk/querystring-builder", "npm:3.40.0"],
             ["@babel/core", "npm:7.16.5"],
             ["@babel/preset-env", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:7.16.5"],
             ["@jest/types", "npm:27.4.2"],
