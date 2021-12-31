@@ -43,7 +43,7 @@
     "lint": "next lint",
     "fix-tags": "git fetch --tags -f",
     "format": "prettier --write .",
-    "ci": "yarn install --immutabled",
+    "ci": "yarn install --immutable",
     "test": "jest",
     "test-cov": "jest --coverage && coveralls < coverage/lcov.info",
     "test-build": "yarn build && yarn test-cov",
