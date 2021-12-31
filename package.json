@@ -112,5 +112,10 @@
     "aws-amplify": ">=4.3",
     "react": ">=17",
     "react-dom": ">=17"
+  },
+  "dependenciesMeta": {
+    "next": {
+      "unplugged": true
+    }
   }
 }
