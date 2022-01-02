@@ -57,6 +57,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.5"],
             ["@types/react", "npm:17.0.38"],
             ["@types/react-test-renderer", "npm:17.0.1"],
+            ["@types/source-map-support", "npm:0.5.4"],
             ["autoprefixer", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:10.4.1"],
             ["aws-amplify", "npm:4.3.11"],
             ["chroma-js", "npm:2.1.2"],
@@ -88,6 +89,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rollup-plugin-postcss", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:4.0.2"],
             ["rollup-plugin-terser", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:7.0.2"],
             ["rollup-plugin-visualizer", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:5.5.2"],
+            ["source-map-support", "npm:0.5.21"],
             ["tailwindcss", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:3.0.8"],
             ["ts-jest", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:27.1.2"],
             ["ts-node", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:10.4.0"],
@@ -6743,6 +6745,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/source-map-support", [
+        ["npm:0.5.4", {
+          "packageLocation": "./.yarn/cache/@types-source-map-support-npm-0.5.4-1c4eb2be20-160ff77e8a.zip/node_modules/@types/source-map-support/",
+          "packageDependencies": [
+            ["@types/source-map-support", "npm:0.5.4"],
+            ["source-map", "npm:0.6.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/stack-utils", [
         ["npm:2.0.1", {
           "packageLocation": "./.yarn/cache/@types-stack-utils-npm-2.0.1-867718ab70-205fdbe332.zip/node_modules/@types/stack-utils/",
@@ -7155,6 +7167,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.5"],
             ["@types/react", "npm:17.0.38"],
             ["@types/react-test-renderer", "npm:17.0.1"],
+            ["@types/source-map-support", "npm:0.5.4"],
             ["autoprefixer", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:10.4.1"],
             ["aws-amplify", "npm:4.3.11"],
             ["chroma-js", "npm:2.1.2"],
@@ -7186,6 +7199,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rollup-plugin-postcss", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:4.0.2"],
             ["rollup-plugin-terser", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:7.0.2"],
             ["rollup-plugin-visualizer", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:5.5.2"],
+            ["source-map-support", "npm:0.5.21"],
             ["tailwindcss", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:3.0.8"],
             ["ts-jest", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:27.1.2"],
             ["ts-node", "virtual:3fcca93aa9c807a7e6fbc81164ff0d81f45c83a032b63c3ee18ac60428bec80522faf84386df3db065e31908fa99413af6651b8cc59ddf59b367cea2f3754a72#npm:10.4.0"],
