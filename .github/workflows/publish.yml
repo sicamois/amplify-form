@@ -1,6 +1,11 @@
 name: Publish
 
-on: [push]
+on:
+  push:
+    branches: 
+      - main
+      - beta
+      - next
 
 jobs:
 
