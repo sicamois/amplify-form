@@ -22,7 +22,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/api-graphql@npm:2.2.18, @aws-amplify/api-graphql@npm:^2.2.18":
+"@aws-amplify/api-graphql@npm:*, @aws-amplify/api-graphql@npm:2.2.18":
   version: 2.2.18
   resolution: "@aws-amplify/api-graphql@npm:2.2.18"
   dependencies:
@@ -58,7 +58,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/auth@npm:4.3.19, @aws-amplify/auth@npm:^4.3.19":
+"@aws-amplify/auth@npm:*, @aws-amplify/auth@npm:4.3.19":
   version: 4.3.19
   resolution: "@aws-amplify/auth@npm:4.3.19"
   dependencies:
@@ -70,7 +70,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/cache@npm:4.0.31, @aws-amplify/cache@npm:^4.0.31":
+"@aws-amplify/cache@npm:*, @aws-amplify/cache@npm:4.0.31":
   version: 4.0.31
   resolution: "@aws-amplify/cache@npm:4.0.31"
   dependencies:
@@ -79,7 +79,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/core@npm:4.3.11, @aws-amplify/core@npm:^4.3.11":
+"@aws-amplify/core@npm:*, @aws-amplify/core@npm:4.3.11":
   version: 4.3.11
   resolution: "@aws-amplify/core@npm:4.3.11"
   dependencies:
@@ -1739,7 +1739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/protocol-http@npm:3.40.0, @aws-sdk/protocol-http@npm:^3.40.0":
+"@aws-sdk/protocol-http@npm:*, @aws-sdk/protocol-http@npm:3.40.0":
   version: 3.40.0
   resolution: "@aws-sdk/protocol-http@npm:3.40.0"
   dependencies:
@@ -1759,7 +1759,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/querystring-builder@npm:3.40.0, @aws-sdk/querystring-builder@npm:^3.40.0":
+"@aws-sdk/querystring-builder@npm:*, @aws-sdk/querystring-builder@npm:3.40.0":
   version: 3.40.0
   resolution: "@aws-sdk/querystring-builder@npm:3.40.0"
   dependencies:
@@ -2277,7 +2277,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.1.0, @babel/core@npm:^7.1.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.14.0, @babel/core@npm:^7.16.7, @babel/core@npm:^7.7.2, @babel/core@npm:^7.7.5":
+"@babel/core@npm:*, @babel/core@npm:^7.1.0, @babel/core@npm:^7.1.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.14.0, @babel/core@npm:^7.7.2, @babel/core@npm:^7.7.5":
   version: 7.16.7
   resolution: "@babel/core@npm:7.16.7"
   dependencies:
@@ -3529,7 +3529,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.16.7":
+"@babel/preset-env@npm:*":
   version: 7.16.7
   resolution: "@babel/preset-env@npm:7.16.7"
   dependencies:
@@ -4166,6 +4166,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jest/types@npm:*, @jest/types@npm:^27.4.2":
+  version: 27.4.2
+  resolution: "@jest/types@npm:27.4.2"
+  dependencies:
+    "@types/istanbul-lib-coverage": ^2.0.0
+    "@types/istanbul-reports": ^3.0.0
+    "@types/node": "*"
+    "@types/yargs": ^16.0.0
+    chalk: ^4.0.0
+  checksum: 1191022023e32763063cc1c8b1143fa316fb05db2f9698280a7bdbafcabd989e5fd64f8eb875b8a2e54c53f25dba45ed2eea8ced394d9e484da0fda674cd17a5
+  languageName: node
+  linkType: hard
+
 "@jest/types@npm:^26.6.2":
   version: 26.6.2
   resolution: "@jest/types@npm:26.6.2"
@@ -4176,19 +4189,6 @@ __metadata:
     "@types/yargs": ^15.0.0
     chalk: ^4.0.0
   checksum: a0bd3d2f22f26ddb23f41fddf6e6a30bf4fab2ce79ec1cb6ce6fdfaf90a72e00f4c71da91ec61e13db3b10c41de22cf49d07c57ff2b59171d64b29f909c1d8d6
-  languageName: node
-  linkType: hard
-
-"@jest/types@npm:^27.4.2":
-  version: 27.4.2
-  resolution: "@jest/types@npm:27.4.2"
-  dependencies:
-    "@types/istanbul-lib-coverage": ^2.0.0
-    "@types/istanbul-reports": ^3.0.0
-    "@types/node": "*"
-    "@types/yargs": ^16.0.0
-    chalk: ^4.0.0
-  checksum: 1191022023e32763063cc1c8b1143fa316fb05db2f9698280a7bdbafcabd989e5fd64f8eb875b8a2e54c53f25dba45ed2eea8ced394d9e484da0fda674cd17a5
   languageName: node
   linkType: hard
 
@@ -5030,15 +5030,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/source-map-support@npm:^0":
-  version: 0.5.4
-  resolution: "@types/source-map-support@npm:0.5.4"
-  dependencies:
-    source-map: ^0.6.0
-  checksum: 160ff77e8a101b18d9915cb5320fd73d484679aef8518ce007b9b5988e333631778730196c4bb15517ff881bee805663fd8640c0ce2ebfab65f061103c452369
-  languageName: node
-  linkType: hard
-
 "@types/stack-utils@npm:^2.0.0":
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
@@ -5335,14 +5326,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "amplify-form@workspace:."
   dependencies:
-    "@aws-amplify/api-graphql": ^2.2.18
-    "@aws-amplify/auth": ^4.3.19
-    "@aws-amplify/cache": ^4.0.31
-    "@aws-amplify/core": ^4.3.11
-    "@aws-sdk/protocol-http": ^3.40.0
-    "@aws-sdk/querystring-builder": ^3.40.0
-    "@babel/core": ^7.16.7
-    "@babel/preset-env": ^7.16.7
     "@jest/types": ^27.4.2
     "@rollup/plugin-commonjs": ^21.0.1
     "@rollup/plugin-node-resolve": ^13.1.2
@@ -5357,7 +5340,6 @@ __metadata:
     "@types/node": ^17.0.5
     "@types/react": ^17.0.38
     "@types/react-test-renderer": ^17.0.1
-    "@types/source-map-support": ^0
     autoprefixer: ^10.4.1
     aws-amplify: ^4.3.11
     chroma-js: ^2.1.2
@@ -5389,7 +5371,6 @@ __metadata:
     rollup-plugin-postcss: ^4.0.2
     rollup-plugin-terser: ^7.0.2
     rollup-plugin-visualizer: ^5.5.2
-    source-map-support: ^0.5.21
     tailwindcss: ^3.0.8
     ts-jest: ^27.1.2
     ts-node: ^10.4.0
@@ -13048,10 +13029,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.2, picomatch@npm:^2.2.3":
+"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.3":
   version: 2.3.0
   resolution: "picomatch@npm:2.3.0"
   checksum: 16818720ea7c5872b6af110760dee856c8e4cd79aed1c7a006d076b1cc09eff3ae41ca5019966694c33fbd2e1cc6ea617ab10e4adac6df06556168f13be3fca2
+  languageName: node
+  linkType: hard
+
+"picomatch@npm:^2.2.2":
+  version: 2.3.1
+  resolution: "picomatch@npm:2.3.1"
+  checksum: 050c865ce81119c4822c45d3c84f1ced46f93a0126febae20737bd05ca20589c564d6e9226977df859ed5e03dc73f02584a2b0faad36e896936238238b0446cf
   languageName: node
   linkType: hard
 
@@ -13908,7 +13896,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:^0.66.4":
+"react-native@npm:*, react-native@npm:^0.66.4":
   version: 0.66.4
   resolution: "react-native@npm:0.66.4"
   dependencies:
@@ -14024,7 +14012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.2":
+"react@npm:*, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -15061,7 +15049,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.21, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.20":
+"source-map-support@npm:*, source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.6, source-map-support@npm:~0.5.20":
   version: 0.5.21
   resolution: "source-map-support@npm:0.5.21"
   dependencies:
