@@ -40,9 +40,9 @@ jobs:
         COMPLETED_YARN_INSTALL: true
 
     - name: Build package
-      if: ${{ always() && !cancelled() && env.COMPLETED_YARN_INSTALL == 'true' }}
+      if: ${{ always() && !cancelled() }}
       run: yarn build
 
     - name: Run tests
-      if: ${{ always() && !cancelled() && env.COMPLETED_YARN_INSTALL == 'true' }}
+      if: ${{ always() && !cancelled() }}
       run: yarn test

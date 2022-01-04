@@ -39,17 +39,17 @@ jobs:
         COMPLETED_YARN_INSTALL: true
     
     - name: Build
-      if: ${{ always() && !cancelled() && env.COMPLETED_YARN_INSTALL == 'true' }}
+      if: ${{ always() }}
       run: yarn build
     
     - name: Test
-      if: ${{ always() && !cancelled() && env.COMPLETED_YARN_INSTALL == 'true' }}
+      if: ${{ always() }}
       run: yarn test-cov
       env: 
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN}}
 
     - name: Semantic Release
-      if: ${{ always() && !cancelled() && env.COMPLETED_YARN_INSTALL == 'true' }}
+      if: ${{ always() }}
       uses: cycjimmy/semantic-release-action@v2
       with:
         extra_plugins: |
