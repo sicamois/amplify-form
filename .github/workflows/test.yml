@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  build_tes:
+  build_test:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
@@ -24,12 +24,15 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Install depedencies
-      run: yarn ci
+    - id: install
+      name: Install depedencies
+      run: |
+        yarn ci
+        echo "::set-output name=status::success"
       continue-on-error: true
 
     - name: Re-install dependencies if error (fix dependabot bug)
-      if: ${{ !success() }}
+      if: ${{ steps.install.status != 'success' }}
       run: |
         # Fix dependabot bug
         rm -f yarn.lock
@@ -38,9 +41,7 @@ jobs:
         YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
     - name: Build package
-      if: ${{ always() && !cancelled() }}
       run: yarn build
 
     - name: Run tests
-      if: ${{ always() && !cancelled() }}
       run: yarn test
