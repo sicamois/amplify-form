@@ -25,8 +25,7 @@ jobs:
     
     - name: Install depedencies
       run: yarn ci
-      env:
-        COMPLETED_YARN_INSTALL: true
+      continue-on-error: true
 
     - name: Re-install dependencies if error (fix dependabot bug)
       if: ${{ failure() }}
@@ -36,20 +35,19 @@ jobs:
         yarn install
       env:
         YARN_ENABLE_IMMUTABLE_INSTALLS: false
-        COMPLETED_YARN_INSTALL: true
     
     - name: Build
-      if: ${{ always() }}
+      if: ${{ always() && !cancelled() }}
       run: yarn build
     
     - name: Test
-      if: ${{ always() }}
+      if: ${{ always() && !cancelled() }}
       run: yarn test-cov
       env: 
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN}}
 
     - name: Semantic Release
-      if: ${{ always() }}
+      if: ${{ always() && !cancelled() }}
       uses: cycjimmy/semantic-release-action@v2
       with:
         extra_plugins: |
