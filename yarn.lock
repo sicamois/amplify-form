@@ -8,7 +8,8 @@ __metadata:
 "@aws-amplify/analytics@npm:5.1.9":
   version: 5.1.9
   resolution: "@aws-amplify/analytics@npm:5.1.9"
-  dependencies:
+  dependencies:   
+  
     "@aws-amplify/cache": 4.0.31
     "@aws-amplify/core": 4.3.11
     "@aws-sdk/client-firehose": 3.6.1
