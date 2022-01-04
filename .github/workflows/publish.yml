@@ -10,7 +10,8 @@ on:
 
 jobs:
 
-  Build:
+  build_test_publish:
+    name: Build, Test & Publish
     runs-on: ubuntu-latest
     steps:
 
@@ -24,6 +25,8 @@ jobs:
     
     - name: Install depedencies
       run: yarn ci
+      env:
+        COMPLETED_YARN_INSTALL: true
 
     - name: Re-install dependencies if error (fix dependabot bug)
       if: ${{ failure() }}
@@ -33,17 +36,20 @@ jobs:
         yarn install
       env:
         YARN_ENABLE_IMMUTABLE_INSTALLS: false
-      continue-on-error: true
+        COMPLETED_YARN_INSTALL: true
     
     - name: Build
+      if: ${{ always() && !cancelled() && env.COMPLETED_YARN_INSTALL == 'true' }}
       run: yarn build
     
     - name: Test
+      if: ${{ always() && !cancelled() && env.COMPLETED_YARN_INSTALL == 'true' }}
       run: yarn test-cov
       env: 
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN}}
 
     - name: Semantic Release
+      if: ${{ always() && !cancelled() && env.COMPLETED_YARN_INSTALL == 'true' }}
       uses: cycjimmy/semantic-release-action@v2
       with:
         extra_plugins: |
