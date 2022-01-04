@@ -31,7 +31,7 @@ jobs:
       continue-on-error: true
 
     - name: Re-install dependencies if error (fix dependabot bug)
-      if: ${{ steps.install.status != 'success' }}
+      if: ${{ steps.install.outputs.status != 'success' }}
       run: |
         # Fix dependabot bug
         rm -f yarn.lock
