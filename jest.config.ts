@@ -9,6 +9,8 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig: Config.InitialOptions = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
@@ -16,7 +18,6 @@ const customJestConfig: Config.InitialOptions = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   coverageProvider: 'v8',
   setupFilesAfterEnv: ['./jest.setup.ts'],
-  testEnvironment: 'jsdom',
   collectCoverageFrom: [
     'src/components/**/*.{js,jsx,ts,tsx}',
     'src/utils/*.{js,jsx,ts,tsx}',
