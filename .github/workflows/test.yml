@@ -26,7 +26,6 @@ jobs:
 
     - name: Install dependencies
       run: yarn ci
-      continue-on-error: true
 
     - name: Re-install dependencies if error (fix dependabot bug)
       if: ${{ failure() }}
@@ -36,6 +35,7 @@ jobs:
         yarn install
       env:
         YARN_ENABLE_IMMUTABLE_INSTALLS: false
+      continue-on-error: true
 
     - name: Build package
       run: yarn build
