@@ -22,6 +22,7 @@ jobs:
       run: |
         # Fix dependabot bug
         rm -f yarn.lock
+        dependabot/npm_and_yarn/lint-staged-12.1.5
         yarn install
       env:
         YARN_ENABLE_IMMUTABLE_INSTALLS: false
