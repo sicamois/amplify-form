@@ -24,6 +24,7 @@ jobs:
     
     - name: Install depedencies
       run: yarn ci
+      continue-on-error: true
 
     - name: Re-install dependencies if error (fix dependabot bug)
       if: ${{ failure() }}
