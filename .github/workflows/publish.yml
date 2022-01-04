@@ -24,6 +24,15 @@ jobs:
     
     - name: Install depedencies
       run: yarn ci
+
+    - name: Re-install dependencies if error (fix dependabot bug)
+      if: ${{ failure() }}
+      run: |
+        # Fix dependabot bug
+        rm -f yarn.lock
+        yarn install
+      env:
+        YARN_ENABLE_IMMUTABLE_INSTALLS: false
     
     - name: Build
       run: yarn build
