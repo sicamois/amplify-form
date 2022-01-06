@@ -37,11 +37,15 @@ jobs:
         # Fix dependabot bug
         rm -f yarn.lock
         yarn install
+        git add yarn.lock
+        git commit -m 'CI(Yarn): Fix yarn.lock (dependabot bug)'
       env:
         YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
     - name: Build package
+      if: ${{ steps.install.outputs.status == 'success' }}
       run: yarn build
 
     - name: Run tests
+      if: ${{ steps.install.outputs.status == 'success' }}
       run: yarn test
