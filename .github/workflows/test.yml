@@ -40,19 +40,8 @@ jobs:
       env:
         YARN_ENABLE_IMMUTABLE_INSTALLS: false
 
-    - name: Push fixed yarn.lock (fix dependabot bug)
-      if: ${{ steps.install.outputs.status != 'success' }}
-      run: |
-        git config user.name "Github Actions"
-        git config user.email actions@github.com
-        git add yarn.lock
-        git commit -m 'CI(Yarn): Fix yarn.lock (dependabot bug)'
-        git push
-
     - name: Build package
-      if: ${{ steps.install.outputs.status == 'success' }}
       run: yarn build
 
     - name: Run tests
-      if: ${{ steps.install.outputs.status == 'success' }}
       run: yarn test
