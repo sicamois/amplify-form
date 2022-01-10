@@ -8782,8 +8782,8 @@ react-dom@^17.0.2:
     scheduler "^0.20.2"
 
 react-dropzone@^11.4.2:
-  version "11.4.2"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-11.4.2.tgz#1eb99e9def4cc7520f4f58e85c853ce52c483d56"
+  version "11.5.1"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-11.5.1.tgz#f4d664437bf8af6acfccbf5040a9890c6780a49f"
   dependencies:
     attr-accept "^2.2.1"
     file-selector "^0.2.2"
