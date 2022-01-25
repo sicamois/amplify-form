@@ -4978,8 +4978,8 @@ eslint-plugin-react@^7.27.0:
     string.prototype.matchall "^4.0.6"
 
 eslint-plugin-testing-library@^5.0.1:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-5.0.3.tgz#466ac181ecafc91f29c9346ca190b91d090734b3"
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-testing-library/-/eslint-plugin-testing-library-5.0.4.tgz#1f18b6e7d51db8452203bcbc909efbb571e964b8"
   dependencies:
     "@typescript-eslint/experimental-utils" "^5.9.0"
 
