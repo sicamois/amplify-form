@@ -3274,7 +3274,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/experimental-utils@^5.0.0", "@typescript-eslint/experimental-utils@^5.9.0":
+"@typescript-eslint/experimental-utils@^5.9.0":
   version "5.10.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-5.10.1.tgz#49fa5a7800ed08ea70aef14fccb14fbae85116ab"
   dependencies:
@@ -3312,7 +3312,7 @@
     semver "^7.3.5"
     tsutils "^3.21.0"
 
-"@typescript-eslint/utils@5.10.1":
+"@typescript-eslint/utils@5.10.1", "@typescript-eslint/utils@^5.10.0":
   version "5.10.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.10.1.tgz#fa682a33af47080ba2c4368ee0ad2128213a1196"
   dependencies:
@@ -4913,11 +4913,11 @@ eslint-plugin-jest-dom@^4.0.1:
     "@testing-library/dom" "^8.11.1"
     requireindex "^1.2.0"
 
-eslint-plugin-jest@^25.3.2:
-  version "25.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-25.7.0.tgz#ff4ac97520b53a96187bad9c9814e7d00de09a6a"
+eslint-plugin-jest@^26.0.0:
+  version "26.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-26.0.0.tgz#f83a25a23ab90ce5b375b1d44389b8c391be5ce8"
   dependencies:
-    "@typescript-eslint/experimental-utils" "^5.0.0"
+    "@typescript-eslint/utils" "^5.10.0"
 
 eslint-plugin-jsx-a11y@^6.5.1:
   version "6.5.1"
