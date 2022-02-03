@@ -4045,8 +4045,8 @@ chokidar@^3.5.3:
     fsevents "~2.3.2"
 
 chroma-js@^2.1.2:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-2.3.0.tgz#fdf68a18d8f97ce006422338044218ccbffb9ecb"
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-2.4.2.tgz#dffc214ed0c11fa8eefca2c36651d8e57cbfb2b0"
 
 ci-info@^2.0.0:
   version "2.0.0"
