@@ -280,6 +280,7 @@ exports[`AmplifyForm renders correctly a basic file dropzone 1`] = `
                   onDrop={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
+                  role="button"
                   tabIndex={0}
                 >
                   <input
@@ -861,6 +862,7 @@ exports[`AmplifyForm renders correctly a basic image dropzone 1`] = `
                   onDrop={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
+                  role="button"
                   tabIndex={0}
                 >
                   <input
@@ -1967,6 +1969,7 @@ exports[`AmplifyForm renders correctly an customized image dropzone 1`] = `
                   onDrop={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
+                  role="button"
                   tabIndex={0}
                 >
                   <input
@@ -2549,6 +2552,7 @@ exports[`AmplifyForm renders correctly an customized pdf file dropzone 1`] = `
                   onDrop={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
+                  role="button"
                   tabIndex={0}
                 >
                   <input
@@ -6355,6 +6359,7 @@ exports[`AmplifyForm renders correctly with all options 1`] = `
                   onDrop={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
+                  role="button"
                   tabIndex={0}
                 >
                   <input
@@ -6413,6 +6418,7 @@ exports[`AmplifyForm renders correctly with all options 1`] = `
                   onDrop={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
+                  role="button"
                   tabIndex={0}
                 >
                   <input
