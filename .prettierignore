@@ -1,5 +1,8 @@
 node_modules
 .next
+.husky
+.vscode
+.yarn
 dist
 public
 amplify
