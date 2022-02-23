@@ -2992,8 +2992,8 @@
   resolved "https://registry.yarnpkg.com/@react-native/polyfills/-/polyfills-2.0.0.tgz#4c40b74655c83982c8cf47530ee7dc13d957b6aa"
 
 "@rollup/plugin-commonjs@^21.0.1":
-  version "21.0.1"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-21.0.1.tgz#1e57c81ae1518e4df0954d681c642e7d94588fee"
+  version "21.0.2"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-21.0.2.tgz#0b9c539aa1837c94abfaf87945838b0fc8564891"
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
     commondir "^1.0.1"
