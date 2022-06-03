@@ -3234,8 +3234,8 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.178.tgz#341f6d2247db528d4a13ddbb374bcdc80406f4f8"
 
 "@types/node@*", "@types/node@^17.0.7":
-  version "17.0.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.18.tgz#3b4fed5cfb58010e3a2be4b6e74615e4847f1074"
+  version "17.0.39"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.39.tgz#3652d82e2a16b4ea679d5ea3143b816c91b7e113"
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
