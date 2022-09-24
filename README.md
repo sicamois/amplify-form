@@ -8,7 +8,7 @@
 [![gzip size](https://img.badgesize.io/https:/unpkg.com/amplify-form@latest?compression=gzip)](https://github.com/sicamois/amplify-form)
 [![license](https://badgen.now.sh/badge/license/MIT)](./LICENSE)
 
-**Automatically create Form for your GaphQL API in [AWS Amplify](https://github.com/aws-amplify/amplify-js)**
+**Automatically create Form for your GraphQL API in [AWS Amplify](https://github.com/aws-amplify/amplify-js)**
 
 This React component automatically reads the GraphQL schema of your Amplify API and creates a form for creating new items in your database.
 
