@@ -1,5 +1,8 @@
 lockfileVersion: 5.4
 
+overrides:
+  hermes-engine@<=0.9.0: '>=0.10.0'
+
 specifiers:
   '@babel/core': ^7.0.0-0
   '@babel/preset-env': ^7.1.6
