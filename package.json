@@ -34,24 +34,23 @@
   "publishConfig": {
     "access": "public"
   },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  },
   "scripts": {
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
     "fix-tags": "git fetch --tags -f",
     "format": "prettier --write .",
-    "ci": "yarn install --immutable",
+    "ci": "pnpm install --no-frozen-lockfile",
     "test": "jest",
-    "test-cov": "yarn test --coverage && coveralls < coverage/lcov.info",
-    "test-build": "yarn build && yarn test-cov",
-    "build": "rm -r -f dist && NODE_ENV=production yarn build:rollup",
+    "test-cov": "pnpm test --coverage && coveralls < coverage/lcov.info",
+    "test-build": "pnpm build && pnpm test-cov",
+    "build": "rm -r -f dist && NODE_ENV=production pnpm build:rollup",
     "build:rollup": "rollup --config"
   },
   "packageManager": "yarn@3.1.1",
   "dependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/preset-env": "^7.1.6",
     "chroma-js": "^2.1.2",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
